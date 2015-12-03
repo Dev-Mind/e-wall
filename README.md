@@ -1,3 +1,4 @@
+![Travis CI](https://travis-ci.org/Dev-Mind/numeric-wall.svg?branch=master)
 
 # Numeric Wall
 
