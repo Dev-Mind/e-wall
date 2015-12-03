@@ -1,0 +1,3 @@
+rootProject.name = 'numeric-wall'
+
+include 'common', 'client', 'server'
