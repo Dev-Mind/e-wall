@@ -7,7 +7,6 @@
 .extract/
 .tmp/
 build
-client
 node_modules/
 npm-debug.log
 target
