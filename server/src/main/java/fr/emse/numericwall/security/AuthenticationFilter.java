@@ -51,7 +51,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
                     .setEmail("user.fake@gmail.com")
                     .setFirstname("User")
                     .setLastname("FAKE")
-                    .addAuthority(new Authority().setName(Role.USER));
+                    .addAuthority(new Authority().setName(Role.PUBLIC));
 
             //Monitoring is only visible for admin
             if(pathMatcher.match("/monitoring/**", request.getServletPath()) && !user.getRoles().contains(Role.ADMIN)){

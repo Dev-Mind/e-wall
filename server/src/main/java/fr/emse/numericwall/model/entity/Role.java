@@ -5,5 +5,6 @@ package fr.emse.numericwall.model.entity;
  */
 public enum Role {
     ADMIN,
-    USER
+    PUBLIC,
+    WRITER
 }
