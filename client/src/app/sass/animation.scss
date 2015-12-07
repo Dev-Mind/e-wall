@@ -1,0 +1,111 @@
+
+//Stage is the animation main container
+#stage {
+  width: 98%;
+  margin: 50px auto;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid #000;
+  margin: 1em;
+}
+
+//We define a container with the perspective
+.square-container {
+  border: 1px solid black;
+  position: absolute;
+  right: 20%;
+  perspective: 600px;
+  height: 150px;
+}
+
+//Each square are similar on start
+.square {
+  position: absolute;
+  transform-origin: 0 0;
+  transform-style: preserve-3d;
+  transform: translate3d(0, 0, -1000px)  scale(0.1);
+  animation-timing-function: ease-in;
+}
+
+@for $i from 1 through 100 {
+  .square:nth-child(#{$i}){
+    $size: random(50)+50px;
+    height: $size;
+    width: $size;
+    animation-delay: -$i * .2s;
+    background: hsl( random(360) , 70%, 50%);
+    animation: anim-square-#{$i} 3s infinite;
+  }
+
+  @keyframes anim-square-#{$i} {
+    100% {
+      //transform: translate3d(-800px,700px,800px) rotateY( 190deg ) rotate(90deg) scale(1);
+      @if  $i < 50 {
+        transform: translate3d( -(random(1000) * 1px),  (random(2000) * 1px), (random(2000) * 1px)) rotateY( 190deg ) rotate(90deg) scale(1);
+      }
+      @else{
+        @if  $i < 75 {
+          transform: translate3d((random(1000) * 1px), (random(2000) * 1px), (random(2000) * 1px)) rotateY(190deg) rotate(90deg) scale(1);
+        }
+        @else{
+          transform: translate3d( -(random(1000) * 1px),  -(random(2000) * 1px), (random(2000) * 1px)) rotateY( 190deg ) rotate(90deg) scale(1);
+        }
+      }
+      animation-timing-function: ease-out;
+    }
+  }
+}
+
+
+//
+//
+//
+//  #square-1{
+//    .square();
+//    animation: anim-square-1 5s infinite;
+//    background-color: #eee;
+//  }
+//  @keyframes anim-square-1 {
+//    100% {
+//      transform: translate3d(-800px,700px,800px) rotateY( 190deg ) rotate(90deg) scale(1);
+//      animation-timing-function: ease-out;
+//    }
+//  }
+//
+//  #square-2{
+//    .square();
+//    animation: anim-square-2 3s infinite;
+//    background-color: #eee;
+//  }
+//  @keyframes anim-square-2 {
+//    100% {
+//      transform: translate3d(-200px,-100px,800px) rotateY( 190deg ) rotate(90deg) scale(1);
+//      animation-timing-function: ease-out;
+//    }
+//  }
+//
+//  #square-3{
+//    .square();
+//    animation: anim-square-3 3s infinite;
+//    background-color: #eee;
+//  }
+//  @keyframes anim-square-3 {
+//    100% {
+//      transform: translate3d(-500px,500px,800px) rotateY( 190deg ) rotate(90deg) scale(1);
+//      animation-timing-function: ease-out;
+//    }
+//  }
+//
+//  #square-3{
+//    .square();
+//    animation: anim-square-4 4s infinite;
+//    background-color: #eee;
+//  }
+//  @keyframes anim-square-4 {
+//    100% {
+//      transform: translate3d(-400px,400px,800px) rotateY( 190deg ) rotate(90deg) scale(1);
+//      animation-timing-function: ease-out;
+//    }
+//  }
+//}
+
