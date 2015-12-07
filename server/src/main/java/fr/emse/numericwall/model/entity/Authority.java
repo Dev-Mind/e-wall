@@ -12,7 +12,10 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonView;
 
 /**
- * An authority (a security role) used by Spring Security.
+ * {@link Role} are stored in database
+ *
+ * @author Dev-Mind <guillaume@dev-mind.fr>
+ * @since 07/12/15.
  */
 @Entity
 public class Authority implements Serializable {

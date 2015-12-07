@@ -58,6 +58,9 @@ public class User {
     @Transient
     private List<String> roles;
 
+    @org.hibernate.annotations.Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
+    private LocalDateTime firstConnectionAt = LocalDateTime.now();
+
     public Long getId() {
         return id;
     }
@@ -130,7 +133,7 @@ public class User {
     public List<String> getRoles() {
         return authorities
                 .stream()
-                .map( a -> a.getName().toString())
+                .map(a -> a.getName().toString())
                 .collect(Collectors.toList());
     }
 
@@ -150,6 +153,15 @@ public class User {
 
     public User setFirstConnexion(LocalDateTime firstConnexion) {
         this.firstConnexion = firstConnexion;
+        return this;
+    }
+
+    public LocalDateTime getFirstConnectionAt() {
+        return firstConnectionAt;
+    }
+
+    public User setFirstConnectionAt(LocalDateTime firstConnectionAt) {
+        this.firstConnectionAt = firstConnectionAt;
         return this;
     }
 
