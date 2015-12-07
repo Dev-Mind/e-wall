@@ -2,7 +2,7 @@
 
 This module holds all web resources (Js, CSS, images...). We use several tools for its own build system
 
-* [Node.js and npm](https://nodejs.org/) : downloads all the required JS libraries
+* [Node.js and npm](https://nodejs.org/) : downloads all the required JS libraries. You can use [nvm](https://github.com/creationix/nvm) to manage different versions of nodeJS on your desktop. For this project you can use a version <= 0.12.x (npm > v2.14.X)
 * [Gulp](http://gulpjs.com/) : builds system used to package the project. The process is defined in the main file [gulpfile.old](gulpfile.old) and in all its sub [config files](gup)
 * [Gradle](https://gradle.org/) : builds a web archive which will be deployed in the final webapp
 

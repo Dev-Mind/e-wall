@@ -44,10 +44,10 @@ var paths = {
   css: [
     'node_modules/material-design-lite/material.min.css'
   ],
-  less: {
-    main: 'src/app/less/main.less',
+  sass: {
+    main: 'src/app/sass/main.scss',
     path: [
-      'src/app/less/*.less'
+      'src/app/sass/*.scss'
     ]
   },
   html: 'src/app/**/*.html',

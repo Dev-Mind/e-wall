@@ -4,8 +4,8 @@ var autoprefixer = require('gulp-autoprefixer');
 var concat = require('gulp-concat');
 //Convert HTML teplates in JS
 var html2js = require('gulp-ng-html2js');
-//Compiles less file in css file
-var less = require('gulp-less');
+//Compiles sass file in css file
+var sass = require('gulp-sass');
 //Merges several files
 var merge = require('merge-stream');
 //Changes angular files to prepare minification
@@ -60,8 +60,8 @@ module.exports = function(gulp, config) {
       .pipe(gulp.dest(paths.build.dev+ '/css'));
   });
   gulp.task('build:dev:css', ['build:dev:css:vendors'], function () {
-    return gulp.src(paths.less.main)
-      .pipe(less())
+    return gulp.src(paths.sass.main)
+      .pipe(sass().on('error', sass.logError))
       .pipe(replace('assets/img', '../img'))
       .pipe(replace('../../node_modules/material-design-icons/iconfont', '../fonts'))
       .pipe(autoprefixer({
@@ -116,6 +116,6 @@ module.exports = function(gulp, config) {
     gulp.watch(paths.js.app, ['build:dev:js']);
     gulp.watch([paths.templates], ['build:dev:js']);
     gulp.watch([paths.html], ['build:dev:html']);
-    gulp.watch(paths.less.path, ['build:dev:css']);
+    gulp.watch(paths.sass.path, ['build:dev:css']);
   });
 };
