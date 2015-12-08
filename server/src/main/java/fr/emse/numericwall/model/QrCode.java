@@ -22,7 +22,7 @@ public class QrCode {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     public Category category;
 
     @ManyToOne
@@ -31,9 +31,27 @@ public class QrCode {
     @org.hibernate.annotations.Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
     private LocalDateTime generatedAt = LocalDateTime.now();
 
+    /**
+     * A QRcode help to open an URL
+     */
     @NotNull
     private String url;
 
+    /**
+     * If true the QR Code is linked to the category to navigate to it.
+     * If false the QR code is used to paint a big one and we define coordinates x and y axis
+     */
+    private Boolean big;
+
+    /**
+     * X axis value for a QRCode included in a big one
+     */
+    private int x;
+
+    /**
+     * Y axis value for a QRCode included in a big one
+     */
+    private int y;
 
     public Long getId() {
         return id;
@@ -77,6 +95,33 @@ public class QrCode {
 
     public QrCode setUrl(String url) {
         this.url = url;
+        return this;
+    }
+
+    public Boolean getBig() {
+        return big;
+    }
+
+    public QrCode setBig(Boolean big) {
+        this.big = big;
+        return this;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public QrCode setX(int x) {
+        this.x = x;
+        return this;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public QrCode setY(int y) {
+        this.y = y;
         return this;
     }
 }

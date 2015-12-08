@@ -33,6 +33,9 @@ import org.mockito.junit.MockitoRule;
  */
 public class QrCodeGeneratorTest {
 
+    @Rule
+    public TemporaryFolder folder= new TemporaryFolder();
+
     private QrCodeGenerator qrCodeGenerator;
 
     @Before
@@ -69,22 +72,13 @@ public class QrCodeGeneratorTest {
 
     @Test
     public void should_save_a_qr_code_in_svg() throws Exception{
-        QRCode qrCode = qrCodeGenerator.generateQRCode("https://dev-mind.fr/"+ UUID.randomUUID().toString());
+        QRCode qrCode = qrCodeGenerator.generateQRCode("https://dev-mind.fr/" + UUID.randomUUID().toString());
         String svg = qrCodeGenerator.generateSvg(qrCode, "black");
 
-        String filePath = "/home/ehret_g/tmp/QRTest1.svg";
-        File myFile = new File(filePath);
+        File createdFile= folder.newFile("QRTest.svg");
 
-        FileOutputStream outputStream = new FileOutputStream(myFile);
-        if (!myFile.exists()) {
-            myFile.createNewFile();
+        try(FileOutputStream outputStream = new FileOutputStream(createdFile)){
+            outputStream.write(svg.getBytes());
         }
-
-        // get the content in bytes
-        byte[] contentInBytes = svg.getBytes();
-
-        outputStream.write(contentInBytes);
-        outputStream.flush();
-        outputStream.close();
     }
 }
