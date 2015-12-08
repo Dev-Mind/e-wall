@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import com.google.common.collect.Lists;
 import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.encoder.QRCode;
 import org.springframework.stereotype.Service;
 
 /**
@@ -24,34 +25,32 @@ public class MatrixParser {
      *     1 0 1
      *     1 1 1
      * </pre>
-     *
-     * @param bitMatrix
      */
-    public List<Rectangle> parseRectangles(BitMatrix bitMatrix) {
-        Objects.requireNonNull(bitMatrix);
+    public List<Rectangle> parseRectangles(QRCode qrcode) {
+        Objects.requireNonNull(qrcode);
         List<Rectangle> rectangles = Lists.newArrayList();
 
         //We read line by line
-        for (int y = 0; y < bitMatrix.getHeight(); y++) {
+        for (int y = 0; y < qrcode.getMatrix().getHeight(); y++) {
 
             //We read the point from the left to the right
-            for (int x = 0; x < bitMatrix.getWidth(); x++) {
+            for (int x = 0; x < qrcode.getMatrix().getWidth(); x++) {
 
                 Point startedPoint = Point.create(x, y);
 
-                if (bitMatrix.get(x, y)) {
+                if (qrcode.getMatrix().get(x, y)==1) {
                     //If we are on the last cell we create a recangle with a size of 1
-                    if(x + 1 == bitMatrix.getWidth()){
+                    if(x + 1 == qrcode.getMatrix().getWidth()){
                         rectangles.add(Rectangle.create(startedPoint, 1, 1));
                     }
                     //We search the next point to the right
-                    for (x = x + 1; x < bitMatrix.getWidth(); x++) {
+                    for (x = x + 1; x < qrcode.getMatrix().getWidth(); x++) {
                         //If the next point is not used or if we are on the last column
-                        if (!bitMatrix.get(x, y)) {
+                        if (qrcode.getMatrix().get(x, y)==0) {
                             rectangles.add(Rectangle.create(startedPoint, x - startedPoint.x(), 1));
                             break;
                         }
-                        else if(x + 1 == bitMatrix.getWidth()){
+                        else if(x + 1 == qrcode.getMatrix().getWidth()){
                             rectangles.add(Rectangle.create(startedPoint, x - startedPoint.x() + 1, 1));
                         }
                     }
@@ -62,6 +61,8 @@ public class MatrixParser {
 
         return rectangles;
     }
+
+
 
 
 }
