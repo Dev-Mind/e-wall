@@ -66,4 +66,25 @@ public class QrCodeGeneratorTest {
         qrCode.setMatrix(new ByteMatrix(4, 2));
         assertThat(qrCodeGenerator.generateSvg(qrCode, "black")).isNotEmpty();
     }
+
+    @Test
+    public void should_save_a_qr_code_in_svg() throws Exception{
+        QRCode qrCode = qrCodeGenerator.generateQRCode("https://dev-mind.fr/"+ UUID.randomUUID().toString());
+        String svg = qrCodeGenerator.generateSvg(qrCode, "black");
+
+        String filePath = "/home/ehret_g/tmp/QRTest1.svg";
+        File myFile = new File(filePath);
+
+        FileOutputStream outputStream = new FileOutputStream(myFile);
+        if (!myFile.exists()) {
+            myFile.createNewFile();
+        }
+
+        // get the content in bytes
+        byte[] contentInBytes = svg.getBytes();
+
+        outputStream.write(contentInBytes);
+        outputStream.flush();
+        outputStream.close();
+    }
 }
