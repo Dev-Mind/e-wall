@@ -1,4 +1,4 @@
-package fr.emse.numericwall.model.repository;
+package fr.emse.numericwall.repository;
 
 
 import javax.persistence.EntityManagerFactory;
@@ -17,7 +17,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaDialect;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 @Configuration
-@EnableJpaRepositories("fr.emse.numericwall.model.repository")
+@EnableJpaRepositories("fr.emse.numericwall.repository")
 @EnableAutoConfiguration
 @PropertySource("classpath:application.yml")
 public class DataSourceTestConfig {
@@ -37,7 +37,7 @@ public class DataSourceTestConfig {
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
         factory.setJpaDialect(new HibernateJpaDialect());
-        factory.setPackagesToScan("fr.emse.numericwall.model.entity");
+        factory.setPackagesToScan("fr.emse.numericwall.model");
         factory.setDataSource(dataSource);
         // This will trigger the creation of the entity manager factory
         factory.afterPropertiesSet();

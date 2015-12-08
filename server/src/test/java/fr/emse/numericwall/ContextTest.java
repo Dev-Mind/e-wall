@@ -11,7 +11,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @SpringApplicationConfiguration(classes = NumericWallApplication.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@Ignore
 public class ContextTest {
     @Test
     public void shouldLoadConfig(){

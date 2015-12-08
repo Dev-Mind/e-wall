@@ -4,9 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import fr.emse.numericwall.model.entity.Role;
-import fr.emse.numericwall.model.exception.AuthenticationRequiredException;
-import fr.emse.numericwall.model.exception.ForbiddenException;
+import fr.emse.numericwall.model.Role;
+import fr.emse.numericwall.exception.AuthenticationRequiredException;
+import fr.emse.numericwall.exception.ForbiddenException;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;

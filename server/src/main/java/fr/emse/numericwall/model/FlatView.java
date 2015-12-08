@@ -1,4 +1,4 @@
-package fr.emse.numericwall.model.entity;
+package fr.emse.numericwall.model;
 
 /**
  * Minimal view

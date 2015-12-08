@@ -1,4 +1,4 @@
-package fr.emse.numericwall.model.exception;
+package fr.emse.numericwall.exception;
 
 
 public class ForbiddenException extends RuntimeException{

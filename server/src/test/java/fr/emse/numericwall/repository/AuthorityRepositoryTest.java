@@ -1,4 +1,4 @@
-package fr.emse.numericwall.model.repository;
+package fr.emse.numericwall.repository;
 
 import static com.ninja_squad.dbsetup.Operations.sequenceOf;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -6,17 +6,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 import javax.sql.DataSource;
 
 import com.ninja_squad.dbsetup.DbSetup;
-import com.ninja_squad.dbsetup.Operations;
 import com.ninja_squad.dbsetup.destination.DataSourceDestination;
-import fr.emse.numericwall.model.entity.Role;
-import org.assertj.core.api.Assertions;
+import fr.emse.numericwall.model.Role;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Test de {@link AuthorityRepository}

@@ -10,9 +10,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.emse.numericwall.model.entity.Authority;
-import fr.emse.numericwall.model.entity.Role;
-import fr.emse.numericwall.model.entity.User;
+import fr.emse.numericwall.model.Authority;
+import fr.emse.numericwall.model.Role;
+import fr.emse.numericwall.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;

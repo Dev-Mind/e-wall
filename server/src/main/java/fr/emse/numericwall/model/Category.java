@@ -1,18 +1,14 @@
-package fr.emse.numericwall.model.entity;
+package fr.emse.numericwall.model;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.validation.constraints.Size;
-
-import com.fasterxml.jackson.annotation.JsonView;
 
 /**
  * Text can be organized by catagories. For each catagory we will have a set of {@link QrCode}

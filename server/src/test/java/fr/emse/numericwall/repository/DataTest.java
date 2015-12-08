@@ -1,4 +1,4 @@
-package fr.emse.numericwall.model.repository;
+package fr.emse.numericwall.repository;
 
 
 import static com.ninja_squad.dbsetup.Operations.deleteAllFrom;

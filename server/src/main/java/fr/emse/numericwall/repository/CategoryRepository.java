@@ -1,10 +1,10 @@
-package fr.emse.numericwall.model.repository;
+package fr.emse.numericwall.repository;
 
-import fr.emse.numericwall.model.entity.Category;
+import fr.emse.numericwall.model.Category;
 import org.springframework.data.repository.CrudRepository;
 
 /**
- * {@link fr.emse.numericwall.model.entity.Category}
+ * {@link Category}
  */
 public interface CategoryRepository extends CrudRepository<Category, Long> {
 

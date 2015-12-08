@@ -1,6 +1,6 @@
-package fr.emse.numericwall.model.repository;
+package fr.emse.numericwall.repository;
 
-import fr.emse.numericwall.model.entity.User;
+import fr.emse.numericwall.model.User;
 import org.springframework.data.repository.CrudRepository;
 
 /**

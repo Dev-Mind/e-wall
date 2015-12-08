@@ -12,3 +12,7 @@ To launch the webapp you can use `../gradlew bootRun`
 If you want to know the API go to this URL
 
 `http:\\localhost:8080\api`
+
+## QrCode
+
+To generate the QRCode we use the OSS library provided by Google https://github.com/zxing/zxing

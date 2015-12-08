@@ -1,4 +1,4 @@
-package fr.emse.numericwall.model.entity;
+package fr.emse.numericwall.model;
 
 /**
  * DTO to send informations about the current exception

@@ -1,6 +1,6 @@
-package fr.emse.numericwall.model.repository;
+package fr.emse.numericwall.repository;
 
-import fr.emse.numericwall.model.entity.Work;
+import fr.emse.numericwall.model.Work;
 import org.springframework.data.repository.CrudRepository;
 
 /**

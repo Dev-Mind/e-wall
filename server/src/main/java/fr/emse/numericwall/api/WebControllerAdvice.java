@@ -1,10 +1,10 @@
 package fr.emse.numericwall.api;
 
-import static fr.emse.numericwall.model.entity.FunctionalError.Type.FORBIDDEN;
+import static fr.emse.numericwall.model.FunctionalError.Type.FORBIDDEN;
 
-import fr.emse.numericwall.model.entity.FunctionalError;
-import fr.emse.numericwall.model.exception.AuthenticationRequiredException;
-import fr.emse.numericwall.model.exception.ForbiddenException;
+import fr.emse.numericwall.model.FunctionalError;
+import fr.emse.numericwall.exception.AuthenticationRequiredException;
+import fr.emse.numericwall.exception.ForbiddenException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

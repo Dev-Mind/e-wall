@@ -1,4 +1,4 @@
-package fr.emse.numericwall.model.entity;
+package fr.emse.numericwall.model;
 
 /**
  * The different user profiles used in the app
