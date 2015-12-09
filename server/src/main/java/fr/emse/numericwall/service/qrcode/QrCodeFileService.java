@@ -1,5 +1,7 @@
 package fr.emse.numericwall.service.qrcode;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -9,9 +11,12 @@ import java.util.Objects;
 import java.util.UUID;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.google.zxing.qrcode.encoder.QRCode;
 import fr.emse.numericwall.exception.QrCodeFileException;
+import fr.emse.numericwall.service.svg.SvgConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -29,10 +34,29 @@ public class QrCodeFileService {
     @Value("numericwall.qrcode.path")
     private String qrCodePath;
 
+    @Autowired
+    private SvgConverter svgConverter;
+
+    /**
+     * Save a QrCode on file system
+     */
+    public void saveQrCodeAsFile(QRCode qrCode, Path file){
+        try(FileOutputStream outputStream1 = new FileOutputStream(file.toFile())) {
+            if (!Files.exists(file)) {
+                Files.createFile(file);
+            }
+            outputStream1.write(svgConverter.generateSvg(qrCode, "black").getBytes());
+        }
+        catch (IOException e){
+            logger.error("Error on QR codes creation", e);
+            throw new QrCodeFileException();
+        }
+    }
+
     /**
      * Creates a directory if it does not exist and archives old qr codes in a subdirectory
      */
-    public void createDirectoryForQrCode(Long idCategory) {
+    public Path createDirectoryForQrCode(Long idCategory) {
         Objects.requireNonNull(idCategory);
 
         //We need to know if the directory exist (if yes we need to move all actual qrCodes)
@@ -49,6 +73,7 @@ public class QrCodeFileService {
             logger.error("Error on QR codes directory creation", e);
             throw new QrCodeFileException();
         }
+        return directory;
     }
 
 
