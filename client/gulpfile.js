@@ -13,19 +13,15 @@ var paths = {
   },
   js: {
     app: [
-      'src/app/js/**/*.js'
+      'src/app/index.js',
+      'src/app/**/*.js'
     ],
     vendor: [
       'node_modules/angular/angular.js',
       'node_modules/angular-cookies/angular-cookies.js',
       'node_modules/angular-marked/angular-marked.js',
       'node_modules/angular-sanitize/angular-sanitize.js',
-      'node_modules/angular-translate/dist/angular-translate.js',
-      'node_modules/angular-translate/dist/angular-translate-storage-cookie/angular-translate-storage-cookie.js',
-      'node_modules/angular-translate/dist/angular-translate-loader-static-files/angular-translate-loader-static-files.js',
-      'node_modules/angular-ui-router/release/angular-ui-router.min.js',
-      'node_modules/material-design-lite/material.js',
-      'node_modules/marked/lib/marked.js'
+      'node_modules/angular-ui-router/release/angular-ui-router.min.js'
     ],
     unit: [
       'src/test/unit/**/*.spec.js'
@@ -42,12 +38,12 @@ var paths = {
     'src/app/js/**/*.html'
   ],
   css: [
-    'node_modules/material-design-lite/material.min.css'
+    'node_modules/bootstrap/dist/css/bootstrap.min.css'
   ],
   sass: {
-    main: 'src/app/sass/main.scss',
+    main: 'src/app/index.scss',
     path: [
-      'src/app/sass/*.scss'
+      'src/app/**/*.scss'
     ]
   },
   html: 'src/app/**/*.html',
@@ -55,7 +51,7 @@ var paths = {
   assets: {
     fonts: [
       'src/app/assets/fonts/**/*.*',
-      'node_modules/material-design-icons/iconfont/*.*'
+      'node_modules/bootstrap/dist/fonts/*.*'
     ],
     images: [
       'src/app/assets/img/**/*.*',

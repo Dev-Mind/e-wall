@@ -17,6 +17,7 @@ module.exports = function (gulp, config) {
 
   function browserSyncInit(baseDir, port) {
     browserSync.init([
+      paths.build.dev + '/**/*.html',
       paths.build.dev + '/**/*.js',
       paths.build.dev + '/**/*.css'
     ], {
@@ -41,9 +42,10 @@ module.exports = function (gulp, config) {
   gulp.task('watch', function() {
     gulp.watch(paths.js.app, ['build:dev:js']);
     gulp.watch([paths.templates], ['build:dev:js']);
-    gulp.watch([paths.html], ['build:dev:html']);
+    gulp.watch([paths.html, paths.index], ['build:dev:html']);
     gulp.watch(paths.sass.path, ['build:dev:css']);
   });
+
 
   /**
    * This task is not working with the WebSocket connection, but SockJS falls back on long-polling

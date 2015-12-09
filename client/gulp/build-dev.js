@@ -29,7 +29,6 @@ module.exports = function(gulp, config) {
     'build:dev:css',
     'build:dev:font',
     'build:dev:images',
-    'build:dev:docs',
     'build:dev:favicon',
     'build:dev:html'
   ]);
@@ -39,31 +38,30 @@ module.exports = function(gulp, config) {
     return gulp.src(paths.assets.fonts)
       .pipe(gulp.dest(paths.build.dev + '/fonts'));
   });
-  gulp.task('build:dev:docs', function () {
-    return gulp.src(paths.assets.docs)
-        .pipe(gulp.dest(paths.build.dev + '/docs'));
-  });
+
   gulp.task('build:dev:images', function () {
     return gulp.src(paths.assets.images)
       .pipe(gulp.dest(paths.build.dev + '/img'));
   });
+
   gulp.task('build:dev:favicon', function () {
     return gulp.src(paths.assets.favicon)
       .pipe(gulp.dest(paths.build.dev));
   });
+
   gulp.task('build:dev:css:vendors', function () {
     return gulp.src(paths.css)
       //In Angular Material Lite we don't use the standard primary color
-      .pipe(replace('"Roboto","Helvetica","Arial",sans-serif', '"Roboto","Arial"'))
-      .pipe(replace('63,81,181', '69,90,100'))
+      .pipe(replace('"Helvetica Neue",Helvetica,Arial,sans-serif', '"Roboto","Arial"'))
+      .pipe(replace('Menlo,Monaco,Consolas,"Courier New",monospace', 'monospace'))
       .pipe(concat('vendors.css'))
       .pipe(gulp.dest(paths.build.dev+ '/css'));
   });
+
   gulp.task('build:dev:css', ['build:dev:css:vendors'], function () {
     return gulp.src(paths.sass.main)
       .pipe(sass().on('error', sass.logError))
       .pipe(replace('assets/img', '../img'))
-      .pipe(replace('../../node_modules/material-design-icons/iconfont', '../fonts'))
       .pipe(autoprefixer({
         browsers: ['> 5%'],
         cascade: false
@@ -78,7 +76,7 @@ module.exports = function(gulp, config) {
 
     var tpl = gulp.src(paths.templates)
       .pipe(html2js({
-        moduleName: 'cesar-templates',
+        moduleName: 'nw-templates',
         prefix: 'js/'
       }));
 
@@ -90,7 +88,7 @@ module.exports = function(gulp, config) {
 
     return merge(app, tpl)
       .pipe(sourcemaps.init())
-      .pipe(concat('app.js'))
+      .pipe(concat('index.js'))
       .pipe(sourcemaps.write('.'))
       .pipe(gulp.dest(paths.build.dev + '/js'));
   });
@@ -112,10 +110,4 @@ module.exports = function(gulp, config) {
       .pipe(gulp.dest(paths.build.dev));
   });
 
-  gulp.task('watch', function() {
-    gulp.watch(paths.js.app, ['build:dev:js']);
-    gulp.watch([paths.templates], ['build:dev:js']);
-    gulp.watch([paths.html], ['build:dev:html']);
-    gulp.watch(paths.sass.path, ['build:dev:css']);
-  });
 };

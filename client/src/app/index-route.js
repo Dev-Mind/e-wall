@@ -13,7 +13,7 @@
 
     //Router definition
     $stateProvider
-      .state('home', new State('home', 'js/main/main.html').controller('MainCtrl').build());
+      .state('home', new State('home', 'main/main.html').controller('MainCtrl').build());
 
   });
 

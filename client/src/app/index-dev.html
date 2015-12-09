@@ -14,24 +14,30 @@
     <link rel="stylesheet" href="css/vendors.css"/>
     <!-- endbuild -->
     <!-- build:css -->
-    <link rel="stylesheet" href="css/main.css"/>
+    <link rel="stylesheet" href="css/index.css"/>
     <!-- endbuild -->
 
     <style>
 
     </style>
 </head>
-<body ng-cloak id="stage">
-    <div ui-view></div>
+<body ng-cloak>
 
+<header class="nw-header">
+    <div class="container-fluid">
+        <a class="navbar-brand" ui-sref="home">Numeric wall</a>
+    </div>
+</header>
 
-    <!-- build:vendors -->
-    <script src="/js/vendors.js"></script>
-    <!-- endbuild -->
-    <!-- build:js -->
-    <script src="/js/app.js"></script>
-    <!-- endbuild -->
-    <!-- build:e2e -->
-    <!-- endbuild -->
+<ui-view></ui-view>
+
+<!-- build:vendors -->
+<script src="js/vendors.js"></script>
+<!-- endbuild -->
+<!-- build:js -->
+<script src="js/index.js"></script>
+<!-- endbuild -->
+<!-- build:e2e -->
+<!-- endbuild -->
 </body>
 </html>
