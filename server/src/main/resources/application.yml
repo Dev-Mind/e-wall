@@ -13,7 +13,9 @@ info:
 
 numericwall:
   baseurl: ${EMSE_NW_BASEURL:http://localhost:8080}
-
+  qrcode:
+    path: ${EMSE_NW_QRCODE_PATH:/tmp}
+    url: ${EMSE_NW_QRCODE_PREFIX_URL:http://www.emse.fr/nw}
 ldap:
   todefine: url
 

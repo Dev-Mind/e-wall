@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
@@ -16,7 +15,7 @@ import javax.validation.constraints.NotNull;
  * @since 07/12/15.
  */
 @Entity
-public class QrCode {
+public class NwQrCode {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -57,7 +56,7 @@ public class QrCode {
         return id;
     }
 
-    public QrCode setId(Long id) {
+    public NwQrCode setId(Long id) {
         this.id = id;
         return this;
     }
@@ -66,7 +65,7 @@ public class QrCode {
         return category;
     }
 
-    public QrCode setCategory(Category category) {
+    public NwQrCode setCategory(Category category) {
         this.category = category;
         return this;
     }
@@ -75,7 +74,7 @@ public class QrCode {
         return work;
     }
 
-    public QrCode setWork(Work work) {
+    public NwQrCode setWork(Work work) {
         this.work = work;
         return this;
     }
@@ -84,7 +83,7 @@ public class QrCode {
         return generatedAt;
     }
 
-    public QrCode setGeneratedAt(LocalDateTime generatedAt) {
+    public NwQrCode setGeneratedAt(LocalDateTime generatedAt) {
         this.generatedAt = generatedAt;
         return this;
     }
@@ -93,7 +92,7 @@ public class QrCode {
         return url;
     }
 
-    public QrCode setUrl(String url) {
+    public NwQrCode setUrl(String url) {
         this.url = url;
         return this;
     }
@@ -102,7 +101,7 @@ public class QrCode {
         return big;
     }
 
-    public QrCode setBig(Boolean big) {
+    public NwQrCode setBig(Boolean big) {
         this.big = big;
         return this;
     }
@@ -111,7 +110,7 @@ public class QrCode {
         return x;
     }
 
-    public QrCode setX(int x) {
+    public NwQrCode setX(int x) {
         this.x = x;
         return this;
     }
@@ -120,7 +119,7 @@ public class QrCode {
         return y;
     }
 
-    public QrCode setY(int y) {
+    public NwQrCode setY(int y) {
         this.y = y;
         return this;
     }

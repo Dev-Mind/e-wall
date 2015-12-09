@@ -6,12 +6,15 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.WriterException;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import com.google.zxing.qrcode.encoder.ByteMatrix;
 import com.google.zxing.qrcode.encoder.Encoder;
 import com.google.zxing.qrcode.encoder.QRCode;
 import fr.emse.numericwall.exception.QrCodeGeneratorException;
+import fr.emse.numericwall.service.svg.Point;
 import fr.emse.numericwall.service.svg.SvgConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 /**
  * Generate a SVG
@@ -19,6 +22,7 @@ import org.slf4j.LoggerFactory;
  * @author Dev-Mind <guillaume@dev-mind.fr>
  * @since 07/12/15.
  */
+@Service
 public class QrCodeGenerator {
 
     private static final Logger logger = LoggerFactory.getLogger(QrCodeGenerator.class);
@@ -46,9 +50,25 @@ public class QrCodeGenerator {
     }
 
 
+    /**
+     * Writes a QRCode in a matrix to generate a big QR code compounded with small QR codes
+     */
+    public void writeQRCodeInByteMatrix(QRCode smallQrCode, ByteMatrix byteMatrix, Point start, Point end){
+
+        for(int xBig=start.x(),xSmall=0  ; xBig<end.x()+1 ; xBig++) {
+
+            for (int yBig = start.y(),ySmall=0; yBig < end.y()+1; yBig++) {
+                if(xSmall <= byteMatrix.getWidth() && ySmall <= byteMatrix.getWidth()) {
+                    byteMatrix.set(xBig, yBig, smallQrCode.getMatrix().get(xSmall, ySmall));
+                }
+                ySmall++;
+            }
+            xSmall++;
+        }
+    }
 
     @VisibleForTesting
-    public void setMatrixParser(SvgConverter svgConverter) {
+    protected void setMatrixParser(SvgConverter svgConverter) {
         this.matrixParser = svgConverter;
     }
 }

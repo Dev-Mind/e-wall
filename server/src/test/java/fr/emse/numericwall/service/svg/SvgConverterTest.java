@@ -117,11 +117,17 @@ public class SvgConverterTest {
         assertThat(rectangles.get(4)).isEqualToComparingFieldByField(SvgPath.create(Point.create(1, 3), 2));
     }
 
+    /**
+     * Test {@link SvgConverter#generateSvg(QRCode, String)}
+     */
     @Test(expected = NullPointerException.class)
     public void should_not_generate_svg_when_qrcode_is_nul(){
         svgConverter.generateSvg(null, "black");
     }
 
+    /**
+     * Test {@link SvgConverter#generateSvg(QRCode, String)}
+     */
     @Test
     public void should_generate_svg(){
         QRCode qrCode = new QRCode();

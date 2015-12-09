@@ -77,7 +77,7 @@ public class SvgConverter {
 
         return String.format(
                 "<svg viewBox=\"0 0 %d %d\" xmlns=\"http://www.w3.org/2000/svg\">" +
-                        "<path stroke=\"#%s\" d=\"%s\"/>" +
+                        "<path stroke=\"%s\" d=\"%s\"/>" +
                         "</svg>",
                 qrCode.getMatrix().getWidth(),
                 qrCode.getMatrix().getHeight(),

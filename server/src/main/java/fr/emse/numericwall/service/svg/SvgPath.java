@@ -28,7 +28,7 @@ public class SvgPath {
     }
 
     public String generate() {
-        return String.format("M %d,%dh%d", origin.x(), origin.y(), width);
+        return String.format("M%d %dh%d", origin.x(), origin.y(), width);
     }
 
     @Override

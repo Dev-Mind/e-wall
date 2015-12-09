@@ -31,17 +31,17 @@ public class BigQrCodeTest {
         qrCodeGenerator.setMatrixParser(svgConverter);
     }
 
-    private void writeQRCodeInByteMatrix(ByteMatrix byteMatrix, QRCode smallQrCode, Point start, Point end){
-        for(int xBig=start.x(),xSmall=0  ; xBig<end.x() ; xBig++) {
-            for (int yBig = start.y(),ySmall=0; yBig < end.y(); yBig++) {
-                if(xSmall < byteMatrix.getWidth() && ySmall < byteMatrix.getWidth()) {
-                    byteMatrix.set(xBig, yBig, smallQrCode.getMatrix().get(xSmall, ySmall));
-                }
-                ySmall++;
-            }
-            xSmall++;
-        }
-    }
+//    private void writeQRCodeInByteMatrix(ByteMatrix byteMatrix, QRCode smallQrCode, Point start, Point end){
+//        for(int xBig=start.x(),xSmall=0  ; xBig<end.x() ; xBig++) {
+//            for (int yBig = start.y(),ySmall=0; yBig < end.y(); yBig++) {
+//                if(xSmall <= byteMatrix.getWidth() && ySmall <= byteMatrix.getWidth()) {
+//                    byteMatrix.set(xBig, yBig, smallQrCode.getMatrix().get(xSmall, ySmall));
+//                }
+//                ySmall++;
+//            }
+//            xSmall++;
+//        }
+//    }
 
     @Test
     public void should_generate_a_big_QRCode() throws Exception{
@@ -59,9 +59,10 @@ public class BigQrCodeTest {
         targetQRCode.setMaskPattern(qrCode.getMaskPattern());
 
         int dimension = qrCode.getMatrix().getWidth();
+        int margin = 0;
 
         //We take the next version because URL can be longer
-        ByteMatrix byteMatrix = new ByteMatrix((dimension+4)*(dimension+4), (dimension+4)*(dimension+4));
+        ByteMatrix byteMatrix = new ByteMatrix((dimension+4)*(dimension) + margin*dimension + margin, (dimension+4)*(dimension)+ margin*dimension + margin);
         targetQRCode.setMatrix(byteMatrix);
 
         //TODO add big QRCode to category
@@ -86,8 +87,12 @@ public class BigQrCodeTest {
 
                     //TODO add small QRCode to category
                     //...
-
-                    writeQRCodeInByteMatrix(byteMatrix, smallQrCode, Point.create(x*(dimension+4), y*(dimension+4)), Point.create(x*(dimension+4) + (dimension+4-1), y*(dimension+4) + (dimension+4-1)));
+                    int d = dimension +4 ;
+                    qrCodeGenerator.writeQRCodeInByteMatrix(
+                            smallQrCode,
+                            byteMatrix,
+                            Point.create(x * d + (x + 1) * margin, y * d + (y + 1) * margin),
+                            Point.create(x * d + d -1 + (x + 1) * margin, y * d + d -1 + (y + 1) * margin));
                 }
             }
         }

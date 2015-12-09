@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- * Text can be organized by catagories. For each catagory we will have a set of {@link QrCode}
+ * Text can be organized by catagories. For each catagory we will have a set of {@link NwQrCode}
  *
  * @author Dev-Mind <guillaume@dev-mind.fr>
  * @since 07/12/15.
@@ -33,7 +33,7 @@ public class Category {
     private String code;
     
     @OneToMany(mappedBy = "category")
-    List<QrCode> qrcodes = new ArrayList<>();
+    List<NwQrCode> qrcodes = new ArrayList<>();
 
     @org.hibernate.annotations.Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
     private LocalDateTime createdAt = LocalDateTime.now();
@@ -56,11 +56,11 @@ public class Category {
         return this;
     }
 
-    public List<QrCode> getQrcodes() {
+    public List<NwQrCode> getQrcodes() {
         return qrcodes;
     }
 
-    public Category addQrcode(QrCode qrCode) {
+    public Category addQrcode(NwQrCode qrCode) {
         qrcodes.add(qrCode);
         return this;
     }

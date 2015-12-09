@@ -29,7 +29,7 @@ public class Work {
      * these relations.
      */
     @OneToMany(mappedBy = "work")
-    List<QrCode> qrcodes = new ArrayList<>();
+    List<NwQrCode> qrcodes = new ArrayList<>();
 
 
     @ManyToOne(optional = false)
@@ -50,11 +50,11 @@ public class Work {
         return this;
     }
 
-    public QrCode getQrcode() {
+    public NwQrCode getQrcode() {
         return qrcodes.isEmpty() ? null : qrcodes.get(0);
     }
 
-    public Work setQrcode(QrCode qrcode) {
+    public Work setQrcode(NwQrCode qrcode) {
         this.qrcodes.clear();
         this.qrcodes.add(qrcode);
         return this;

@@ -1,11 +1,11 @@
 package fr.emse.numericwall.repository;
 
-import fr.emse.numericwall.model.QrCode;
+import fr.emse.numericwall.model.NwQrCode;
 import org.springframework.data.repository.CrudRepository;
 
 /**
- * {@link QrCode}
+ * {@link NwQrCode}
  */
-public interface QrCodeRepository extends CrudRepository<QrCode, Long> {
+public interface QrCodeRepository extends CrudRepository<NwQrCode, Long> {
 
 }
