@@ -1,4 +1,4 @@
-package fr.emse.numericwall.service;
+package fr.emse.numericwall.service.svg;
 
 import java.util.List;
 import java.util.Objects;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
  * @since 07/12/15.
  */
 @Service
-public class MatrixParser {
+public class SvgConverter {
 
     /**
      * When we build a QRCode a matrix is generated with all points. We use the method {@link BitMatrix#get(int, int)} which return true if a pixel is painted.
@@ -26,9 +26,9 @@ public class MatrixParser {
      *     1 1 1
      * </pre>
      */
-    public List<Rectangle> parseRectangles(QRCode qrcode) {
+    public List<SvgPath> parseQRCodeMatrix(QRCode qrcode) {
         Objects.requireNonNull(qrcode);
-        List<Rectangle> rectangles = Lists.newArrayList();
+        List<SvgPath> paths = Lists.newArrayList();
 
         //We read line by line
         for (int y = 0; y < qrcode.getMatrix().getHeight(); y++) {
@@ -41,28 +41,48 @@ public class MatrixParser {
                 if (qrcode.getMatrix().get(x, y)==1) {
                     //If we are on the last cell we create a recangle with a size of 1
                     if(x + 1 == qrcode.getMatrix().getWidth()){
-                        rectangles.add(Rectangle.create(startedPoint, 1, 1));
+                        paths.add(SvgPath.create(startedPoint, 1));
                     }
                     //We search the next point to the right
                     for (x = x + 1; x < qrcode.getMatrix().getWidth(); x++) {
                         //If the next point is not used or if we are on the last column
                         if (qrcode.getMatrix().get(x, y)==0) {
-                            rectangles.add(Rectangle.create(startedPoint, x - startedPoint.x(), 1));
+                            paths.add(SvgPath.create(startedPoint, x - startedPoint.x()));
                             break;
                         }
                         else if(x + 1 == qrcode.getMatrix().getWidth()){
-                            rectangles.add(Rectangle.create(startedPoint, x - startedPoint.x() + 1, 1));
+                            paths.add(SvgPath.create(startedPoint, x - startedPoint.x() + 1));
                         }
                     }
-
                 }
             }
         }
 
-        return rectangles;
+        return paths;
     }
 
 
+    /**
+     * Transforms a QRCode to a SVG image. The size of the image depends on the version of the QR code and the version depend on the size of
+     * the encoded bytes.
+     *
+     * @param color (black by default if this arg is null)
+     * @see <a href="https://en.wikipedia.org/wiki/QR_code#Storage">QRCode Version</a>
+     */
+    public String generateSvg(QRCode qrCode, String color) {
+        Objects.requireNonNull(qrCode);
 
+        StringBuilder svgContent = new StringBuilder();
+        parseQRCodeMatrix(qrCode).stream().forEach(path -> svgContent.append(path.generate()));
+
+        return String.format(
+                "<svg viewBox=\"0 0 %d %d\" xmlns=\"http://www.w3.org/2000/svg\">" +
+                        "<path stroke=\"#%s\" d=\"%s\"/>" +
+                        "</svg>",
+                qrCode.getMatrix().getWidth(),
+                qrCode.getMatrix().getHeight(),
+                color==null ? "black" : color,
+                svgContent);
+    }
 
 }

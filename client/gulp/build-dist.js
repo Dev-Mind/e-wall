@@ -37,7 +37,6 @@ module.exports = function(gulp, config) {
     'build:dist:vendors',
     'build:dist:font',
     'build:dist:images',
-    'build:dist:docs',
     'build:dist:favicon',
     'build:dist:html',
     'build:dist:index',
@@ -60,10 +59,6 @@ module.exports = function(gulp, config) {
   gulp.task('build:dist:font', ['build:dev:font'], function () {
     return gulp.src(paths.assets.fonts)
       .pipe(gulp.dest(paths.build.dist + '/fonts'));
-  });
-  gulp.task('build:dist:docs', ['build:dev:docs'], function () {
-    return gulp.src(paths.assets.docs)
-        .pipe(gulp.dest(paths.build.dist + '/docs'));
   });
   gulp.task('build:dist:images', ['build:dev:favicon', 'build:dev:images'], function () {
     return gulp.src(paths.assets.images)

@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -24,8 +25,13 @@ public class Category {
     private Long id;
 
     @Size(max = 255)
+    @NotNull
     private String name;
 
+    @Size(max = 3)
+    @NotNull
+    private String code;
+    
     @OneToMany(mappedBy = "category")
     List<QrCode> qrcodes = new ArrayList<>();
 
@@ -65,6 +71,15 @@ public class Category {
 
     public Category setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+        return this;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public Category setCode(String code) {
+        this.code = code;
         return this;
     }
 }

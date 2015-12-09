@@ -1,4 +1,4 @@
-package fr.emse.numericwall.service;
+package fr.emse.numericwall.service.svg;
 
 import java.util.Objects;
 

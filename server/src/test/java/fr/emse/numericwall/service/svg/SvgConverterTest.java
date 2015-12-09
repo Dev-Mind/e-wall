@@ -1,9 +1,12 @@
-package fr.emse.numericwall.service;
+package fr.emse.numericwall.service.svg;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.List;
+import java.util.UUID;
 
 import com.google.zxing.qrcode.encoder.ByteMatrix;
 import com.google.zxing.qrcode.encoder.QRCode;
@@ -14,21 +17,21 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
 /**
- * Test de {@link MatrixParser}
+ * Test de {@link SvgConverter}
  *
  * @author Dev-Mind <guillaume@dev-mind.fr>
  * @since 07/12/15.
  */
-public class MatrixParserTest {
+public class SvgConverterTest {
 
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @InjectMocks
-    private MatrixParser matrixParser;
+    private SvgConverter svgConverter;
 
     /**
-     * Test {@link MatrixParser#parseRectangles(com.google.zxing.qrcode.encoder.QRCode)}
+     * Test {@link SvgConverter#parseQRCodeMatrix(com.google.zxing.qrcode.encoder.QRCode)}
      * Case
      * <pre>
      *     null
@@ -36,11 +39,11 @@ public class MatrixParserTest {
      */
     @Test(expected = NullPointerException.class)
     public void should_throw_npe_when_parse_null_matrix() {
-        matrixParser.parseRectangles(null);
+        svgConverter.parseQRCodeMatrix(null);
     }
 
     /**
-     * Test {@link MatrixParser#parseRectangles(com.google.zxing.qrcode.encoder.QRCode)}
+     * Test {@link SvgConverter#parseQRCodeMatrix(com.google.zxing.qrcode.encoder.QRCode)}
      * Case plain line
      * <pre>
      *     0 0 0 0
@@ -51,11 +54,11 @@ public class MatrixParserTest {
     public void should_return_no_polygon_when_parse_matrix_with_empty_line() {
         QRCode qrCode = new QRCode();
         qrCode.setMatrix(new ByteMatrix(4, 2));
-        assertThat(matrixParser.parseRectangles(qrCode)).isEmpty();
+        assertThat(svgConverter.parseQRCodeMatrix(qrCode)).isEmpty();
     }
 
     /**
-     * Test {@link MatrixParser#parseRectangles(com.google.zxing.qrcode.encoder.QRCode)}
+     * Test {@link SvgConverter#parseQRCodeMatrix(com.google.zxing.qrcode.encoder.QRCode)}
      * Case plain line
      * <pre>
      *     1 1 1 1
@@ -73,15 +76,15 @@ public class MatrixParserTest {
         QRCode qrCode = new QRCode();
         qrCode.setMatrix(byteMatrix);
 
-        List<Rectangle> rectangles = matrixParser.parseRectangles(qrCode);
+        List<SvgPath> rectangles = svgConverter.parseQRCodeMatrix(qrCode);
 
         assertThat(rectangles).hasSize(2);
-        assertThat(rectangles.get(0)).isEqualToComparingFieldByField(Rectangle.create(Point.create(0, 0), 4, 1));
-        assertThat(rectangles.get(1)).isEqualToComparingFieldByField(Rectangle.create(Point.create(0, 1), 4, 1));
+        assertThat(rectangles.get(0)).isEqualToComparingFieldByField(SvgPath.create(Point.create(0, 0), 4));
+        assertThat(rectangles.get(1)).isEqualToComparingFieldByField(SvgPath.create(Point.create(0, 1), 4));
     }
 
     /**
-     * Test {@link MatrixParser#parseRectangles(com.google.zxing.qrcode.encoder.QRCode)}
+     * Test {@link SvgConverter#parseQRCodeMatrix(com.google.zxing.qrcode.encoder.QRCode)}
      * Case matrix with a blank in a square
      * <pre>
      *     1 1 1 1
@@ -104,13 +107,27 @@ public class MatrixParserTest {
         QRCode qrCode = new QRCode();
         qrCode.setMatrix(byteMatrix);
 
-        List<Rectangle> rectangles = matrixParser.parseRectangles(qrCode);
+        List<SvgPath> rectangles = svgConverter.parseQRCodeMatrix(qrCode);
 
         assertThat(rectangles).hasSize(5);
-        assertThat(rectangles.get(0)).isEqualToComparingFieldByField(Rectangle.create(Point.create(0, 0), 4, 1));
-        assertThat(rectangles.get(1)).isEqualToComparingFieldByField(Rectangle.create(Point.create(0, 1), 1, 1));
-        assertThat(rectangles.get(2)).isEqualToComparingFieldByField(Rectangle.create(Point.create(3, 1), 1, 1));
-        assertThat(rectangles.get(3)).isEqualToComparingFieldByField(Rectangle.create(Point.create(0, 2), 4, 1));
-        assertThat(rectangles.get(4)).isEqualToComparingFieldByField(Rectangle.create(Point.create(1, 3), 2, 1));
+        assertThat(rectangles.get(0)).isEqualToComparingFieldByField(SvgPath.create(Point.create(0, 0), 4));
+        assertThat(rectangles.get(1)).isEqualToComparingFieldByField(SvgPath.create(Point.create(0, 1), 1));
+        assertThat(rectangles.get(2)).isEqualToComparingFieldByField(SvgPath.create(Point.create(3, 1), 1));
+        assertThat(rectangles.get(3)).isEqualToComparingFieldByField(SvgPath.create(Point.create(0, 2), 4));
+        assertThat(rectangles.get(4)).isEqualToComparingFieldByField(SvgPath.create(Point.create(1, 3), 2));
     }
+
+    @Test(expected = NullPointerException.class)
+    public void should_not_generate_svg_when_qrcode_is_nul(){
+        svgConverter.generateSvg(null, "black");
+    }
+
+    @Test
+    public void should_generate_svg(){
+        QRCode qrCode = new QRCode();
+        qrCode.setMatrix(new ByteMatrix(4, 2));
+        assertThat(svgConverter.generateSvg(qrCode, "black")).isNotEmpty();
+    }
+
+
 }

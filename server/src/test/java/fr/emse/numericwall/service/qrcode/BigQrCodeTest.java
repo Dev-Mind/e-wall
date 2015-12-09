@@ -1,16 +1,14 @@
-package fr.emse.numericwall.service;
+package fr.emse.numericwall.service.qrcode;
 
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.UUID;
 
-import com.google.common.base.Strings;
 import com.google.zxing.qrcode.encoder.ByteMatrix;
 import com.google.zxing.qrcode.encoder.QRCode;
 import fr.emse.numericwall.model.Category;
+import fr.emse.numericwall.service.svg.Point;
+import fr.emse.numericwall.service.svg.SvgConverter;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,10 +22,13 @@ public class BigQrCodeTest {
 
     private QrCodeGenerator qrCodeGenerator;
 
+    private SvgConverter svgConverter;
+
     @Before
     public void init(){
+        svgConverter = new SvgConverter();
         qrCodeGenerator = new QrCodeGenerator();
-        qrCodeGenerator.setMatrixParser(new MatrixParser());
+        qrCodeGenerator.setMatrixParser(svgConverter);
     }
 
     private void writeQRCodeInByteMatrix(ByteMatrix byteMatrix, QRCode smallQrCode, Point start, Point end){
@@ -68,7 +69,6 @@ public class BigQrCodeTest {
 
         int cpt = 0;
 
-
         //We need to read all the pixels of the main matrix
         for(int x=0 ; x<dimension ; x++){
             for(int y=0 ; y<dimension ; y++){
@@ -96,7 +96,7 @@ public class BigQrCodeTest {
         String filePath = "/home/ehret_g/tmp/QRTest1.svg";
         String filePath1 = "/home/ehret_g/tmp/QRTest2.svg";
 
-        String svg = qrCodeGenerator.generateSvg(targetQRCode, "black");
+        String svg = svgConverter.generateSvg(targetQRCode, "black");
 
         File myFile = new File(filePath);
         File myFile1 = new File(filePath1);
@@ -119,7 +119,7 @@ public class BigQrCodeTest {
         if (!myFile1.exists()) {
             myFile1.createNewFile();
         }
-        outputStream1.write(qrCodeGenerator.generateSvg(qrCode, "black").getBytes());
+        outputStream1.write(svgConverter.generateSvg(qrCode, "black").getBytes());
         outputStream1.flush();
         outputStream1.close();
     }

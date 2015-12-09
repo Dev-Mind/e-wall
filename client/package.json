@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "angular": "1.4.7",
-    "angular-bootstrap": "0.14.2",
     "angular-cookies": "1.4.7",
     "angular-mocks": "1.4.7",
     "angular-sanitize": "1.4.7",
