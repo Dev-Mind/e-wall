@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
  * @since 07/12/15.
  */
 @Entity
-public class NwQrCode {
+public class QrCode {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -56,7 +56,7 @@ public class NwQrCode {
         return id;
     }
 
-    public NwQrCode setId(Long id) {
+    public QrCode setId(Long id) {
         this.id = id;
         return this;
     }
@@ -65,7 +65,7 @@ public class NwQrCode {
         return category;
     }
 
-    public NwQrCode setCategory(Category category) {
+    public QrCode setCategory(Category category) {
         this.category = category;
         return this;
     }
@@ -74,7 +74,7 @@ public class NwQrCode {
         return work;
     }
 
-    public NwQrCode setWork(Work work) {
+    public QrCode setWork(Work work) {
         this.work = work;
         return this;
     }
@@ -83,7 +83,7 @@ public class NwQrCode {
         return generatedAt;
     }
 
-    public NwQrCode setGeneratedAt(LocalDateTime generatedAt) {
+    public QrCode setGeneratedAt(LocalDateTime generatedAt) {
         this.generatedAt = generatedAt;
         return this;
     }
@@ -92,7 +92,7 @@ public class NwQrCode {
         return url;
     }
 
-    public NwQrCode setUrl(String url) {
+    public QrCode setUrl(String url) {
         this.url = url;
         return this;
     }
@@ -101,7 +101,7 @@ public class NwQrCode {
         return big;
     }
 
-    public NwQrCode setBig(Boolean big) {
+    public QrCode setBig(Boolean big) {
         this.big = big;
         return this;
     }
@@ -110,7 +110,7 @@ public class NwQrCode {
         return x;
     }
 
-    public NwQrCode setX(int x) {
+    public QrCode setX(int x) {
         this.x = x;
         return this;
     }
@@ -119,7 +119,7 @@ public class NwQrCode {
         return y;
     }
 
-    public NwQrCode setY(int y) {
+    public QrCode setY(int y) {
         this.y = y;
         return this;
     }

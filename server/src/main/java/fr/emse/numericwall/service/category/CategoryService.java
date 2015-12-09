@@ -7,7 +7,7 @@ import com.google.zxing.qrcode.encoder.ByteMatrix;
 import com.google.zxing.qrcode.encoder.QRCode;
 import fr.emse.numericwall.exception.DuplicateElementException;
 import fr.emse.numericwall.model.Category;
-import fr.emse.numericwall.model.NwQrCode;
+import fr.emse.numericwall.model.QrCode;
 import fr.emse.numericwall.repository.CategoryRepository;
 import fr.emse.numericwall.repository.QrCodeRepository;
 import fr.emse.numericwall.service.qrcode.QrCodeFileService;
@@ -92,7 +92,7 @@ public class CategoryService {
         Path directory = qrCodeFileService.createDirectoryForQrCode(category.getId());
 
         //We generate a main qrcode
-        qrCodeRepository.save(new NwQrCode().setBig(true).setCategory(category).setUrl(categoryUrl));
+        qrCodeRepository.save(new QrCode().setBig(true).setCategory(category).setUrl(categoryUrl));
 
         //A file is generated
         QRCode physicalQrCode = qrCodeGenerator.generateQRCode(categoryUrl);
@@ -123,7 +123,7 @@ public class CategoryService {
                     String newUrl = categoryUrl.concat("/").concat(String.valueOf(cpt));
 
                     QRCode smallQrCode = qrCodeGenerator.generateQRCode(newUrl);
-                    NwQrCode qrCode = qrCodeRepository.save(new NwQrCode().setBig(false).setCategory(category).setUrl(categoryUrl)).setX(x).setY(y);
+                    QrCode qrCode = qrCodeRepository.save(new QrCode().setBig(false).setCategory(category).setUrl(categoryUrl)).setX(x).setY(y);
                     qrCodeFileService.saveQrCodeAsFile(smallQrCode, directory.resolve(qrCode.getId() + ".svg"));
 
                     qrCodeGenerator.writeQRCodeInByteMatrix(
