@@ -13,7 +13,10 @@
 
     //Router definition
     $stateProvider
-      .state('home', new State('home', 'main/main.html').controller('MainCtrl').build());
+      .state('home', new State('home', 'main/main.html').controller('MainCtrl').build())
+      .state('admin', new State('admin', 'admin/admin.html').build())
+      .state('bigqrcode', new State('bigqrcode', 'bigqrcode/bigqrcode.html').build())
+      .state('public', new State('public', 'public/public.html').build());
 
   });
 

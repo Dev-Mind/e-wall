@@ -3,11 +3,15 @@
   'use strict';
 
   angular.module('nw-structure', []);
+  angular.module('nw-admin', []);
+  angular.module('nw-qrcode', []);
 
   angular.module('nw', [
     'ui.router',
     'ngSanitize',
-    'nw-structure'
+    'nw-structure',
+    'nw-admin',
+    'nw-qrcode'
    ]);
 
   /**

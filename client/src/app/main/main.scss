@@ -2,8 +2,8 @@
 
 
 .nw-headline{
+  @include nw-shadow();
   background-color: $color-primary;
-  .shadow();
 
   img {
     padding: 2em;
@@ -22,7 +22,7 @@
 
   a:hover{
     background-color: $color-primary-light;
-    .shadow();
+    @include nw-shadow();
   }
 
   .nw-connectline__link{
