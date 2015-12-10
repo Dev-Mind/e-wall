@@ -23,19 +23,19 @@ jar{
     version ""
 }
 
-//def getVersionName = { ->
-//    def stdout = new ByteArrayOutputStream()
-//    exec {
-//        commandLine 'git', 'describe', '--tags'
-//        standardOutput = stdout
-//    }
-//    return stdout.toString().trim()
-//}
-//
-///* We can' */
-//processResources {
-//    filesMatching('**/version.yml') {
-//        filter org.apache.tools.ant.filters.ReplaceTokens,
-//                tokens: ['version': getVersionName()]
-//    }
-//}
+def getVersionName = { ->
+    def stdout = new ByteArrayOutputStream()
+    exec {
+        commandLine 'git', 'describe', '--tags'
+        standardOutput = stdout
+    }
+    return stdout.toString().trim()
+}
+
+/* We can' */
+processResources {
+    filesMatching('**/version.yml') {
+        filter org.apache.tools.ant.filters.ReplaceTokens,
+                tokens: ['version': getVersionName()]
+    }
+}
