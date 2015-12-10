@@ -32,7 +32,7 @@ public class CategoryService {
     private String qrCodePrefixUrl;
 
     @Value("numericwall.qrcode.margin")
-    private int qrCodeMargin;
+    private String qrCodeMargin;
 
     @Autowired
     private QrCodeFileService qrCodeFileService;
@@ -63,7 +63,7 @@ public class CategoryService {
 
         if (category.getId() == null) {
             savedCategory = category;
-            generateCategoryQRCodes(category, qrCodeMargin);
+            generateCategoryQRCodes(category, Integer.valueOf(qrCodeMargin));
             categoryRepository.save(category);
         }
         else {
@@ -71,7 +71,7 @@ public class CategoryService {
             savedCategory = categoryRepository.findOne(category.getId());
             //If user change the code we need to regenerate the codes
             if(savedCategory.getCode().equals(category.getCode())){
-                generateCategoryQRCodes(savedCategory, qrCodeMargin);
+                generateCategoryQRCodes(savedCategory, Integer.valueOf(qrCodeMargin));
             }
             savedCategory.setName(category.getName()).setCode(category.getCode());
         }

@@ -16,7 +16,7 @@ numericwall:
   qrcode:
     path: ${EMSE_NW_QRCODE_PATH:/tmp}
     url: ${EMSE_NW_QRCODE_PREFIX_URL:http://www.emse.fr/nw}
-    margin: ${EMSE_NW_QRCODE_MARGIN:6}
+    margin: 6
 ldap:
   todefine: url
 

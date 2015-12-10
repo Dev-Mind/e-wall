@@ -6,6 +6,7 @@ import org.springframework.context.annotation.PropertySource;
 
 @Configuration
 @PropertySource(value= "classpath:version.yml")
+@Profile(value = "cloud")
 public class NWVersionConfig {
 
 }

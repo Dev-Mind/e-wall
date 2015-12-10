@@ -54,13 +54,13 @@ public class CategoryController {
     }
 
 
-    @RequestMapping
+    @RequestMapping(value = "/{id}")
     @ApiOperation(value = "Return one category", httpMethod = "GET")
     public Category findOne(@ApiParam(name = "id", value = "Category Id") @PathVariable(value = "id") Long id) {
         return categoryRepository.findOne(id);
     }
 
-    @RequestMapping(method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ApiOperation(value = "Delete one category (be careful all the QR codes linked to this category will be deleted!)", httpMethod = "DELETE")
     public ResponseEntity delete(@ApiParam(name = "id", value = "Category Id") @PathVariable(value = "id") Long id) {
         categoryService.deleteCategory(id);
