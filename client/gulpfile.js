@@ -35,7 +35,7 @@ var paths = {
     ]
   },
   templates: [
-    'src/app/js/**/*.html'
+    'src/app/component/**/*.html'
   ],
   css: [
     'node_modules/bootstrap/dist/css/bootstrap.min.css'

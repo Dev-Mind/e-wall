@@ -1,0 +1,45 @@
+<div class="container">
+    <h1><i class="glyphicon glyphicon-tasks"></i></a> Catégorie</h1>
+
+    <h2>Liste des catégories</h2>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Catégories</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>&nbsp;</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 ng-if="!entity.id">Création catégorie</h2>
+    <h2 ng-if="entity.id">Modificatin catégorie</h2>
+
+    <form novalidate>
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="form-group">
+                    <label for="code">Code</label>
+                    <input type="text" class="form-control" id="code" placeholder="Code" unique-category-code id="entity.id" ng-model="entity.code">
+                </div>
+                <div class="form-group">
+                    <label for="label">Libellé</label>
+                    <input type="text" class="form-control" id="label" placeholder="Libellé" ng-model="entity.label">
+                </div>
+                <div class="form-group">
+                    <button type="button" disabled="(!frm.$pristine && frm.$invalid) || frm.$pending || spinner==='on'"
+                            class="btn btn-default" on-click="ctrl.saveCategory()">Save</button>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                QR code associé
+            </div>
+        </div>
+    </form>
+</div>

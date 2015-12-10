@@ -21,11 +21,10 @@ module.exports = function(config) {
       { pattern: 'node_modules/angular-cookies/angular-cookies.js', watched:false },
       { pattern: 'node_modules/angular-ui-router/release/angular-ui-router.min.js', watched:false },
       { pattern: 'node_modules/angular-mocks/angular-mocks.js', watched:false },
-      { pattern: 'node_modules/markdown/lib/markdown.js', watched:false },
 
-      'src/app/js/**/app.js',
-      'src/app/js/**/*.js',
-      'src/app/js/**/*.html',
+      'src/app/index.js',
+      'src/app/**/*.js',
+      'src/app/**/*.html',
 
       'src/test/unit/**/*.spec.js'
     ],
@@ -39,7 +38,7 @@ module.exports = function(config) {
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
       'src/app/**/*.js': ['coverage'],
-      'src/app/js/**/*.html': ['ng-html2js']
+      'src/app/**/*.html': ['ng-html2js']
     },
 
     coverageReporter: {
@@ -50,7 +49,7 @@ module.exports = function(config) {
     ngHtml2JsPreprocessor: {
       //The last / is important 
       stripPrefix: 'src/app/',
-      moduleName: 'cesar-templates'
+      moduleName: 'nw-templates'
     },
 
     // test results reporter to use

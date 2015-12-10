@@ -2,9 +2,9 @@
 
   'use strict';
 
-  angular.module('nw-structure', ['ui.router']);
-  angular.module('nw-admin', []);
-  angular.module('nw-qrcode', []);
+  angular.module('nw-structure', ['ui.router', 'nw-templates']);
+  angular.module('nw-admin', ['nw-templates']);
+  angular.module('nw-qrcode', ['nw-templates']);
 
   angular.module('nw', [
     'ui.router',

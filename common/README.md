@@ -59,9 +59,9 @@ If you want to ovverride the default MySQL database you can use environment vari
 export EMSE_NW_DATABASE_DRIVER=com.mysql.jdbc.Driver
 export EMSE_NW_DATABASE_HOST=localhost
 export EMSE_NW_DATABASE_PORT=3306
-export EMSE_NW_DATABASE_SCHEMA=mixit
-export EMSE_NW_DATABASE_USERNAME=mixit
-export EMSE_NW_DATABASE_PASSWORD=mixit
+export EMSE_NW_DATABASE_SCHEMA=numericwall
+export EMSE_NW_DATABASE_USERNAME=numericwall
+export EMSE_NW_DATABASE_PASSWORD=numericwall
 export
 ```
 
