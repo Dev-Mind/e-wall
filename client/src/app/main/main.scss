@@ -16,16 +16,17 @@
   }
 }
 
-.nw-connectline{
+.nw-menu{
   padding: 2em;
   text-align: center;
+  max-width: 2000px;
 
   a:hover{
     background-color: $color-primary-light;
     @include nw-shadow();
   }
 
-  .nw-connectline__link{
+  .nw-menu__link{
     background-color: $color-primary;
     border-radius: 50%;
     width:140px;
@@ -41,8 +42,7 @@
 
   @media (max-width: 768px){
     padding: 1em 0em 1em 0em;
-
-    .nw-connectline__link{
+    .nw-menu__link{
       width:100px;
       height:100px;
       i{
@@ -50,6 +50,10 @@
         padding-top: 20px;
       }
     }
+  }
+
+  @media (min-width: 992px) {
+    max-width: 100%;
   }
 }
 
