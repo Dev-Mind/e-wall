@@ -1,5 +1,10 @@
-@import 'color';
-@import 'main/main';
+@import 'common';
+
+@import 'component/admin/admin';
+@import 'component/bigqrcode/bigqrcode';
+@import 'component/main/main';
+@import 'component/monitoring/monitoring';
+@import 'component/public/public';
 
 $roboto-font-path: '../fonts';
 
@@ -72,5 +77,37 @@ body {
   @media (max-width: 768px){
    padding: 0;
     font-size: 11px;
+  }
+}
+
+
+
+.nw-spinner {
+  display: table;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 99;
+  transition-property: background-color;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
+  .nw-spinner__box {
+    position: absolute;
+    top:25%;
+    width: 100%;
+    color: $color-primary;
+  }
+
+  .nw-spinner__box-inner{
+    text-align: center;
+    margin: auto;
+    max-width: 120px;
+    background-color: white;
+    padding: 2em;
+    border-radius: 4px;
   }
 }

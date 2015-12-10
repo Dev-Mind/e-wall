@@ -13,11 +13,22 @@
 
     //Router definition
     $stateProvider
-      .state('home', new State('home', 'main/main.html').controller('MainCtrl').build())
-      .state('admin', new State('admin', 'admin/admin.html').build())
-      .state('bigqrcode', new State('bigqrcode', 'bigqrcode/bigqrcode.html').build())
-      .state('public', new State('public', 'public/public.html').build())
-      .state('monitor', new State('monitor', 'monitoring/monitoring.html').controller('MonitoringCtrl').build());
+      .state('home', new State('home', 'component/main/main.html').controller('MainCtrl').build())
+      .state('admin', new State('admin', 'component/admin/admin.html').build())
+      .state('bigqrcode', new State('bigqrcode', 'component/bigqrcode/bigqrcode.html').build())
+      .state('public', new State('public', 'component/public/public.html').build())
+      .state('monitor', new State('monitor', 'component/monitoring/monitoring.html').controller('MonitoringCtrl').build())
+      .state('nwerror', new State('nwerror/{type}', 'component/error/error.html')
+        .params({
+          error: {}
+        })
+        .controller(
+        /* @ngInject */
+        function ($scope, $stateParams) {
+          $scope.error = $stateParams.error;
+          $scope.type = $stateParams.type;
+        })
+        .build());
 
   });
 
