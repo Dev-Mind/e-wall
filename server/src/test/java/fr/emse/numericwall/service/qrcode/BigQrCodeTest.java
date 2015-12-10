@@ -10,6 +10,7 @@ import fr.emse.numericwall.model.Category;
 import fr.emse.numericwall.service.svg.Point;
 import fr.emse.numericwall.service.svg.SvgConverter;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -18,6 +19,7 @@ import org.junit.Test;
  * @author Dev-Mind <guillaume@dev-mind.fr>
  * @since 08/12/15.
  */
+@Ignore
 public class BigQrCodeTest {
 
     private QrCodeGenerator qrCodeGenerator;

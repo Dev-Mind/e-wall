@@ -11,6 +11,8 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 /**
  * Text can be organized by catagories. For each catagory we will have a set of {@link QrCode}
  *
@@ -22,14 +24,17 @@ public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonView(FlatView.class)
     private Long id;
 
     @Size(max = 255)
     @NotNull
+    @JsonView(FlatView.class)
     private String name;
 
     @Size(max = 3)
     @NotNull
+    @JsonView(FlatView.class)
     private String code;
     
     @OneToMany(mappedBy = "category")

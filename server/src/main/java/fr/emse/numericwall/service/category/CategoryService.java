@@ -49,9 +49,6 @@ public class CategoryService {
     /**
      * When a category is created, we need to generate the Qr code linked to the category and all the QR
      * code availables to attached a text or a resource to this category. On update we can only change the name
-     *
-     * @param category
-     * @return
      */
     public Category save(Category category) {
         Objects.requireNonNull(category);
@@ -72,6 +69,10 @@ public class CategoryService {
         else {
             //On update we can only change the name
             savedCategory = categoryRepository.findOne(category.getId());
+            //If user change the code we need to regenerate the codes
+            if(savedCategory.getCode().equals(category.getCode())){
+                generateCategoryQRCodes(savedCategory, qrCodeMargin);
+            }
             savedCategory.setName(category.getName()).setCode(category.getCode());
         }
 
@@ -80,8 +81,6 @@ public class CategoryService {
 
     /**
      * Generate the main QR code and all the QR codes available for this category
-     *
-     * @param category
      */
     public void generateCategoryQRCodes(Category category, int margin) {
         Objects.requireNonNull(category);
@@ -138,5 +137,18 @@ public class CategoryService {
 
         //The big QRCode is saved
         qrCodeFileService.saveQrCodeAsFile(targetQRCode, directory.resolve("cat.max.svg"));
+    }
+
+    /**
+     * Deletes a category and all te QRCode linked. The files are keep to simplify a restoration on error
+     */
+    public void deleteCategory(Long id){
+        Objects.requireNonNull(id);
+
+        Category category = categoryRepository.findOne(id);
+
+        if(category!=null){
+            category.getQrcodes().stream().forEach(qrCode -> qrCodeRepository.delete(qrCode));
+        }
     }
 }
