@@ -20,8 +20,9 @@
         delete ctrl.error;
         $http
           .post('/api/category', ctrl.entity)
-          .then(function(response){
-            ctrl.entity = response.data;
+          .then(function(){
+            delete ctrl.entity;
+            refresh();
           })
           .catch(function(response){
             switch(response.status){
@@ -38,7 +39,14 @@
       }
     };
 
-    ctrl.entity = {};
+    ctrl.update = function(id){
+      $http
+        .get('/api/category/' + id)
+        .then(function(response){
+          ctrl.entity = response.data;
+        });
+    };
+
     refresh();
   });
 

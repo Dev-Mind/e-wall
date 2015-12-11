@@ -1,2 +1,15 @@
 @import '../../common';
 
+.list{
+  display: flex;
+}
+
+.list__content{
+  flex: 1;
+  margin-top: 0.5em;
+}
+
+.list__action{
+  flex: 0.2;
+  text-align: end;
+}

@@ -1,58 +1,72 @@
 <div class="container">
     <h1><i class="glyphicon glyphicon-tasks"></i></a> Catégorie</h1>
 
-    <h2>Liste des catégories</h2>
+    <div  ng-if="!ctrl.entity">
+        <h2>Liste des catégories</h2>
 
-    <table class="table table-bordered">
-        <thead>
+        <table class="table table-bordered">
+            <thead>
             <tr>
                 <th>Catégories</th>
-                <th>&nbsp;</th>
             </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>&nbsp;</td>
-                <td></td>
+            </thead>
+            <tbody>
+            <tr ng-repeat="category in ctrl.categories">
+                <td>
+                    <div class="list">
+                        <div class="list__content">{{category.name}}</div>
+                        <div class="list__action">
+                            <button type="button" class="btn btn-default" ng-click="ctrl.update(category.id)"><i class="glyphicon glyphicon-pencil"></i></button>
+                        </div>
+                    </div>
+                </td>
             </tr>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
 
-    <h2 ng-if="!entity.id">Création catégorie</h2>
-    <h2 ng-if="entity.id">Modificatin catégorie</h2>
 
-    <uib-alert type="danger" ng-if="ctrl.error">{{ctrl.error}}</uib-alert>
+    <div ng-if="ctrl.entity">
+        <h2 ng-if="!entity.id">Création catégorie</h2>
+        <h2 ng-if="entity.id">Modificatin catégorie</h2>
 
-    <form novalidate name="frm">
-        <div class="row">
-            <div class="col-sm-8">
-                <div class="form-group">
-                    <label for="code">Code</label>
-                    <input type="text" class="form-control" id="code" name="code"
-                           ng-maxlength="3"
-                           ng-model="ctrl.entity.code"
-                           ng-required="true"
-                           placeholder="Code"
-                           unique-category-code id="entity.id">
+        <uib-alert type="danger" ng-if="ctrl.error">{{ctrl.error}}</uib-alert>
+
+        <form novalidate name="frm">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <label for="code">Code</label>
+                        <input type="text" class="form-control" id="code" name="code"
+                               ng-maxlength="3"
+                               ng-model="ctrl.entity.code"
+                               ng-required="true"
+                               placeholder="Code"
+                               unique-category-code id="entity.id">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Nom</label>
+                        <input type="text" class="form-control" id="name" name="name"
+                               ng-maxlength="255"
+                               ng-model="ctrl.entity.name"
+                               ng-required="true"
+                               placeholder="Libellé">
+                    </div>
+                    <div class="form-group">
+                        <button type="button"
+                                ng-disabled="(!frm.$pristine && frm.$invalid) || spinner==='on'"
+                                class="btn btn-primary"
+                                ng-click="ctrl.saveCategory()">Save</button>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="name">Nom</label>
-                    <input type="text" class="form-control" id="name" name="name"
-                           ng-maxlength="255"
-                           ng-model="ctrl.entity.name"
-                           ng-required="true"
-                           placeholder="Libellé">
-                </div>
-                <div class="form-group">
-                    <button type="button"
-                            ng-disabled="(!frm.$pristine && frm.$invalid) || spinner==='on'"
-                            class="btn btn-primary"
-                            ng-click="ctrl.saveCategory()">Save</button>
+                <div class="col-sm-4">
+                    QR code associé
+                    <div>
+
+                    </div>
                 </div>
             </div>
-            <div class="col-sm-4">
-                QR code associé
-            </div>
-        </div>
-    </form>
+        </form>
+    </div>
+
 </div>
