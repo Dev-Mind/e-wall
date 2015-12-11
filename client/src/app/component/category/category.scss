@@ -6,10 +6,19 @@
 
 .list__content{
   flex: 1;
-  margin-top: 0.5em;
 }
 
-.list__action{
-  flex: 0.2;
+.list__action-header{
+  margin-bottom: 0.5em;
   text-align: end;
+}
+.list__action{
+  flex: 0.35;
+  text-align: end;
+
+  button {
+    width:30px;
+    height: 30px;
+    padding: 2px !important;
+  }
 }

@@ -13,6 +13,7 @@ import java.util.UUID;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.zxing.qrcode.encoder.QRCode;
 import fr.emse.numericwall.exception.QrCodeFileException;
+import fr.emse.numericwall.model.QrCode;
 import fr.emse.numericwall.service.svg.SvgConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +37,29 @@ public class QrCodeFileService {
 
     @Autowired
     private SvgConverter svgConverter;
+
+
+
+    /**
+     * Return a QRCode file.
+     */
+    public byte[] getQrCode(String resource){
+
+        Path path = Paths.get(qrCodePath, resource);
+
+        if(!Files.exists(path)){
+            logger.error("Not possible to find the QR code " + resource);
+            throw new QrCodeFileException();
+        }
+
+        try {
+            return Files.readAllBytes(path);
+        }
+        catch (IOException e) {
+            logger.error("Error on QR codes read", e);
+            throw new QrCodeFileException();
+        }
+    }
 
     /**
      * Save a QrCode on file system

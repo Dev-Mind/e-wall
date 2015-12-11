@@ -73,7 +73,11 @@ public class CategoryService {
             //On update we can only change the name
             savedCategory = categoryRepository.findOne(category.getId());
             //If user change the code we need to regenerate the codes
-            if(savedCategory.getCode().equals(category.getCode())){
+            if(!savedCategory.getCode().equals(category.getCode())){
+                //Old QrCode are deleted
+                qrCodeRepository.delete(category.getQrcodes());
+                savedCategory.getQrcodes().clear();
+                //And new ones generated
                 generateCategoryQRCodes(savedCategory, qrCodeMargin);
             }
             savedCategory.setName(category.getName()).setCode(category.getCode());
@@ -151,9 +155,7 @@ public class CategoryService {
         Objects.requireNonNull(id);
 
         Category category = categoryRepository.findOne(id);
-
-        if(category!=null){
-            category.getQrcodes().stream().forEach(qrCode -> qrCodeRepository.delete(qrCode));
-        }
+        qrCodeRepository.delete(category.getQrcodes());
+        categoryRepository.delete(category);
     }
 }
