@@ -1,7 +1,12 @@
 package fr.emse.numericwall.api;
 
 import static fr.emse.numericwall.model.FunctionalError.Type.FORBIDDEN;
+import static fr.emse.numericwall.model.FunctionalError.Type.QRCODE;
+import static fr.emse.numericwall.model.FunctionalError.Type.VALIDATION;
 
+import javax.validation.ConstraintViolationException;
+
+import fr.emse.numericwall.exception.QrCodeFileException;
 import fr.emse.numericwall.model.FunctionalError;
 import fr.emse.numericwall.exception.AuthenticationRequiredException;
 import fr.emse.numericwall.exception.ForbiddenException;
@@ -39,4 +44,17 @@ public class WebControllerAdvice {
         logger.error("AuthenticationRequiredException ", exception);
         return buildFunctionalError(exception, FORBIDDEN, HttpStatus.FORBIDDEN);
     }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<FunctionalError> handleException(ConstraintViolationException exception) {
+        logger.error("ConstraintViolationException ", exception);
+        return buildFunctionalError(exception, VALIDATION, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(QrCodeFileException.class)
+    public ResponseEntity<FunctionalError> handleException(QrCodeFileException exception) {
+        logger.error("QrCodeFileException ", exception);
+        return buildFunctionalError(exception, QRCODE, HttpStatus.INSUFFICIENT_STORAGE);
+    }
+
 }

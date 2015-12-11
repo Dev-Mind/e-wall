@@ -7,7 +7,9 @@ public class FunctionalError {
 
     public enum Type {
         UNAUTHORIZED,
-        FORBIDDEN
+        FORBIDDEN,
+        VALIDATION,
+        QRCODE
     }
 
     private String type;

@@ -13,6 +13,8 @@ import fr.emse.numericwall.repository.QrCodeRepository;
 import fr.emse.numericwall.service.qrcode.QrCodeFileService;
 import fr.emse.numericwall.service.qrcode.QrCodeGenerator;
 import fr.emse.numericwall.service.svg.Point;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -28,11 +30,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class CategoryService {
 
-    @Value("numericwall.qrcode.url")
+    private static final Logger logger = LoggerFactory.getLogger(CategoryService.class);
+
+    @Value("${numericwall.qrcode.url}")
     private String qrCodePrefixUrl;
 
-    @Value("numericwall.qrcode.margin")
-    private String qrCodeMargin;
+    @Value("${numericwall.qrcode.margin}")
+    private Integer qrCodeMargin;
 
     @Autowired
     private QrCodeFileService qrCodeFileService;
@@ -62,16 +66,15 @@ public class CategoryService {
         }
 
         if (category.getId() == null) {
-            savedCategory = category;
-            generateCategoryQRCodes(category, Integer.valueOf(qrCodeMargin));
-            categoryRepository.save(category);
+            savedCategory = categoryRepository.save(category);
+            generateCategoryQRCodes(savedCategory, qrCodeMargin);
         }
         else {
             //On update we can only change the name
             savedCategory = categoryRepository.findOne(category.getId());
             //If user change the code we need to regenerate the codes
             if(savedCategory.getCode().equals(category.getCode())){
-                generateCategoryQRCodes(savedCategory, Integer.valueOf(qrCodeMargin));
+                generateCategoryQRCodes(savedCategory, qrCodeMargin);
             }
             savedCategory.setName(category.getName()).setCode(category.getCode());
         }
@@ -83,6 +86,8 @@ public class CategoryService {
      * Generate the main QR code and all the QR codes available for this category
      */
     public void generateCategoryQRCodes(Category category, int margin) {
+
+
         Objects.requireNonNull(category);
 
         String categoryUrl = qrCodePrefixUrl + "/" + category.getCode();
@@ -108,7 +113,7 @@ public class CategoryService {
         int dimension = physicalQrCode.getMatrix().getWidth();
         int dimensionWithMargin = dimension + margin;
 
-        ByteMatrix byteMatrix = new ByteMatrix((dimensionWithMargin + margin) * dimension, (dimensionWithMargin + margin) * dimension);
+        ByteMatrix byteMatrix = new ByteMatrix((dimensionWithMargin + margin) * dimension  + margin, (dimensionWithMargin + margin) * dimension  + margin);
         targetQRCode.setMatrix(byteMatrix);
 
         int cpt = 0;

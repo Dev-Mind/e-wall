@@ -61,7 +61,7 @@ public class BigQrCodeTest {
         targetQRCode.setMaskPattern(qrCode.getMaskPattern());
 
         int dimension = qrCode.getMatrix().getWidth();
-        int margin = 0;
+        int margin = 6;
 
         //We take the next version because URL can be longer
         ByteMatrix byteMatrix = new ByteMatrix((dimension+4)*(dimension) + margin*dimension + margin, (dimension+4)*(dimension)+ margin*dimension + margin);

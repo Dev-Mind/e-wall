@@ -8,6 +8,7 @@
 
   angular.module('nw', [
     'ui.router',
+    'ui.bootstrap',
     'ngSanitize',
     'nw-structure',
     'nw-admin',

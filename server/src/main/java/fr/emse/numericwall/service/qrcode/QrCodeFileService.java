@@ -31,7 +31,7 @@ public class QrCodeFileService {
 
     private static final Logger logger = LoggerFactory.getLogger(QrCodeFileService.class);
 
-    @Value("numericwall.qrcode.path")
+    @Value("${numericwall.qrcode.path}")
     private String qrCodePath;
 
     @Autowired

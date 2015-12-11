@@ -58,7 +58,7 @@ public class QrCodeGenerator {
         for(int xBig=start.x(),xSmall=0  ; xBig<end.x()+1 ; xBig++) {
 
             for (int yBig = start.y(),ySmall=0; yBig < end.y()+1; yBig++) {
-                if(xSmall <= byteMatrix.getWidth() && ySmall <= byteMatrix.getWidth()) {
+                if(xSmall < smallQrCode.getMatrix().getWidth() && ySmall < smallQrCode.getMatrix().getWidth()) {
                     byteMatrix.set(xBig, yBig, smallQrCode.getMatrix().get(xSmall, ySmall));
                 }
                 ySmall++;

@@ -54,6 +54,7 @@ module.exports = function(gulp, config) {
       //In Angular Material Lite we don't use the standard primary color
       .pipe(replace('"Helvetica Neue",Helvetica,Arial,sans-serif', '"Roboto","Arial"'))
       .pipe(replace('Menlo,Monaco,Consolas,"Courier New",monospace', 'monospace'))
+      .pipe(replace('#337ab7', '#2196f3'))
       .pipe(concat('vendors.css'))
       .pipe(gulp.dest(paths.build.dev+ '/css'));
   });

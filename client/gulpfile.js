@@ -21,7 +21,8 @@ var paths = {
       'node_modules/angular-cookies/angular-cookies.js',
       'node_modules/angular-marked/angular-marked.js',
       'node_modules/angular-sanitize/angular-sanitize.js',
-      'node_modules/angular-ui-router/release/angular-ui-router.min.js'
+      'node_modules/angular-ui-router/release/angular-ui-router.min.js',
+      'node_modules/angular-ui-bootstrap/ui-bootstrap-tpls.min.js'
     ],
     unit: [
       'src/test/unit/**/*.spec.js'
