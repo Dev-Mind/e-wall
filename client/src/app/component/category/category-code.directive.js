@@ -22,7 +22,7 @@
           }
           else {
             // Lookup user by username
-            $http.get('/api/category/check/' + viewValue + (scope.id ? '?id=' + scope.id : ''))
+            $http.get('/api/category/check/' + viewValue + (scope.id ? '?id=' + scope.id : ''), {ignoreErrorRedirection: 'ignoreErrorRedirection'})
               .then(function (response) {
                 //if code is not used it's OK
                 deferred.resolve(true);

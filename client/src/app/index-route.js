@@ -15,7 +15,7 @@
     $stateProvider
       .state('home', new State('home', 'component/main/main.html').controller('MainCtrl').build())
       .state('admin', new State('admin', 'component/admin/admin.html').build())
-      .state('bigqrcode', new State('bigqrcode', 'component/bigqrcode/bigqrcode.html').build())
+      .state('bigqrcode', new State('bigqrcode', 'component/bigqrcode/bigqrcode.html').controller('BigQRCodeCtrl').build())
       .state('public', new State('public', 'component/public/public.html').build())
       .state('monitor', new State('monitor', 'component/monitoring/monitoring.html').controller('MonitoringCtrl').build())
       .state('category', new State('category', 'component/category/category.html').controller('CategoryCtrl').build())

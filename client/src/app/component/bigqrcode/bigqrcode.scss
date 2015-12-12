@@ -1,2 +1,24 @@
 @import '../../common';
 
+.qr-category__container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+  button:hover{
+    background-color: $color-primary-light;
+    @include nw-shadow();
+  }
+
+  .qr-category__link{
+    flex: 1;
+    background-color: $color-primary;
+    border-radius: 50%;
+    width:100px;
+    height:100px;
+    color: white;
+    font-size: 40px;
+    margin: 0.5em;
+  }
+}

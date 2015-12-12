@@ -66,7 +66,7 @@ public class QrCodeGeneratorTest {
     @Test
     public void should_save_a_qr_code_in_svg() throws Exception{
         QRCode qrCode = qrCodeGenerator.generateQRCode("https://dev-mind.fr/" + UUID.randomUUID().toString());
-        String svg = svgConverter.generateSvg(qrCode, "black");
+        String svg = svgConverter.generateSvg(qrCode, "black", svgConverter.generatePathSvg(qrCode));
 
         File createdFile= folder.newFile("QRTest.svg");
 

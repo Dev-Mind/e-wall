@@ -64,12 +64,16 @@ public class QrCodeFileService {
     /**
      * Save a QrCode on file system
      */
-    public void saveQrCodeAsFile(QRCode qrCode, Path file){
+    public String saveQrCodeAsFile(QRCode qrCode, Path file){
         try(FileOutputStream outputStream1 = new FileOutputStream(file.toFile())) {
             if (!Files.exists(file)) {
                 Files.createFile(file);
             }
-            outputStream1.write(svgConverter.generateSvg(qrCode, "black").getBytes());
+            //The content is save in database for the small QR codes. We have to regenerate the SVG in the HTML
+            // to be able to change the style via CSS. Otherwise it's not possible
+            String content = svgConverter.generatePathSvg(qrCode);
+            outputStream1.write(svgConverter.generateSvg(qrCode, "black", content).getBytes());
+            return content;
         }
         catch (IOException e){
             logger.error("Error on QR codes creation", e);

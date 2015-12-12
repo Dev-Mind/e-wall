@@ -73,7 +73,7 @@ public class CategoryService {
             //On update we can only change the name
             savedCategory = categoryRepository.findOne(category.getId());
             //If user change the code we need to regenerate the codes
-            if(!savedCategory.getCode().equals(category.getCode())){
+            if (!savedCategory.getCode().equals(category.getCode())) {
                 //Old QrCode are deleted
                 qrCodeRepository.delete(category.getQrcodes());
                 savedCategory.getQrcodes().clear();
@@ -99,13 +99,18 @@ public class CategoryService {
         //Prepares files tree
         Path directory = qrCodeFileService.createDirectoryForQrCode(category.getId());
 
-        //We generate a main qrcode
-        qrCodeRepository.save(new QrCode().setBig(true).setCategory(category).setUrl(categoryUrl));
 
         //A file is generated
         QRCode physicalQrCode = qrCodeGenerator.generateQRCode(categoryUrl);
-        //This QRCode is saved
-        qrCodeFileService.saveQrCodeAsFile(physicalQrCode, directory.resolve("cat.min.svg"));
+
+        //We generate a main qrcode
+        qrCodeRepository.save(
+                new QrCode()
+                        .setBig(true)
+                        .setCategory(category)
+                        .setUrl(categoryUrl)
+                        .setDimension(physicalQrCode.getMatrix().getWidth())
+                        .setSvgPath(qrCodeFileService.saveQrCodeAsFile(physicalQrCode, directory.resolve("cat.min.svg"))));
 
         //We need now to generate a bigger QR Code compounded with smaller ones
         QRCode targetQRCode = new QRCode();
@@ -117,41 +122,50 @@ public class CategoryService {
         int dimension = physicalQrCode.getMatrix().getWidth();
         int dimensionWithMargin = dimension + margin;
 
-        ByteMatrix byteMatrix = new ByteMatrix((dimensionWithMargin + margin) * dimension  + margin, (dimensionWithMargin + margin) * dimension  + margin);
+        ByteMatrix byteMatrix = new ByteMatrix((dimensionWithMargin + margin) * dimension + margin, (dimensionWithMargin + margin) * dimension + margin);
         targetQRCode.setMatrix(byteMatrix);
 
         int cpt = 0;
 
         //We need to read all the pixels of the main matrix
-        for(int x=0 ; x<dimension ; x++){
-            for(int y=0 ; y<dimension ; y++){
+        for (int x = 0; x < dimension; x++) {
+            for (int y = 0; y < dimension; y++) {
                 //We construct the target matrix : each point is a new QrCode
-                if(physicalQrCode.getMatrix().get(x,y)==1){
+                if (physicalQrCode.getMatrix().get(x, y) == 1) {
                     cpt++;
                     String newUrl = categoryUrl.concat("/").concat(String.valueOf(cpt));
 
                     QRCode smallQrCode = qrCodeGenerator.generateQRCode(newUrl);
-                    QrCode qrCode = qrCodeRepository.save(new QrCode().setBig(false).setCategory(category).setUrl(categoryUrl)).setX(x).setY(y);
-                    qrCodeFileService.saveQrCodeAsFile(smallQrCode, directory.resolve(qrCode.getId() + ".svg"));
+                    QrCode qrCode = qrCodeRepository.save(
+                            new QrCode()
+                                    .setBig(false)
+                                    .setCategory(category)
+                                    .setUrl(newUrl)
+                                    .setX(x)
+                                    .setY(y))
+                                    .setDimension(smallQrCode.getMatrix().getWidth());
+
+                    //Now we have an id and an object atteched to the hibernate session
+                    qrCode.setSvgPath(qrCodeFileService.saveQrCodeAsFile(smallQrCode, directory.resolve(qrCode.getId() + ".svg")));
 
                     qrCodeGenerator.writeQRCodeInByteMatrix(
                             smallQrCode,
                             byteMatrix,
                             Point.create(x * (dimensionWithMargin + margin) + margin, y * (dimensionWithMargin + margin) + margin),
-                            Point.create(x * (dimensionWithMargin + margin) + margin + dimensionWithMargin  - 1 , y * (dimensionWithMargin + margin) + margin + dimensionWithMargin  - 1 )
+                            Point.create(x * (dimensionWithMargin + margin) + margin + dimensionWithMargin - 1, y * (dimensionWithMargin + margin) + margin + dimensionWithMargin - 1)
                     );
                 }
             }
         }
 
-        //The big QRCode is saved
+        //The big QRCode is saved and not saved in database
         qrCodeFileService.saveQrCodeAsFile(targetQRCode, directory.resolve("cat.max.svg"));
     }
 
     /**
      * Deletes a category and all te QRCode linked. The files are keep to simplify a restoration on error
      */
-    public void deleteCategory(Long id){
+    public void deleteCategory(Long id) {
         Objects.requireNonNull(id);
 
         Category category = categoryRepository.findOne(id);

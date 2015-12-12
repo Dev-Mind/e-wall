@@ -17,7 +17,7 @@
             <tr ng-repeat="category in ctrl.categories">
                 <td>
                     <div class="list">
-                        <div class="list__content">{{category.name}}</div>
+                        <div class="list__content">{{category.name}} ({{category.message}})</div>
                         <div class="list__action">
                             <button type="button" class="btn btn-primary" ng-click="ctrl.update(category.id)"><i class="glyphicon glyphicon-pencil"></i></button>
                             <button type="button" class="btn btn-danger" ng-click="ctrl.delete(category.id)"><i class="glyphicon glyphicon-trash"></i></button>
@@ -35,6 +35,15 @@
         <h2 ng-if="ctrl.entity.id">Modification catégorie</h2>
 
         <uib-alert type="danger" ng-if="ctrl.error">{{ctrl.error}}</uib-alert>
+        <uib-alert type="danger" ng-if="frm.$invalid">
+            <span ng-if="frm.code.$error.required">Le code est obligatoire<br></span>
+            <span ng-if="frm.code.$error.maxlength">Le code ne peut pas faire plus de 3 caractères<br></span>
+            <span ng-if="frm.code.$error.uniqueCategoryCode">Ce code est déjà utilisé dans une autre catégorie<br></span>
+            <span ng-if="frm.name.$error.required">Le nom est obligatoire<br></span>
+            <span ng-if="frm.name.$error.maxlength">Le nom associé ne peut pas faire plus de 255 caractères<br></span>
+            <span ng-if="frm.message.$error.maxlength">Vous ne pouvez définir qu'une lettre<br></span>
+        </uib-alert>
+
         <form novalidate name="frm">
             <div class="row">
                 <div class="col-sm-8">
@@ -45,7 +54,8 @@
                                ng-model="ctrl.entity.code"
                                ng-required="true"
                                placeholder="Code"
-                               unique-category-code id="ctrl.entity.id">
+                               unique-category-code
+                               id="ctrl.entity.id">
                     </div>
                     <div class="form-group">
                         <label for="name">Nom</label>
@@ -54,6 +64,13 @@
                                ng-model="ctrl.entity.name"
                                ng-required="true"
                                placeholder="Libellé">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Lettre associée</label>
+                        <input type="text" class="form-control" id="message" name="message"
+                               ng-maxlength="1"
+                               ng-model="ctrl.entity.message"
+                               placeholder="Lettre associée">
                     </div>
                     <div class="form-group">
                         <label for="name">URL liée au QR code</label>
@@ -69,13 +86,13 @@
                                 ng-click="ctrl.cancel()">Annuler</button>
                     </div>
                     <div class="form-group">
-                        Cette catégorie peut contenir {{ctrl.entity.qrcodes.length-2}} QR codes. Le nombre est défini par le nombre nécéssaire pour dessiner le QR code de la catégorie.
+                        Cette catégorie peut contenir {{ctrl.entity.qrcodes.length > 2 ? ctrl.entity.qrcodes.length-2 : 0}} QR codes. Le nombre est défini par le nombre nécéssaire pour dessiner le QR code de la catégorie.
                     </div>
                 </div>
                 <div class="col-sm-4" ng-if="ctrl.entity.id">
                     QR code associé
                     <div>
-                        <img ng-src="api/qrcode/{{ctrl.entity.id}}/cat.min" alt="QR code de la catégorie"/>
+                        <img ng-src="api/qrcode/{{ctrl.entity.id}}/cat.min.svg" alt="QR code de la catégorie"/>
                     </div>
                 </div>
             </div>

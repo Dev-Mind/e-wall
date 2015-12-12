@@ -118,21 +118,21 @@ public class SvgConverterTest {
     }
 
     /**
-     * Test {@link SvgConverter#generateSvg(QRCode, String)}
+     * Test {@link SvgConverter#generateSvg(QRCode, String, String)}
      */
     @Test(expected = NullPointerException.class)
     public void should_not_generate_svg_when_qrcode_is_nul(){
-        svgConverter.generateSvg(null, "black");
+        svgConverter.generateSvg(null, "black", "content");
     }
 
     /**
-     * Test {@link SvgConverter#generateSvg(QRCode, String)}
+     * Test {@link SvgConverter#generateSvg(QRCode, String, String)}
      */
     @Test
     public void should_generate_svg(){
         QRCode qrCode = new QRCode();
         qrCode.setMatrix(new ByteMatrix(4, 2));
-        assertThat(svgConverter.generateSvg(qrCode, "black")).isNotEmpty();
+        assertThat(svgConverter.generateSvg(qrCode, "black", svgConverter.generatePathSvg(qrCode))).isNotEmpty();
     }
 
 

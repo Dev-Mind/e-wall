@@ -63,17 +63,23 @@ public class SvgConverter {
 
 
     /**
+     * Generate the path use to create  SVG file
+     */
+    public String generatePathSvg(QRCode qrCode) {
+        StringBuilder svgContent = new StringBuilder();
+        parseQRCodeMatrix(qrCode).stream().forEach(path -> svgContent.append(path.generate()));
+        return svgContent.toString();
+    }
+
+    /**
      * Transforms a QRCode to a SVG image. The size of the image depends on the version of the QR code and the version depend on the size of
      * the encoded bytes.
      *
      * @param color (black by default if this arg is null)
      * @see <a href="https://en.wikipedia.org/wiki/QR_code#Storage">QRCode Version</a>
      */
-    public String generateSvg(QRCode qrCode, String color) {
+    public String generateSvg(QRCode qrCode, String color, String content) {
         Objects.requireNonNull(qrCode);
-
-        StringBuilder svgContent = new StringBuilder();
-        parseQRCodeMatrix(qrCode).stream().forEach(path -> svgContent.append(path.generate()));
 
         return String.format(
                 "<svg viewBox=\"0 0 %d %d\" xmlns=\"http://www.w3.org/2000/svg\">" +
@@ -82,7 +88,7 @@ public class SvgConverter {
                 qrCode.getMatrix().getWidth(),
                 qrCode.getMatrix().getHeight(),
                 color==null ? "black" : color,
-                svgContent);
+                content);
     }
 
 }

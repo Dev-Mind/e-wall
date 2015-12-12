@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @Api(value = "QrCode", description = "This API helps to load the different QrCode")
@@ -28,8 +29,7 @@ public class QrCodeController {
                         HttpServletResponse response) throws IOException {
 
         response.setContentType("image/svg+xml");
-        response.getOutputStream().write(qrCodeFileService.getQrCode(String.format("/%s/%s.svg", category, name)));
-
+        response.getOutputStream().write(qrCodeFileService.getQrCode(String.format("/%s/%s", category, name)));
     }
 
 }

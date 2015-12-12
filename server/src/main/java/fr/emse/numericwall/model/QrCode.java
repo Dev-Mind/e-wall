@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
@@ -39,6 +40,9 @@ public class QrCode {
     @NotNull
     private String url;
 
+    @Lob
+    private String svgPath;
+
     /**
      * If true the QR Code is linked to the category to navigate to it.
      * If false the QR code is used to paint a big one and we define coordinates x and y axis
@@ -54,6 +58,11 @@ public class QrCode {
      * Y axis value for a QRCode included in a big one
      */
     private int y;
+
+    /**
+     * Dimension depends on the QRCode version
+     */
+    private int dimension;
 
     public Long getId() {
         return id;
@@ -124,6 +133,24 @@ public class QrCode {
 
     public QrCode setY(int y) {
         this.y = y;
+        return this;
+    }
+
+    public String getSvgPath() {
+        return svgPath;
+    }
+
+    public QrCode setSvgPath(String svgPath) {
+        this.svgPath = svgPath;
+        return this;
+    }
+
+    public int getDimension() {
+        return dimension;
+    }
+
+    public QrCode setDimension(int dimension) {
+        this.dimension = dimension;
         return this;
     }
 }

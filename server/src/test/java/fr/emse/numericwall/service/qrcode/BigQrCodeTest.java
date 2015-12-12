@@ -103,7 +103,7 @@ public class BigQrCodeTest {
         String filePath = "/home/ehret_g/tmp/QRTest1.svg";
         String filePath1 = "/home/ehret_g/tmp/QRTest2.svg";
 
-        String svg = svgConverter.generateSvg(targetQRCode, "black");
+        String svg = svgConverter.generateSvg(targetQRCode, "black", svgConverter.generatePathSvg(targetQRCode));
 
         File myFile = new File(filePath);
         File myFile1 = new File(filePath1);
@@ -126,7 +126,7 @@ public class BigQrCodeTest {
         if (!myFile1.exists()) {
             myFile1.createNewFile();
         }
-        outputStream1.write(svgConverter.generateSvg(qrCode, "black").getBytes());
+        outputStream1.write(svgConverter.generateSvg(qrCode, "black", svgConverter.generatePathSvg(qrCode)).getBytes());
         outputStream1.flush();
         outputStream1.close();
     }

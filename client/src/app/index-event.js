@@ -1,63 +1,38 @@
 (function () {
 
   'use strict';
-
-  angular.module('nw').config(function($httpProvider) {
-    $httpProvider.interceptors.push('errorInterceptor', 'spinnerInterceptor');
-  });
-
-  angular.module('nw-structure').factory('errorInterceptor', function ($rootScope, $q) {
-    'ngInject';
-
-    function isFunctionalError(response) {
-      return response.headers && response.headers('Content-Type') &&
-        response.headers('Content-Type').indexOf('application/json') === 0 &&
-        angular.isDefined(response.data.message);
-    }
-
-    return {
-      responseError: function(response){
-        if ((response.status === 401 || response.status === 403) && !response.config.ignoreErrorRedirection) {
-          var deferred = $q.defer();
-          $rootScope.$emit('$nwError', {type : 'RIGHTS'});
-          return deferred.promise;
-        }
-        else if (!isFunctionalError(response)) {
-          $rootScope.$emit('$nwError', response);
-        }
-        return $q.reject(response);
-      }
-    };
-  });
+  /*global componentHandler */
 
   /**
-   * This interceptor is used to display a spinner when a request is executed
+   * Event handlers for errors (internal, security...)
    */
-  angular.module('nw-structure').factory('spinnerInterceptor', function ($rootScope, $q) {
+  angular.module('nw').run(function ($rootScope, $state, $timeout) {
     'ngInject';
 
-    return {
-      request: function(config) {
-        $rootScope.spinner = 'on';
-        return config;
-      },
+    var waitinPopupTimeout;
+    $rootScope.waitingPopup = false;
 
-      requestError: function(rejection) {
-        $rootScope.spinner = 'off';
-        return $q.reject(rejection);
-      },
-
-      response: function(response) {
-        $rootScope.spinner = 'off';
-        return response;
-      },
-
-      responseError: function(rejection) {
-        $rootScope.spinner = 'off';
-        return $q.reject(rejection);
+    $rootScope.wait = function() {
+      if(!waitinPopupTimeout){
+        waitinPopupTimeout = $timeout(function(){
+          //document.location.href='#top';
+          $rootScope.waitingPopup = true;
+        }, 100);
       }
     };
-  });
 
+    $rootScope.stopWaiting = function() {
+      $rootScope.waitingPopup = false;
+      if(waitinPopupTimeout){
+        $timeout.cancel(waitinPopupTimeout);
+      }
+    };
+
+    //Error are catched to redirect user on error page
+    $rootScope.$on('$nwError', function (event, response) {
+      $state.go('nwerror', {error: response});
+    });
+
+  });
 
 })();

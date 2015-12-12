@@ -40,6 +40,11 @@ public class Category {
     @OneToMany(mappedBy = "category")
     List<QrCode> qrcodes = new ArrayList<>();
 
+    @Size(max = 255)
+    @NotNull
+    @JsonView(FlatView.class)
+    private String message;
+
     @org.hibernate.annotations.Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
     private LocalDateTime createdAt = LocalDateTime.now();
 
@@ -85,6 +90,15 @@ public class Category {
 
     public Category setCode(String code) {
         this.code = code;
+        return this;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public Category setMessage(String message) {
+        this.message = message;
         return this;
     }
 }

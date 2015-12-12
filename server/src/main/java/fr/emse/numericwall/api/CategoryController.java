@@ -38,9 +38,9 @@ public class CategoryController {
             @ApiParam(name = "id", required = false, value = "Category Id") @RequestParam(value = "id", required = false) String id,
             @ApiParam(name = "code", required = true, value = "Code to check") @PathVariable(value = "code") String code) {
 
-        Category category = categoryRepository.findByCode("code");
+        Category category = categoryRepository.findByCode(code);
 
-        if (category == null || !category.getId().equals(id)) {
+        if (category==null || (id!=null && category.getId().equals(id))) {
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.status(HttpStatus.CONFLICT).build();
