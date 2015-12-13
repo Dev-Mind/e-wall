@@ -52,6 +52,13 @@
 
             var ratio = dimension/mainQr.dimension;
 
+            ctrl.text = {
+              size : mainQr.dimension/2 * 1.5* ratio + 'px',
+              x:dimension/4,
+              y:dimension - dimension/4,
+              content:response.data.message
+            };
+
             ctrl.qrs.forEach(function(elt){
               elt.x = elt.x*ratio;
               elt.y = elt.y*ratio;

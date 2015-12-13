@@ -21,9 +21,8 @@
       $window.localStorage.setItem('parameters', angular.toJson(ctrl.parameterMap));
     };
 
-    ctrl.cancel = function(){
-      refresh();
-      $state.go('admin');
+    ctrl.default = function(){
+      $window.localStorage.setItem('parameters', angular.toJson(qrCodeParameters));
     };
 
     refresh();

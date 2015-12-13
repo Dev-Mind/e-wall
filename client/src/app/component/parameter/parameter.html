@@ -43,13 +43,29 @@
                    placeholder="Couleur d'arrière plan pour le grand QR code">
         </div>
         <div class="form-group">
+            <label for="qrcode_colour_hover">Couleur focus QR code le grand QR code</label>
+            <input type="text" class="form-control" id="qrcode_colour_hover" name="qrcode_colour_hover"
+                   ng-maxlength="255"
+                   ng-model="ctrl.parameterMap.qrcode_background"
+                   ng-required="true"
+                   placeholder="Couleur focus QR code le grand QR code">
+        </div>
+        <div class="form-group">
+            <label for="qrcode_colour_text">Couleur de la lettre affichée</label>
+            <input type="text" class="form-control" id="qrcode_colour_text" name="qrcode_colour_text"
+                   ng-maxlength="255"
+                   ng-model="ctrl.parameterMap.qrcode_colour_text"
+                   ng-required="true"
+                   placeholder="Couleur de la lettre affichée">
+        </div>
+        <div class="form-group">
             <button type="button"
                     ng-disabled="(!frm.$pristine && frm.$invalid)"
                     class="btn btn-primary"
                     ng-click="ctrl.save()"><i class="glyphicon glyphicon-save"></i> Enregistrer
             </button>
             <button type="button" class="btn btn-default"
-                    ng-click="ctrl.cancel()">Annuler
+                    ng-click="ctrl.default()">Valeur par défaut
             </button>
         </div>
 

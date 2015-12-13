@@ -9,8 +9,20 @@
 <div class="container-fluid text-center" ng-if="ctrl.qrs">
 
     <svg class="bigqrcode">
+        <style type="text/css" >
+            path:hover {
+                stroke : {{ctrl.parameterMap.qrcode_colour_hover}};
+            }
+            text{
+                fill: {{ctrl.parameterMap.qrcode_colour_text}};
+                font-size: {{ctrl.text.size}};
+            }
+        </style>
+
         <g>
-            <svg ng-repeat-start="qr in ctrl.qrs"
+
+
+            <svg ng-repeat="qr in ctrl.qrs"
                  ng-attr-width="{{qr.scaleDimension}}"
                  ng-attr-height="{{qr.scaleDimension}}"
                  ng-attr-x="{{qr.x}}"
@@ -22,13 +34,15 @@
                 </rect>
 
             </svg>
-            <svg ng-repeat-end="qr in ctrl.qrs"
+
+            <text  fill-opacity="0.8" ng-attr-x="{{ctrl.text.x}}" ng-attr-y="{{ctrl.text.y}}">{{ctrl.text.content}}</text>
+
+            <svg ng-repeat="qr in ctrl.qrs"
                  ng-attr-viewBox="0 0 {{qr.scaleDimension}} {{qr.scaleDimension}}"
                  ng-attr-width="{{qr.scaleDimension}}"
                  ng-attr-height="{{qr.scaleDimension}}"
                  ng-attr-x="{{qr.x}}"
-                 ng-attr-y="{{qr.y}}"
-                 >
+                 ng-attr-y="{{qr.y}}">
 
                 <path ng-attr-stroke="{{ctrl.parameterMap.qrcode_foreground}}"
                       ng-attr-transform="scale({{qr.scaleRatio}})"
@@ -37,6 +51,7 @@
                       ng-attr-d="{{qr.svgPath}}">
                 </path>
             </svg>
+
         </g>
     </svg>
 
