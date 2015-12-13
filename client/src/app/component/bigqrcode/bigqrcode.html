@@ -1,31 +1,42 @@
 <div class="container">
     <div class="qr-category__container">
         <div ng-repeat="category in ctrl.categories">
-            <button class="qr-category__link btn" ng-click="ctrl.selectCategory()">{{category.message}}</button>
+            <button class="qr-category__link btn" ng-click="ctrl.selectCategory(category.id)">{{category.message}}</button>
         </div>
     </div>
 </div>
 
-<div class="container-fluid">
-    <h1>BigQRcode page</h1>
-    <p>Pour le moment cette page est en construction</p>
+<div class="container-fluid" ng-if="ctrl.qrs">
 
-    <!--<svg id="sir" height="1000" width="1000"-->
-         <!--xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="stroke:red">-->
-        <!--<image x="0" y="0" height="1000" stroke="#cccccc" width="1000" xlink:href="api/qrcode/14/cat.min" style="stroke:red"/>-->
-        <!--<image x="0" y="0" height="1000" width="1000" xlink:href="api/qrcode/14/cat.max" style="stroke:red"/>-->
-    <!--</svg>-->
-
-    <svg ng-if="ctrl.svg.svgPath" height="1000" width="1000">
+    <svg style="height:100%;width:100%;border: 1px solid black" class="bigqrcode">
         <g>
-            <!--<svg viewBox="0 0 29 29" >-->
-                <!--<path stroke="#777777" d="{{ctrl.svg.svgPath}}"></path>-->
-            <!--</svg>-->
-            <svg ng-repeat-start="qr in ctrl.qrs" viewBox="0 0 29 29" width="29" height="29" x="{{qr.x}}" y="{{qr.y}}">
-                <rect fill="red" width="29" height="29"></rect>
+            <svg ng-repeat-start="qr in ctrl.qrs"
+                 ng-attr-width="{{qr.scaleDimension}}"
+                 ng-attr-height="{{qr.scaleDimension}}"
+                 ng-attr-x="{{qr.x}}"
+                 ng-attr-y="{{qr.y}}">
+
+                <rect fill="red"
+                      ng-attr-width="{{qr.scaleDimension}}"
+                      ng-attr-height="{{qr.scaleDimension}}"
+                      stroke="blue">
+                </rect>
+
             </svg>
-            <svg ng-repeat-end="qr in ctrl.qrs" viewBox="0 0 29 29" width="29" height="29" x="{{qr.x}}" y="{{qr.y}}">
-                <path stroke="#000000" d="{{qr.svgPath}}"></path>
+            <svg ng-repeat-end="qr in ctrl.qrs"
+                 ng-attr-viewBox="0 0 {{qr.scaleDimension}} {{qr.scaleDimension}}"
+                 ng-attr-width="{{qr.scaleDimension}}"
+                 ng-attr-height="{{qr.scaleDimension}}"
+                 ng-attr-x="{{qr.x}}"
+                 ng-attr-y="{{qr.y}}"
+                 >
+
+                <path stroke="#000000"
+                      ng-attr-transform="scale({{qr.scaleRatio}})"
+                      ng-attr-width="{{qr.scaleDimension}}"
+                      ng-attr-height="{{qr.scaleDimension}}"
+                      ng-attr-d="{{qr.svgPath}}">
+                </path>
             </svg>
         </g>
     </svg>
