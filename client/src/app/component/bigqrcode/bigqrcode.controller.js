@@ -2,10 +2,19 @@
 
   'use strict';
 
-  angular.module('nw-admin').controller('BigQRCodeCtrl', function ($http, $timeout) {
+  angular.module('nw-admin').controller('BigQRCodeCtrl', function ($http, $timeout, $window, qrCodeParameters) {
     'ngInject';
 
     var ctrl = this;
+
+    //We read the user preference
+    var json = $window.localStorage.getItem('parameters');
+    if(!json){
+      ctrl.parameterMap = qrCodeParameters;
+    }
+    else{
+      ctrl.parameterMap = angular.fromJson(json);
+    }
 
     function refresh(){
       $http

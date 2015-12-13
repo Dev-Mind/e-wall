@@ -16,10 +16,9 @@
                  ng-attr-x="{{qr.x}}"
                  ng-attr-y="{{qr.y}}">
 
-                <rect fill="red"
+                <rect ng-attr-fill="{{ctrl.parameterMap.qrcode_background}}"
                       ng-attr-width="{{qr.scaleDimension}}"
-                      ng-attr-height="{{qr.scaleDimension}}"
-                      stroke="blue">
+                      ng-attr-height="{{qr.scaleDimension}}">
                 </rect>
 
             </svg>
@@ -31,7 +30,7 @@
                  ng-attr-y="{{qr.y}}"
                  >
 
-                <path stroke="#000000"
+                <path ng-attr-stroke="{{ctrl.parameterMap.qrcode_foreground}}"
                       ng-attr-transform="scale({{qr.scaleRatio}})"
                       ng-attr-width="{{qr.scaleDimension}}"
                       ng-attr-height="{{qr.scaleDimension}}"

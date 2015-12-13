@@ -23,6 +23,14 @@
       $rootScope.numericwall = response.data;
     });
   });
+
+
+  angular.module('nw').constant('qrCodeParameters', {
+    qrcode_margin: 6,
+    qrcode_foreground: '#000000',
+    qrcode_background: '#ffffff'
+  });
+
 })();
 
 

@@ -1,0 +1,59 @@
+<div class="container">
+
+    <h1><i class="glyphicon glyphicon-cog"></i> Paramètres</h1>
+
+    <ol class="breadcrumb">
+        <li><a href="home">Accueil</a></li>
+        <li><a href="admin">Administration</a></li>
+        <li class="active">Paramètres</li>
+    </ol>
+
+
+
+    <p class="nw-text">Vous pouvez personnaliser certains paramètres d'affichage. Ces paramètres sont propres à votre
+        navigateur.
+        Les autres utilisateurs ne sont pas impactés par vos changements. Si vous changez de navigateur Intenet ces
+        paramètres ne
+        seront pas pris en compte</p>
+
+    <form novalidate name="frm">
+
+        <div class="form-group">
+            <label for="qrcode_margin">Marge utilisée dans le grand QR code</label>
+            <input type="text" class="form-control" id="qrcode_margin" name="qrcode_margin"
+                   ng-maxlength="3"
+                   ng-model="ctrl.parameterMap.qrcode_margin"
+                   ng-required="true"
+                   placeholder="Marge utilisée dans le grand QR code">
+        </div>
+        <div class="form-group">
+            <label for="qrcode_foreground">Couleur de premmier plan pour le grand QR code</label>
+            <input type="text" class="form-control" id="qrcode_foreground" name="qrcode_foreground"
+                   ng-maxlength="255"
+                   ng-model="ctrl.parameterMap.qrcode_foreground"
+                   ng-required="true"
+                   placeholder="Couleur de premmier plan pour le grand QR code">
+        </div>
+        <div class="form-group">
+            <label for="qrcode_background">Couleur d'arrière plan pour le grand QR code</label>
+            <input type="text" class="form-control" id="qrcode_background" name="qrcode_background"
+                   ng-maxlength="255"
+                   ng-model="ctrl.parameterMap.qrcode_background"
+                   ng-required="true"
+                   placeholder="Couleur d'arrière plan pour le grand QR code">
+        </div>
+        <div class="form-group">
+            <button type="button"
+                    ng-disabled="(!frm.$pristine && frm.$invalid)"
+                    class="btn btn-primary"
+                    ng-click="ctrl.save()"><i class="glyphicon glyphicon-save"></i> Enregistrer
+            </button>
+            <button type="button" class="btn btn-default"
+                    ng-click="ctrl.cancel()">Annuler
+            </button>
+        </div>
+
+    </form>
+
+    <p>&nbsp;</p>
+</div>

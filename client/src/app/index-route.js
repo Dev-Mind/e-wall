@@ -19,6 +19,7 @@
       .state('public', new State('public', 'component/public/public.html').build())
       .state('monitor', new State('monitor', 'component/monitoring/monitoring.html').controller('MonitoringCtrl').build())
       .state('category', new State('category', 'component/category/category.html').controller('CategoryCtrl').build())
+      .state('parameter', new State('parameter', 'component/parameter/parameter.html').controller('ParameterCtrl').build())
       .state('nwerror', new State('nwerror/{type}', 'component/error/error.html')
         .params({
           error: {}
