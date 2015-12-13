@@ -42,13 +42,19 @@
 
           $timeout(function(){
             var svg = document.querySelector('.bigqrcode');
-            var dimension = svg.clientHeight>svg.clientWidth ? svg.clientWidth : svg.clientHeight;
 
-            var ratio = dimension/(mainQr.dimension+4);
+            //The svg dimension is computed with the window size
+            var h  = (window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight)*0.8;
+            var w  = (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth)*0.8;
+            var dimension = h > w ? w : h;
+            svg.style.height = dimension;
+            svg.style.width = dimension;
+
+            var ratio = dimension/mainQr.dimension;
 
             ctrl.qrs.forEach(function(elt){
-              elt.x = elt.x*ratio+6;
-              elt.y = elt.y*ratio+6;
+              elt.x = elt.x*ratio;
+              elt.y = elt.y*ratio;
               elt.scaleDimension = ratio;
               elt.scaleRatio = ratio/elt.dimension;
             });

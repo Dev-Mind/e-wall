@@ -6,9 +6,9 @@
     </div>
 </div>
 
-<div class="container-fluid" ng-if="ctrl.qrs">
+<div class="container-fluid text-center" ng-if="ctrl.qrs">
 
-    <svg style="height:100%;width:100%;border: 1px solid black" class="bigqrcode">
+    <svg class="bigqrcode">
         <g>
             <svg ng-repeat-start="qr in ctrl.qrs"
                  ng-attr-width="{{qr.scaleDimension}}"
@@ -16,7 +16,7 @@
                  ng-attr-x="{{qr.x}}"
                  ng-attr-y="{{qr.y}}">
 
-                <rect ng-attr-fill="{{ctrl.parameterMap.qrcode_background}}"
+                <rect fill="{{ctrl.parameterMap.qrcode_background}}"
                       ng-attr-width="{{qr.scaleDimension}}"
                       ng-attr-height="{{qr.scaleDimension}}">
                 </rect>
