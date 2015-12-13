@@ -74,13 +74,13 @@ module.exports = function(gulp, config) {
       .pipe(gulp.dest(paths.build.dist + '/css'));
   });
   gulp.task('build:dist:css', ['build:dev:css'], function(){
-    return gulp.src(paths.build.dev + '/css/main.css')
+    return gulp.src(paths.build.dev + '/css/index.css')
       .pipe(csso())
       .pipe(rename('cesar-' + timestamp + '.min.css'))
       .pipe(gulp.dest(paths.build.dist + '/css'));
   });
   gulp.task('build:dist:js', ['build:dev:js'], function(){
-    return gulp.src(paths.build.dev + '/js/app.js')
+    return gulp.src(paths.build.dev + '/js/index.js')
       .pipe(rename('cesar-' + timestamp + '.min.js'))
       .pipe(uglify({output: { 'ascii_only': true }}))   // preserve ascii unicode characters such as \u226E
       .pipe(gulp.dest(paths.build.dist + '/js'));
