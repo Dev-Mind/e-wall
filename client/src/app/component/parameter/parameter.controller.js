@@ -18,7 +18,6 @@
     }
 
     ctrl.save = function(){
-      console.log(ctrl.parameterMap)
       $window.localStorage.setItem('parameters', angular.toJson(ctrl.parameterMap));
     };
 

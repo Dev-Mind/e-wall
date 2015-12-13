@@ -22,7 +22,7 @@
         .then(function(response){
           ctrl.categories = response.data;
           if(ctrl.categories && ctrl.categories.length>0){
-            ctrl.selectCategory(ctrl.categories[0].id)
+            ctrl.selectCategory(ctrl.categories[0].id);
           }
         });
     }
@@ -44,8 +44,8 @@
             var svg = document.querySelector('.bigqrcode');
 
             //The svg dimension is computed with the window size
-            var h  = (window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight)*0.8;
-            var w  = (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth)*0.8;
+            var h  = (window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight)*0.83;
+            var w  = (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth)*0.83;
             var dimension = h > w ? w : h;
             svg.style.height = dimension;
             svg.style.width = dimension;
@@ -62,8 +62,6 @@
 
         });
     };
-    //ctrl.refresh = function(){
-
 
     refresh();
   });

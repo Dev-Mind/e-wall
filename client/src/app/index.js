@@ -27,8 +27,8 @@
 
   angular.module('nw').constant('qrCodeParameters', {
     qrcode_margin: 6,
-    qrcode_foreground: '#000000',
-    qrcode_background: '#ffffff'
+    qrcode_foreground: '#3a3a3a',
+    qrcode_background: '#B0BEC5'
   });
 
 })();
