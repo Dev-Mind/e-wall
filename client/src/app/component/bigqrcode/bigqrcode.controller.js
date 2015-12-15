@@ -50,7 +50,7 @@
             svg.style.height = dimension;
             svg.style.width = dimension;
 
-            var ratio = dimension/mainQr.dimension;
+            var ratio = dimension/(mainQr.dimension + ctrl.parameterMap.qrcode_margin);
 
             ctrl.text = {
               size : mainQr.dimension/2 * 1.5* ratio + 'px',
@@ -60,10 +60,11 @@
             };
 
             ctrl.qrs.forEach(function(elt){
-              elt.x = elt.x*ratio;
-              elt.y = elt.y*ratio;
+              elt.x = elt.x*ratio + elt.x*ctrl.parameterMap.qrcode_margin;
+              elt.y = elt.y*ratio + elt.y*ctrl.parameterMap.qrcode_margin;
               elt.scaleDimension = ratio;
-              elt.scaleRatio = ratio/elt.dimension;
+              elt.scaleRatio = ratio/(elt.dimension);
+              //ctrl.parameterMap.qrcode_margin * mainQr.dimension
             });
           });
 

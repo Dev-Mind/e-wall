@@ -26,7 +26,7 @@
 
 
   angular.module('nw').constant('qrCodeParameters', {
-    qrcode_margin: 6,
+    qrcode_margin: 0,
     qrcode_foreground: '#3A3A3A',
     qrcode_background: '#B0BEC5',
     qrcode_colour_hover: '#2196f3',
