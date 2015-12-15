@@ -16,6 +16,7 @@ public class Routes {
             "/home",
             "/nwerror/{type:\\w+}",
             "/monitor",
+            "/parameter",
             "/public"
     })
     public String index() {
