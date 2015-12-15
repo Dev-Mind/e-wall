@@ -23,6 +23,7 @@
 
     ctrl.default = function(){
       $window.localStorage.setItem('parameters', angular.toJson(qrCodeParameters));
+      refresh();
     };
 
     refresh();
