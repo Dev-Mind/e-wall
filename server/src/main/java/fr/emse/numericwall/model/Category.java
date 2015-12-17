@@ -32,7 +32,7 @@ public class Category {
     @JsonView(FlatView.class)
     private String name;
 
-    @Size(max = 3)
+    @Size(max = 10)
     @NotNull
     @JsonView(FlatView.class)
     private String code;
