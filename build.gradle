@@ -112,6 +112,7 @@ configure([project(':server')]) {
         compile "org.scribe:scribe:1.3.5"
         compile "com.google.zxing:javase:3.2.1"
         compile "de.matrixweb.smaller:svgo:0.8.8"
+        compile "org.jasig.cas.client:cas-client-core:3.4.1"
 
         testCompile "junit:junit:${vJunit}"
         testCompile "pl.pragmatists:JUnitParams:${vJUnitParams}"

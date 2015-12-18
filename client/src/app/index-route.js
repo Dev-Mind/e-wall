@@ -20,7 +20,6 @@
       .state('monitor', new State('monitor', 'component/monitoring/monitoring.html').controller('MonitoringCtrl').build())
       .state('parameter', new State('parameter', 'component/parameter/parameter.html').controller('ParameterCtrl').build())
       .state('production', new State('production', 'component/production/production.html').controller('ProductionCtrl').build())
-      .state('public', new State('public', 'component/public/public.html').build())
       .state('nwerror', new State('nwerror/{type}', 'component/error/error.html')
         .params({
           error: {}
