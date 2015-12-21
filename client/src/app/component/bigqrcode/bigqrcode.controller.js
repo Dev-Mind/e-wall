@@ -18,7 +18,7 @@
 
     function refresh(){
       $http
-        .get('/api/category')
+        .get('/api/public/category')
         .then(function(response){
           ctrl.categories = response.data;
           if(ctrl.categories && ctrl.categories.length>0){
@@ -28,7 +28,7 @@
     }
 
     ctrl.selectCategory = function(id){
-      $http.get('/api/category/' + id)
+      $http.get('/api/public/category/' + id)
         .then(function (response) {
           ctrl.qrs = response.data.qrcodes
             .filter(function(elt){

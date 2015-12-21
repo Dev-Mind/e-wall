@@ -1,4 +1,4 @@
-package fr.emse.ewall.api;
+package fr.emse.ewall.api.free;
 
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Api(value = "QrCode", description = "This API helps to load the different QrCode")
 @RestController
-@RequestMapping("/api/qrcode")
+@RequestMapping("/api/public/qrcode")
 public class QrCodeController {
 
     @Autowired
@@ -31,4 +31,4 @@ public class QrCodeController {
         response.getOutputStream().write(qrCodeFileService.getQrCode(String.format("/%s/%s", category, name)));
     }
 
-}
+}   

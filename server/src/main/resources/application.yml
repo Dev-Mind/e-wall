@@ -41,6 +41,13 @@ spring:
           enabled: true
           paths: /**
 
+cas:
+  server-url-prefix: https://cas.emse.fr
+  server-login-url: https://cas.emse.fr/login
+  client-host-url: http://localhost:8080/api/test
+  redirectAfterValidation: true
+  authenticationUrlPatterns: /api/secured/*, /monitoring/*
+
 management:
   context-path: /monitoring
 

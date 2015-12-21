@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  angular.module('ew').config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
+  angular.module('ew').config(function ($stateProvider, $urlRouterProvider, $locationProvider, USER_ROLES) {
     'ngInject';
 
     $locationProvider.html5Mode({
@@ -13,14 +13,14 @@
 
     //Router definition
     $stateProvider
-      .state('admin', new State('admin', 'component/admin/admin.html').build())
-      .state('bigqrcode', new State('bigqrcode', 'component/bigqrcode/bigqrcode.html').controller('BigQRCodeCtrl').build())
-      .state('category', new State('category', 'component/category/category.html').controller('CategoryCtrl').build())
-      .state('home', new State('home', 'component/main/main.html').controller('MainCtrl').build())
-      .state('monitor', new State('monitor', 'component/monitoring/monitoring.html').controller('MonitoringCtrl').build())
-      .state('parameter', new State('parameter', 'component/parameter/parameter.html').controller('ParameterCtrl').build())
-      .state('production', new State('production', 'component/production/production.html').controller('ProductionCtrl').build())
-      .state('ewerror', new State('ewerror/{type}', 'component/error/error.html')
+      .state('admin', new State(USER_ROLES, 'admin', 'component/admin/admin.html').roles([USER_ROLES.admin, USER_ROLES.writer]).build())
+      .state('bigqrcode', new State(USER_ROLES, 'bigqrcode', 'component/bigqrcode/bigqrcode.html').controller('BigQRCodeCtrl').build())
+      .state('category', new State(USER_ROLES, 'category', 'component/category/category.html').roles([USER_ROLES.admin]).controller('CategoryCtrl').build())
+      .state('home', new State(USER_ROLES, 'home', 'component/main/main.html').build())
+      .state('monitor', new State(USER_ROLES, 'monitor', 'component/monitoring/monitoring.html').roles([USER_ROLES.admin]).controller('MonitoringCtrl').build())
+      .state('parameter', new State(USER_ROLES, 'parameter', 'component/parameter/parameter.html').roles([USER_ROLES.admin]).controller('ParameterCtrl').build())
+      .state('production', new State(USER_ROLES, 'production', 'component/production/production.html').roles([USER_ROLES.admin, USER_ROLES.writer]).controller('ProductionCtrl').build())
+      .state('ewerror', new State(USER_ROLES, 'ewerror/{type}', 'component/error/error.html')
         .params({
           error: {}
         })
@@ -35,7 +35,7 @@
   });
 
   //Create an object to use a fluent API to define routes
-  function State(url, view) {
+  function State(USER_ROLES, url, view) {
     this.state = {
       url: '/' + url,
       templateUrl: view

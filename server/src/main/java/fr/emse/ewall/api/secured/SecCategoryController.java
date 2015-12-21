@@ -1,8 +1,6 @@
-package fr.emse.ewall.api;
+package fr.emse.ewall.api.secured;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import fr.emse.ewall.model.Category;
-import fr.emse.ewall.model.FlatView;
 import fr.emse.ewall.repository.CategoryRepository;
 import fr.emse.ewall.service.category.CategoryService;
 import io.swagger.annotations.Api;
@@ -21,8 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(value = "Category", description = "Texts can be linked to a category. We have one big QR code by category compounded by several " +
         "smaller QR codes. Each small QR code is a link to a text")
 @RestController
-@RequestMapping("/api/category")
-public class CategoryController {
+@RequestMapping("/api/secured/category")
+public class SecCategoryController {
 
     @Autowired
     private CategoryRepository categoryRepository;
@@ -38,25 +36,11 @@ public class CategoryController {
 
         Category category = categoryRepository.findByCode(code);
 
-        if (category==null || (id!=null && category.getId().equals(id))) {
+        if (category == null || (id != null && category.getId().equals(id))) {
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.status(HttpStatus.CONFLICT).build();
 
-    }
-
-    @RequestMapping
-    @ApiOperation(value = "Return all the categories", httpMethod = "GET")
-    @JsonView(FlatView.class)
-    public Iterable<Category> findAll() {
-        return categoryRepository.findAll();
-    }
-
-
-    @RequestMapping(value = "/{id}")
-    @ApiOperation(value = "Return one category", httpMethod = "GET")
-    public Category findOne(@ApiParam(name = "id", value = "Category Id") @PathVariable(value = "id") Long id) {
-        return categoryRepository.findOne(id);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
