@@ -2,7 +2,7 @@
 
   'use strict';
 
-  angular.module('nw-admin').controller('CategoryCtrl', function ($http) {
+  angular.module('ew-admin').controller('CategoryCtrl', function ($http) {
     'ngInject';
 
     var ctrl = this;

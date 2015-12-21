@@ -77,7 +77,7 @@ module.exports = function(gulp, config) {
 
     var tpl = gulp.src(paths.templates)
       .pipe(html2js({
-        moduleName: 'nw-templates',
+        moduleName: 'ew-templates',
         prefix: 'component/'
       }));
 

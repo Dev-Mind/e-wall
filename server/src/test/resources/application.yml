@@ -4,4 +4,4 @@ spring:
       ddl-auto:create
       naming_strategy: org.hibernate.cfg.EJB3NamingStrategy
   datasource:
-    url: jdbc:h2:file:build/numericWallTest;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:file:build/ewallTest;DB_CLOSE_ON_EXIT=FALSE

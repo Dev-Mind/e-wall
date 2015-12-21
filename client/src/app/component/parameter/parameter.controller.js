@@ -2,7 +2,7 @@
 
   'use strict';
 
-  angular.module('nw-admin').controller('ParameterCtrl', function ($window, $state, qrCodeParameters) {
+  angular.module('ew-admin').controller('ParameterCtrl', function ($window, $state, qrCodeParameters) {
     'ngInject';
 
     var ctrl = this;

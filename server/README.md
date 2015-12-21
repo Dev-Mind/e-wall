@@ -1,13 +1,13 @@
-# Numeric-wall backend
+# e-Wall backend
 
-Numeric-wall backend is a Spring Boot application. We use [Gradle](https://gradle.org/) to build the archive
+E-Wall backend is a Spring Boot application. We use [Gradle](https://gradle.org/) to build the archive
 
 
 ## Develop UI
 
 To launch the webapp you can use `../gradlew bootRun`
 
-## Hack numeric-wall
+## Hack e-wall
 
 If you want to know the API go to this URL
 

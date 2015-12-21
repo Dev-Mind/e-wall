@@ -49,7 +49,7 @@ module.exports = function(config) {
     ngHtml2JsPreprocessor: {
       //The last / is important 
       stripPrefix: 'src/app/',
-      moduleName: 'nw-templates'
+      moduleName: 'ew-templates'
     },
 
     // test results reporter to use

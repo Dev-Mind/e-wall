@@ -2,30 +2,30 @@
 
   'use strict';
 
-  angular.module('nw-structure', ['ui.router', 'nw-templates']);
-  angular.module('nw-admin', ['nw-templates']);
-  angular.module('nw-qrcode', ['nw-templates']);
+  angular.module('ew-structure', ['ui.router', 'ew-templates']);
+  angular.module('ew-admin', ['ew-templates']);
+  angular.module('ew-qrcode', ['ew-templates']);
 
-  angular.module('nw', [
+  angular.module('ew', [
     'ui.router',
     'ui.bootstrap',
     'ngSanitize',
-    'nw-structure',
-    'nw-admin',
-    'nw-qrcode'
+    'ew-structure',
+    'ew-admin',
+    'ew-qrcode'
    ]);
 
   /**
    * On startup we read info on application
    */
-  angular.module('nw').run(function($http, $rootScope) {
+  angular.module('ew').run(function($http, $rootScope) {
     $http.get('/api/about').then(function(response){
-      $rootScope.numericwall = response.data;
+      $rootScope.ewall = response.data;
     });
   });
 
 
-  angular.module('nw').constant('qrCodeParameters', {
+  angular.module('ew').constant('qrCodeParameters', {
     qrcode_margin: 0,
     qrcode_foreground: '#3A3A3A',
     qrcode_background: '#B0BEC5',

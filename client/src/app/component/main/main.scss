@@ -1,8 +1,8 @@
 @import '../../common';
 
 
-.nw-headline{
-  @include nw-shadow();
+.ew-headline{
+  @include ew-shadow();
   background-color: $color-primary;
 
   img {
@@ -16,17 +16,17 @@
   }
 }
 
-.nw-menu{
+.ew-menu{
   padding: 2em;
   text-align: center;
   max-width: 2000px;
 
   a:hover{
     background-color: $color-primary-light;
-    @include nw-shadow();
+    @include ew-shadow();
   }
 
-  .nw-menu__link{
+  .ew-menu__link{
     background-color: $color-primary;
     border-radius: 50%;
     width:140px;
@@ -42,7 +42,7 @@
 
   @media (max-width: 768px){
     padding: 1em 0em 1em 0em;
-    .nw-menu__link{
+    .ew-menu__link{
       width:100px;
       height:100px;
       i{

@@ -2,11 +2,11 @@
 
   'use strict';
 
-  angular.module('nw').config(function($httpProvider) {
+  angular.module('ew').config(function($httpProvider) {
     $httpProvider.interceptors.push('errorInterceptor', 'spinnerInterceptor');
   });
 
-  angular.module('nw-structure').factory('errorInterceptor', function ($rootScope, $q) {
+  angular.module('ew-structure').factory('errorInterceptor', function ($rootScope, $q) {
     'ngInject';
 
     function isFunctionalError(response) {
@@ -19,11 +19,11 @@
       responseError: function(response){
         if ((response.status === 401 || response.status === 403) && !response.config.ignoreErrorRedirection) {
           var deferred = $q.defer();
-          $rootScope.$emit('$nwError', {type : 'RIGHTS'});
+          $rootScope.$emit('$ewError', {type : 'RIGHTS'});
           return deferred.promise;
         }
         else if (!isFunctionalError(response) && !response.config.ignoreErrorRedirection) {
-          $rootScope.$emit('$nwError', response);
+          $rootScope.$emit('$ewError', response);
         }
         return $q.reject(response);
       }
@@ -33,7 +33,7 @@
   /**
    * This interceptor is used to display a spinner when a request is executed
    */
-  angular.module('nw-structure').factory('spinnerInterceptor', function ($rootScope, $q) {
+  angular.module('ew-structure').factory('spinnerInterceptor', function ($rootScope, $q) {
     'ngInject';
 
     return {

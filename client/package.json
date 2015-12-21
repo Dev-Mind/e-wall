@@ -1,12 +1,12 @@
 {
-  "name": "numeric-wall",
-  "description": "Node.js packages for numeric-wall",
+  "name": "e-wall",
+  "description": "Node.js packages for e-wall",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Dev-Mind/numeric-wall.git"
+    "url": "https://github.com/Dev-Mind/e-wall.git"
   },
   "bugs": {
-    "url": "https://github.com/Dev-Mind/numeric-wall/issues"
+    "url": "https://github.com/Dev-Mind/e-wall/issues"
   },
   "dependencies": {
     "angular": "1.4.7",
