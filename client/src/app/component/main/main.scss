@@ -16,6 +16,15 @@
   }
 }
 
+.ew-headline-emse{
+  @media (max-width: 768px){
+    img {
+      max-width: 170px;
+      padding: 1em 0em 1em 0em;
+    }
+  }
+}
+
 .ew-menu{
   padding: 2em;
   text-align: center;
