@@ -39,7 +39,7 @@ public class SvgConverter {
                 Point startedPoint = Point.create(x, y);
 
                 if (qrcode.getMatrix().get(x, y)==1) {
-                    //If we are on the last cell we create a recangle with a size of 1
+                    //If we are on the last cell we create a path
                     if(x + 1 == qrcode.getMatrix().getWidth()){
                         paths.add(SvgPath.create(startedPoint, 1));
                     }
