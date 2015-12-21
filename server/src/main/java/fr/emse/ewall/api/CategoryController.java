@@ -33,7 +33,7 @@ public class CategoryController {
     @RequestMapping(value = "/check/{code}")
     @ApiOperation(value = "Check if code is used by another category", httpMethod = "GET")
     public ResponseEntity<Void> checkCode(
-            @ApiParam(name = "id", required = false, value = "Category Id") @RequestParam(value = "id", required = false) String id,
+            @ApiParam(name = "id", required = false, value = "Category Id") @RequestParam(value = "id", required = false) Long id,
             @ApiParam(name = "code", required = true, value = "Code to check") @PathVariable(value = "code") String code) {
 
         Category category = categoryRepository.findByCode(code);

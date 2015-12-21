@@ -10,7 +10,7 @@
       require: 'ngModel',
       restrict: 'A',
       scope: {
-        id: '='
+        idCategory: '='
       },
       link: function (scope, element, attributes, ngModelController) {
 
@@ -22,7 +22,7 @@
           }
           else {
             // Lookup user by username
-            $http.get('/api/category/check/' + viewValue + (scope.id ? '?id=' + scope.id : ''), {ignoreErrorRedirection: 'ignoreErrorRedirection'})
+            $http.get('/api/category/check/' + viewValue + (scope.idCategory ? '?id=' + scope.idCategory : ''), {ignoreErrorRedirection: 'ignoreErrorRedirection'})
               .then(function (response) {
                 //if code is not used it's OK
                 deferred.resolve(true);
