@@ -1,6 +1,6 @@
 "use strict";
 
-describe('Directive login', function () {
+describe('Directive uniqueCategoryCode', function () {
 
   var $compile, $scope, $httpBackend, element, frm;
 
@@ -15,7 +15,7 @@ describe('Directive login', function () {
       id: 1
     };
 
-    element = $compile('<form name="frm"><input type="text" ng-required="true" name="code" unique-category-code id="credentials.id" ng-model="credentials.code"/></form>')($scope);
+    element = $compile('<form name="frm"><input type="text" ng-required="true" name="code" unique-category-code id-category="credentials.id" ng-model="credentials.code"/></form>')($scope);
 
     $scope.$digest();
     frm = $scope.frm;
