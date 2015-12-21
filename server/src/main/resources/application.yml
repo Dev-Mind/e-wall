@@ -1,6 +1,6 @@
 project:
-  artifactId: numeric-wall
-  name: Numeric-Wall
+  artifactId: e-wall
+  name: e-Wall
   description: Application used by EMSE
 
 info:
@@ -11,21 +11,22 @@ info:
   app:
     name: ${project.name}
 
-numericwall:
+ewall:
   baseurl: ${EMSE_NW_BASEURL:http://localhost:8080}
   qrcode:
     path: ${EMSE_NW_QRCODE_PATH:/tmp}
     url: ${EMSE_NW_QRCODE_PREFIX_URL:http://www.emse.fr/nw}
     margin: 6
+    locked: true
 ldap:
   todefine: url
 
 spring:
   datasource:
     driver-class-name: ${EMSE_NW_DATABASE_DRIVER:com.mysql.jdbc.Driver}
-    url: jdbc:mysql://${EMSE_NW_DATABASE_HOST:localhost}:${EMSE_NW_DATABASE_PORT:3306}/${EMSE_NW_DATABASE_SCHEMA:numericwall}
-    username: ${EMSE_NW_DATABASE_USERNAME:numericwall}
-    password: ${EMSE_NW_DATABASE_PASSWORD:numericwall}
+    url: jdbc:mysql://${EMSE_NW_DATABASE_HOST:localhost}:${EMSE_NW_DATABASE_PORT:3306}/${EMSE_NW_DATABASE_SCHEMA:ewall}
+    username: ${EMSE_NW_DATABASE_USERNAME:ewall}
+    password: ${EMSE_NW_DATABASE_PASSWORD:ewall}
     max-wait: 10
   jpa :
     ddl-auto : validate

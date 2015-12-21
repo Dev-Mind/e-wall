@@ -6,7 +6,7 @@
   /**
    * Event handlers for errors (internal, security...)
    */
-  angular.module('nw').run(function ($rootScope, $state, $timeout) {
+  angular.module('ew').run(function ($rootScope, $state, $timeout) {
     'ngInject';
 
     var waitinPopupTimeout;
@@ -29,8 +29,8 @@
     };
 
     //Error are catched to redirect user on error page
-    $rootScope.$on('$nwError', function (event, response) {
-      $state.go('nwerror', {error: response});
+    $rootScope.$on('$ewError', function (event, response) {
+      $state.go('ewerror', {error: response});
     });
 
   });

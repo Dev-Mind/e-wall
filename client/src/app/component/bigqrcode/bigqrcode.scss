@@ -8,7 +8,7 @@
 
   button:hover{
     background-color: $color-primary-light;
-    @include nw-shadow();
+    @include ew-shadow();
   }
 
   .qr-category__link{

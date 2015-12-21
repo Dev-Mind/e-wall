@@ -5,7 +5,7 @@
   /**
    * member is resolved in app.js
    */
-  angular.module('nw-structure').controller('MainCtrl', function () {
+  angular.module('ew-structure').controller('MainCtrl', function () {
     'ngInject';
 
     var ctrl = this;

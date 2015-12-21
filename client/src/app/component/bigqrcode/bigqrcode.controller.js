@@ -2,7 +2,7 @@
 
   'use strict';
 
-  angular.module('nw-admin').controller('BigQRCodeCtrl', function ($http, $timeout, $window, qrCodeParameters) {
+  angular.module('ew-admin').controller('BigQRCodeCtrl', function ($http, $timeout, $window, qrCodeParameters) {
     'ngInject';
 
     var ctrl = this;

@@ -4,7 +4,7 @@ describe('Directive login', function () {
 
   var $compile, $scope, $httpBackend, element, frm;
 
-  beforeEach(module('nw-admin'));
+  beforeEach(module('ew-admin'));
 
   beforeEach(inject(function ($injector) {
     $scope = $injector.get('$rootScope').$new();

@@ -2,7 +2,7 @@
 
   'use strict';
 
-  angular.module('nw-admin').directive('uniqueCategoryCode', function ($http, $rootScope, $q) {
+  angular.module('ew-admin').directive('uniqueCategoryCode', function ($http, $rootScope, $q) {
 
     'ngInject';
 

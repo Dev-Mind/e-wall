@@ -9,7 +9,7 @@ This module helps to prepare the different resources used during the development
 
 We use Flyway to manage the databases. All the SQL scripts to create the database are in the [resources](src/main/resources/db/migration). For the default build lifecycle, we use an H2 database 
 
-To avoid to launch all the Gradle phases go in the directory ~/Workspace/numericwall and to manage your database used these commands
+To avoid to launch all the Gradle phases go in the directory ~/Workspace/ewall and to manage your database used these commands
 
 
 To migrate your schema 
@@ -45,11 +45,11 @@ If you want to use a remote database params to launch flyway you can use
 
 By default the app needs a MySQL DB. If you want to use the H2 database you need to override the Spring Boot configuration and used these args when you launch the jar
 ```java
-./gradlew bootRun --spring.datasource.driver-class-name=org.h2.Driver --spring.datasource.url=jdbc:h2:file:numericwall --spring.datasource.username=sa --spring.datasource.password=
+./gradlew bootRun --spring.datasource.driver-class-name=org.h2.Driver --spring.datasource.url=jdbc:h2:file:ewall --spring.datasource.username=sa --spring.datasource.password=
 ```
 
 The database is not created automatically when you start the application. If you want to generate the database you can use flyway or add these arguments. 
-```                                                                                                                ./gradlew bootRun --spring.datasource.driver-class-name=org.h2.Driver --spring.datasource.url=jdbc:h2:file:numericwall --spring.datasource.username=sa --spring.datasource.password= --spring.jpa.hibernate.ddl-auto=create --spring.jpa.hibernate.naming_strategy: org.hibernate.cfg.EJB3NamingStrategy
+```                                                                                                                ./gradlew bootRun --spring.datasource.driver-class-name=org.h2.Driver --spring.datasource.url=jdbc:h2:file:ewall --spring.datasource.username=sa --spring.datasource.password= --spring.jpa.hibernate.ddl-auto=create --spring.jpa.hibernate.naming_strategy: org.hibernate.cfg.EJB3NamingStrategy
 ```
 
 If you want to use MySQL, install a version > 5.x
@@ -59,9 +59,9 @@ If you want to ovverride the default MySQL database you can use environment vari
 export EMSE_NW_DATABASE_DRIVER=com.mysql.jdbc.Driver
 export EMSE_NW_DATABASE_HOST=localhost
 export EMSE_NW_DATABASE_PORT=3306
-export EMSE_NW_DATABASE_SCHEMA=numericwall
-export EMSE_NW_DATABASE_USERNAME=numericwall
-export EMSE_NW_DATABASE_PASSWORD=numericwall
+export EMSE_NW_DATABASE_SCHEMA=ewall
+export EMSE_NW_DATABASE_USERNAME=ewall
+export EMSE_NW_DATABASE_PASSWORD=ewall
 export
 ```
 
@@ -71,9 +71,9 @@ mysql -u root -p
 ```
 Then
 ```
-CREATE DATABASE numericwall;
-CREATE USER 'numericwall'@'localhost' IDENTIFIED BY 'numericwall';
-GRANT ALL on numericwall.* TO 'numericwall'@'localhost'; 
+CREATE DATABASE ewall;
+CREATE USER 'ewall'@'localhost' IDENTIFIED BY 'ewall';
+GRANT ALL on ewall.* TO 'ewall'@'localhost'; 
 ```
 
 

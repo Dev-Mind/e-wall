@@ -1,6 +1,6 @@
-[![Travis CI](https://travis-ci.org/Dev-Mind/numeric-wall.svg?branch=master)](https://travis-ci.org/Dev-Mind/numeric-wall)
+[![Travis CI](https://travis-ci.org/Dev-Mind/e-wall.svg?branch=master)](https://travis-ci.org/Dev-Mind/e-wall)
 
-# Numeric Wall
+# E-Wall
 
 The project lifecycle is managed with [gradle](https://gradle.org/). You don't need to install Gradle on your host because this project use the [Gradle wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html).  
 
@@ -52,7 +52,7 @@ The project is open source on the MIT License (MIT)
 You have to clone the main project
 
 ```
-git clone https://github.com/Dev-Mind/numeric-wall.git
+git clone https://github.com/Dev-Mind/e-wall.git
 ```
 
 After you just have to build the project `./gradlew build`. By default we don't commit any metadata linked to an IDE but all of us use IntelliJ Idea. You can contribute by [Pull requests](https://help.github.com/articles/using-pull-requests/)

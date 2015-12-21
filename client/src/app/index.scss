@@ -54,7 +54,7 @@ th{
 @include roboto-font-pair('Regular', 400);
 
 
-.nw-header{
+.ew-header{
   background-color: $color-primary;
   color: white;
   a{
@@ -67,13 +67,13 @@ th{
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
 
-.nw-body{
+.ew-body{
   flex:1;
   height: 100%;
   overflow-y: scroll;
 }
 
-.nw-footer{
+.ew-footer{
   background-color: $color-primary;
   color: white;
   padding: 1em;
@@ -89,7 +89,7 @@ th{
 
 
 
-.nw-spinner {
+.ew-spinner {
   display: table;
   background-color: rgba(0, 0, 0, 0.5);
   position: absolute;
@@ -102,14 +102,14 @@ th{
   transition-duration: 0.2s;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 
-  .nw-spinner__box {
+  .ew-spinner__box {
     position: absolute;
     top:25%;
     width: 100%;
     color: $color-primary;
   }
 
-  .nw-spinner__box-inner{
+  .ew-spinner__box-inner{
     text-align: center;
     margin: auto;
     max-width: 120px;

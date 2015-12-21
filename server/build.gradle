@@ -9,7 +9,7 @@ dependencies {
 }
 
 springBoot {
-    mainClass = 'fr.emse.numericwall.NumericWallApplication'
+    mainClass = 'fr.emse.ewall.EWallApplication'
 }
 
 idea {

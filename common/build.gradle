@@ -4,13 +4,13 @@
 flyway {
 
     if (project.properties.containsKey("database") && "mysql".equals(database)) {
-        url = "jdbc:mysql://localhost:3306/numericwall"
-        user = 'numericwall'
-        password = 'numericwall'
+        url = "jdbc:mysql://localhost:3306/ewall"
+        user = 'ewall'
+        password = 'ewall'
         locations = ["classpath:db/migration/mysql"]
     }
     else{
-        url = "jdbc:h2:file:$buildDir/../../server/build/numericwall"
+        url = "jdbc:h2:file:$buildDir/../../server/build/ewall"
         user = 'sa'
         locations = ["db.migration.h2"]
     }
