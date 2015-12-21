@@ -28,7 +28,8 @@ public class SvgPath {
     }
 
     public String generate() {
-        return String.format("M%d %dh%d", origin.x(), origin.y(), width);
+        //We nned to add an offset of 0.5 (stroke width)
+        return String.format("M%s %sh%d", origin.x(), origin.y()+0.5, width);
     }
 
     @Override

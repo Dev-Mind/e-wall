@@ -49,7 +49,7 @@ public class BigQrCodeTest {
     public void should_generate_a_big_QRCode() throws Exception{
         Category category = new Category().setName("a");
 
-        String url = "http://www.emse.fr/nw/a";
+        String url = "https://dev-mind.fr/a";
 
         //In the first step we generate a qrCode
         QRCode qrCode = qrCodeGenerator.generateQRCode(url);
