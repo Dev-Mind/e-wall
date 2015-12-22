@@ -8,7 +8,8 @@
     </ol>
 
 </div>
-<div class="container ew-menu">
+
+<div class="container ew-menu" ng-if="ctrl.isAdmin">
     <div class="row">
         <div class="col-sm-4 ">
             <a ui-sref="production" class="ew-menu__link btn"><i class="glyphicon glyphicon-edit"></i></a>
@@ -39,6 +40,16 @@
             <a ui-sref="parameter" class="ew-menu__link btn"><i class="glyphicon glyphicon-cog"></i></a>
             <h2>Paramètres</h2>
             <p>Paramètres de l'application en local</p>
+        </div>
+    </div>
+</div>
+
+<div class="container ew-menu" ng-if="!ctrl.isAdmin">
+    <div class="row">
+        <div class="col-sm-4 ">
+            <a ui-sref="production" class="ew-menu__link btn"><i class="glyphicon glyphicon-edit"></i></a>
+            <h2>Productions</h2>
+            <p>Suivre les textes et les ressources ajoutées</p>
         </div>
     </div>
 </div>

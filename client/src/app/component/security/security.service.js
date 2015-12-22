@@ -39,7 +39,8 @@
     }
 
     return {
-      'valid': valid
+      'valid': valid,
+      'isAuthorized': isAuthorized
     };
   });
 
