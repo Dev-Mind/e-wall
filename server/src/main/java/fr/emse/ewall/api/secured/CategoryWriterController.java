@@ -7,6 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
         "smaller QR codes. Each small QR code is a link to a text")
 @RestController
 @RequestMapping("/api/secured/category")
-public class SecCategoryController {
+public class CategoryWriterController {
+
+    @Value("${ewall.qrcode.unlocked}")
+    private Boolean unlocked;
 
     @Autowired
     private CategoryRepository categoryRepository;
@@ -34,25 +38,35 @@ public class SecCategoryController {
             @ApiParam(name = "id", required = false, value = "Category Id") @RequestParam(value = "id", required = false) Long id,
             @ApiParam(name = "code", required = true, value = "Code to check") @PathVariable(value = "code") String code) {
 
-        Category category = categoryRepository.findByCode(code);
 
-        if (category == null || (id != null && category.getId().equals(id))) {
-            return ResponseEntity.ok().build();
-        }
-        return ResponseEntity.status(HttpStatus.CONFLICT).build();
+            Category category = categoryRepository.findByCode(code);
 
+            if (category == null || (id != null && category.getId().equals(id))) {
+                return ResponseEntity.ok().build();
+            }
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ApiOperation(value = "Delete one category (be careful all the QR codes linked to this category will be deleted!)", httpMethod = "DELETE")
     public ResponseEntity delete(@ApiParam(name = "id", value = "Category Id") @PathVariable(value = "id") Long id) {
-        categoryService.deleteCategory(id);
-        return ResponseEntity.ok().build();
+        if(Boolean.TRUE.equals(unlocked)) {
+            categoryService.deleteCategory(id);
+            return ResponseEntity.ok().build();
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.LOCKED).build();
+        }
     }
 
     @RequestMapping(method = RequestMethod.POST)
     @ApiOperation(value = "Create or update a category. For a new one a set of QR codes are generated", httpMethod = "POST")
-    public Category save(@ApiParam(name = "category", value = "Category") @RequestBody Category category) {
-        return categoryService.save(category);
+    public ResponseEntity<Category> save(@ApiParam(name = "category", value = "Category") @RequestBody Category category) {
+        if(Boolean.TRUE.equals(unlocked)) {
+            return ResponseEntity.ok().body(categoryService.save(category));
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.LOCKED).body(null);
+        }
     }
 }

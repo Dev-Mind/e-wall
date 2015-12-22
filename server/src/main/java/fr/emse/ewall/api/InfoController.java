@@ -21,12 +21,16 @@ public class InfoController {
     @Value("${project.name}")
     private String name;
 
+    @Value("${ewall.qrcode.unlocked}")
+    private String unlocked;
+
     @RequestMapping
     @ApiOperation(value = "Return the app parameters", httpMethod = "GET")
     public ResponseEntity<Map<String, String>> getVersion() {
         Map<String, String> params = new HashMap<>();
         params.put("application", name);
         params.put("version", version);
+        params.put("unlocked", unlocked);
 
         return ResponseEntity
                 .ok()

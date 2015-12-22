@@ -51,7 +51,7 @@
 
     ctrl.update = function(id){
       $http
-        .get('/api/secured/category/' + id)
+        .get('/api/public/category/' + id)
         .then(function(response){
           ctrl.entity = response.data;
         });

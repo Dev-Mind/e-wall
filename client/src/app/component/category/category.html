@@ -11,7 +11,7 @@
         <h2>Liste des catégories</h2>
 
         <div class="list__action-header">
-            <button type="button" class="btn btn-primary" ng-click="ctrl.add()"><i class="glyphicon glyphicon-plus"></i> Ajouter</button>
+            <button type="button" class="btn btn-primary" ng-if="ewall.unlocked===true" ng-click="ctrl.add()"><i class="glyphicon glyphicon-plus"></i> Ajouter</button>
         </div>
         <table class="table table-bordered">
             <thead>
@@ -25,8 +25,9 @@
                     <div class="list">
                         <div class="list__content">{{category.name}} ({{category.message}})</div>
                         <div class="list__action">
-                            <button type="button" class="btn btn-primary" ng-click="ctrl.update(category.id)"><i class="glyphicon glyphicon-pencil"></i></button>
-                            <button type="button" class="btn btn-default" ng-click="ctrl.delete(category.id)"><i class="glyphicon glyphicon-trash"></i></button>
+                            <button type="button" class="btn btn-primary" ng-click="ctrl.update(category.id)" ng-if="ewall.unlocked===true" ><i class="glyphicon glyphicon-pencil"></i></button>
+                            <button type="button" class="btn btn-primary" ng-click="ctrl.update(category.id)" ng-if="ewall.unlocked!==true" ><i class="glyphicon glyphicon-search"></i></button>
+                            <button type="button" class="btn btn-default" ng-click="ctrl.delete(category.id)" ng-if="ewall.unlocked===true"><i class="glyphicon glyphicon-trash"></i></button>
                         </div>
                     </div>
                 </td>
@@ -88,6 +89,7 @@
                         <button type="button"
                                 ng-disabled="(!frm.$pristine && frm.$invalid) || spinner==='on'"
                                 class="btn btn-primary"
+                                ng-if="ewall.unlocked===true"
                                 ng-click="ctrl.saveCategory()"><i class="glyphicon glyphicon-save"></i> Enregistrer</button>
                         <button type="button" class="btn btn-default"
                                 ng-click="ctrl.cancel()">Annuler</button>
@@ -99,7 +101,7 @@
                 <div class="col-sm-4" ng-if="ctrl.entity.id">
                     QR code associé
                     <div>
-                        <img ng-src="api/qrcode/{{ctrl.entity.id}}/cat.min.svg" alt="QR code de la catégorie"/>
+                        <img ng-src="api/public/qrcode/{{ctrl.entity.id}}/cat.min.svg" alt="QR code de la catégorie"/>
                     </div>
                 </div>
             </div>

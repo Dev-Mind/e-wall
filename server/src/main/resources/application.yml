@@ -17,7 +17,7 @@ ewall:
     path: ${EMSE_EW_QRCODE_PATH:/tmp}
     url: ${EMSE_EW_QRCODE_PREFIX_URL:http://www.emse.fr/ew}
     margin: 6
-    locked: true
+    unlocked: ${EMSE_EW_UNLOCK_CATEGORY:false}
 ldap:
   todefine: url
 
