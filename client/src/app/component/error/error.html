@@ -1,5 +1,8 @@
 <div class="container ">
-    <h1><i class="glyphicon glyphicon-fire"></i> Erreur détectée</h1>
+    <h1><i class="glyphicon glyphicon-fire"></i>
+        <span ng-if="error.type!=='RIGHTS'">Erreur détectée</span>
+        <span ng-if="error.type==='RIGHTS'">Sécurité</span>
+    </h1>
 
     <p class="ew-text">Une erreur s'est produite suite à l'action que vous venez de faire. Veuillez retenter l'opération et si cette
         erreur persiste n'hésitez pas à nous la remonter pour que nous la corrigions</p>
@@ -12,13 +15,12 @@
         </div>
     </div>
 
-    <div ng-if="type">
-        <span ng-if="RIGHTS">Vous </span>
-    </div>
 
     <div ng-if="error.type">
         <span ng-if="error.type==='RIGHTS'">Vous n'avez pas le droits pour accéder à cette fonctionnalité</span>
     </div>
 
-
+    <div>
+        <a ui-sref="home">Retourner à la page d'accueil</a>
+    </div>
 </div>

@@ -6,7 +6,7 @@
   /**
    * Event handlers for errors (internal, security...)
    */
-  angular.module('ew').run(function ($rootScope, $state, $timeout) {
+  angular.module('ew').run(function ($rootScope, $state, $timeout, SecurityService) {
     'ngInject';
 
     var waitinPopupTimeout;
@@ -33,6 +33,10 @@
       $state.go('ewerror', {error: response});
     });
 
+    //When a ui-router state change we watch if user is authorized
+    $rootScope.$on('$stateChangeStart', function (event, next) {
+      SecurityService.valid(next.authorizedRoles);
+    });
   });
 
 })();

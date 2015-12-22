@@ -33,6 +33,11 @@
     qrcode_colour_text: '#2196f3'
   });
 
+  angular.module('ew').constant('USER_ROLES', {
+    all: '*',
+    admin: 'ADMIN',
+    public: 'PUBLIC',
+    writer: 'WRITER'
+  });
 })();
-
 

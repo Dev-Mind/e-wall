@@ -12,7 +12,7 @@
       delete ctrl.entity;
 
       $http
-        .get('/api/category')
+        .get('/api/public/category')
         .then(function(response){
           ctrl.categories = response.data;
         });
@@ -22,7 +22,7 @@
       if(ctrl.entity && ctrl.entity.code){
         delete ctrl.error;
         $http
-          .post('/api/category', ctrl.entity)
+          .post('/api/secured/category', ctrl.entity)
           .then(function(){
             refresh();
           })
@@ -51,7 +51,7 @@
 
     ctrl.update = function(id){
       $http
-        .get('/api/category/' + id)
+        .get('/api/secured/category/' + id)
         .then(function(response){
           ctrl.entity = response.data;
         });
@@ -59,7 +59,7 @@
 
     ctrl.delete = function(id){
       $http
-        .delete('/api/category/' + id)
+        .delete('/api/secured/category/' + id)
         .then(function(response){
           refresh();
         })

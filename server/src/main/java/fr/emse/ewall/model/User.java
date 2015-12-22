@@ -29,27 +29,6 @@ public class User {
     @JsonView(FlatView.class)
     private String esmeid;
 
-    @Size(max = 255)
-    @JsonView(FlatView.class)
-    private String email;
-
-    @Size(max = 255)
-    @JsonView(FlatView.class)
-    private String firstname;
-
-    @Size(max = 255)
-    @JsonView(FlatView.class)
-    private String lastname;
-
-    @Size(max = 255)
-    private String token;
-
-    @org.hibernate.annotations.Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-    private LocalDateTime tokenExpiration;
-
-    @org.hibernate.annotations.Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-    private LocalDateTime firstConnexion = LocalDateTime.now();
-
     @JsonIgnore
     @ManyToMany(cascade = CascadeType.PERSIST)
     private Set<Authority> authorities = new HashSet<>();
@@ -70,42 +49,6 @@ public class User {
         return this;
     }
 
-    public String getToken() {
-        return token;
-    }
-
-    public User setToken(String token) {
-        this.token = token;
-        return this;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public User setLastname(String lastname) {
-        this.lastname = lastname;
-        return this;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public User setFirstname(String firstname) {
-        this.firstname = firstname;
-        return this;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public User setEmail(String email) {
-        this.email = email;
-        return this;
-    }
-
 
     public Set<Authority> getAuthorities() {
         return authorities;
@@ -121,15 +64,6 @@ public class User {
         return this;
     }
 
-    public LocalDateTime getTokenExpiration() {
-        return tokenExpiration;
-    }
-
-    public User setTokenExpiration(LocalDateTime tokenExpiration) {
-        this.tokenExpiration = tokenExpiration;
-        return this;
-    }
-
     public List<String> getRoles() {
         return authorities
                 .stream()
@@ -137,22 +71,12 @@ public class User {
                 .collect(Collectors.toList());
     }
 
-
     public String getEsmeid() {
         return esmeid;
     }
 
     public User setEsmeid(String esmeid) {
         this.esmeid = esmeid;
-        return this;
-    }
-
-    public LocalDateTime getFirstConnexion() {
-        return firstConnexion;
-    }
-
-    public User setFirstConnexion(LocalDateTime firstConnexion) {
-        this.firstConnexion = firstConnexion;
         return this;
     }
 
@@ -183,7 +107,6 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", esmeid='" + esmeid + '\'' +
-                ", lastname='" + lastname + '\'' +
                 '}';
     }
 }

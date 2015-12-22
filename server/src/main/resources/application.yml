@@ -12,10 +12,10 @@ info:
     name: ${project.name}
 
 ewall:
-  baseurl: ${EMSE_NW_BASEURL:http://localhost:8080}
+  baseurl: ${EMSE_EW_BASEURL:http://localhost:8080}
   qrcode:
-    path: ${EMSE_NW_QRCODE_PATH:/tmp}
-    url: ${EMSE_NW_QRCODE_PREFIX_URL:http://www.emse.fr/ew}
+    path: ${EMSE_EW_QRCODE_PATH:/tmp}
+    url: ${EMSE_EW_QRCODE_PREFIX_URL:http://www.emse.fr/ew}
     margin: 6
     locked: true
 ldap:
@@ -23,10 +23,10 @@ ldap:
 
 spring:
   datasource:
-    driver-class-name: ${EMSE_NW_DATABASE_DRIVER:com.mysql.jdbc.Driver}
-    url: jdbc:mysql://${EMSE_NW_DATABASE_HOST:localhost}:${EMSE_NW_DATABASE_PORT:3306}/${EMSE_NW_DATABASE_SCHEMA:ewall}
-    username: ${EMSE_NW_DATABASE_USERNAME:ewall}
-    password: ${EMSE_NW_DATABASE_PASSWORD:ewall}
+    driver-class-name: ${EMSE_EW_DATABASE_DRIVER:com.mysql.jdbc.Driver}
+    url: jdbc:mysql://${EMSE_EW_DATABASE_HOST:localhost}:${EMSE_EW_DATABASE_PORT:3306}/${EMSE_EW_DATABASE_SCHEMA:ewall}
+    username: ${EMSE_EW_DATABASE_USERNAME:ewall}
+    password: ${EMSE_EW_DATABASE_PASSWORD:ewall}
     max-wait: 10
   jpa :
     ddl-auto : validate
@@ -41,6 +41,13 @@ spring:
           enabled: true
           paths: /**
 
+cas:
+  server-url-prefix: ${EMSE_EW_CAS_URL:https://cas.emse.fr}
+  server-login-url: ${EMSE_EW_CAS_LOGIN:https://cas.emse.fr/login}
+  client-host-url: ${ewall.baseurl}
+  redirectAfterValidation: true
+  authenticationUrlPatterns: /api/secured/*, /monitoring/*
+
 management:
   context-path: /monitoring
 
@@ -50,4 +57,4 @@ spring:
 
 ---
 spring:
-  profiles: cloud
+  profiles: server
