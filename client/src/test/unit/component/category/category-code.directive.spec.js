@@ -26,7 +26,7 @@ describe('Directive uniqueCategoryCode', function () {
   });
 
   it('should be invalid when code already exists', function () {
-    $httpBackend.expectGET('/api/category/check/test?id=1').respond(409, '');
+    $httpBackend.expectGET('/api/secured/category/check/test?id=1').respond(409, '');
 
     $scope.credentials.code = "test";
     $scope.$digest();
@@ -35,7 +35,7 @@ describe('Directive uniqueCategoryCode', function () {
   });
 
   it('should be invalid when code already exists and we are in creation', function () {
-    $httpBackend.expectGET('/api/category/check/test').respond(409, '');
+    $httpBackend.expectGET('/api/secured/category/check/test').respond(409, '');
 
     delete $scope.credentials.id;
     $scope.credentials.code = "test";
@@ -45,7 +45,7 @@ describe('Directive uniqueCategoryCode', function () {
   });
 
   it('should be valid when login not exists', function () {
-    $httpBackend.expectGET('/api/category/check/test?id=1').respond(200);
+    $httpBackend.expectGET('/api/secured/category/check/test?id=1').respond(200);
 
     $scope.credentials.code = "test";
     $scope.$digest();

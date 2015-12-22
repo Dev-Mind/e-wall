@@ -29,7 +29,7 @@ public class DevAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         //On server we have to call CAS
-        logger.warn("This class should be only use in development");
+        logger.warn("DevAuthenticationFilter class should be only use in development");
         filterChain.doFilter(new DevHttpServletRequest(request), response);
 
     }
