@@ -3,6 +3,7 @@ package fr.emse.ewall.conf;
 import javax.servlet.Filter;
 
 import fr.emse.ewall.security.AfterAuthenticationFilter;
+import fr.emse.ewall.security.DevAuthenticationFilter;
 import net.unicon.cas.client.configuration.CasClientConfigurationProperties;
 import net.unicon.cas.client.configuration.EnableCasClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,27 +20,12 @@ import org.springframework.context.annotation.Profile;
  * @since 21/12/15.
  */
 @Configuration
-@Profile("server")
-@EnableCasClient
-public class EWallSecurityConfig {
-
-    @Autowired
-    CasClientConfigurationProperties configProps;
+@Profile("default")
+public class EWallSecurityDevConfig {
 
     @Bean
-    public Filter afterCasFilter() {
-        return new AfterAuthenticationFilter();
+    public Filter authentFilter() {
+        return new DevAuthenticationFilter();
     }
-
-
-    @Bean
-    public FilterRegistrationBean afterCasFilterRegistration() {
-        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
-        filterRegistrationBean.setFilter(afterCasFilter());
-        filterRegistrationBean.setOrder(5);
-        filterRegistrationBean.setUrlPatterns(this.configProps.getAuthenticationUrlPatterns());
-        return filterRegistrationBean;
-    }
-
 
 }

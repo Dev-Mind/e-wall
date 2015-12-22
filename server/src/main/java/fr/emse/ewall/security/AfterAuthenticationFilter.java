@@ -35,14 +35,13 @@ public class AfterAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         //If user is authenticated on CAS user has to be defined
-
         AttributePrincipal principal = (AttributePrincipal)request  .getUserPrincipal();
 
         if(principal==null){
             response.sendError(HttpStatus.UNAUTHORIZED.value(), "User unknown");
             return;
         }
-        userService.findOrCreateUser(principal.getName());
+        userService.findOrCreateUser(principal.getName(), Role.PUBLIC);
         filterChain.doFilter(request, response);
 
     }
