@@ -15,9 +15,9 @@ ewall:
   baseurl: ${EMSE_EW_BASEURL:http://localhost:8080}
   qrcode:
     path: ${EMSE_EW_QRCODE_PATH:/tmp}
-    url: ${EMSE_EW_QRCODE_PREFIX_URL:http://www.emse.fr/ew}
+    url: ${EMSE_EW_QRCODE_PREFIX_URL:http://www.emse.fr/e-wall}
     margin: 6
-    unlocked: ${EMSE_EW_UNLOCK_CATEGORY:false}
+    unlocked: ${EMSE_EW_UNLOCK_CATEGORY:true}
 ldap:
   todefine: url
 

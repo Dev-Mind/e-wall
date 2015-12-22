@@ -1,17 +1,17 @@
 <div class="container">
-    <h1><i class="glyphicon glyphicon-tasks"></i> Catégorie</h1>
+    <h1><i class="glyphicon glyphicon-tasks"></i> Parcours</h1>
 
     <ol class="breadcrumb">
         <li><a href="home">Accueil</a></li>
         <li><a href="admin">Administration</a></li>
-        <li class="active">Catégorie</li>
+        <li class="active">Parcours</li>
     </ol>
 
     <div  ng-if="!ctrl.entity">
-        <h2>Liste des catégories</h2>
+        <h2>Liste des parcours</h2>
 
         <div class="list__action-header">
-            <button type="button" class="btn btn-primary" ng-if="ewall.unlocked===true" ng-click="ctrl.add()"><i class="glyphicon glyphicon-plus"></i> Ajouter</button>
+            <button type="button" class="btn btn-primary" ng-if="ewall.unlocked==='true'" ng-click="ctrl.add()"><i class="glyphicon glyphicon-plus"></i> Ajouter</button>
         </div>
         <table class="table table-bordered">
             <thead>
@@ -25,9 +25,9 @@
                     <div class="list">
                         <div class="list__content">{{category.name}} ({{category.message}})</div>
                         <div class="list__action">
-                            <button type="button" class="btn btn-primary" ng-click="ctrl.update(category.id)" ng-if="ewall.unlocked===true" ><i class="glyphicon glyphicon-pencil"></i></button>
-                            <button type="button" class="btn btn-primary" ng-click="ctrl.update(category.id)" ng-if="ewall.unlocked!==true" ><i class="glyphicon glyphicon-search"></i></button>
-                            <button type="button" class="btn btn-default" ng-click="ctrl.delete(category.id)" ng-if="ewall.unlocked===true"><i class="glyphicon glyphicon-trash"></i></button>
+                            <button type="button" class="btn btn-primary" ng-click="ctrl.update(category.id)" ng-if="ewall.unlocked==='true'" ><i class="glyphicon glyphicon-pencil"></i></button>
+                            <button type="button" class="btn btn-primary" ng-click="ctrl.update(category.id)" ng-if="ewall.unlocked!=='true'" ><i class="glyphicon glyphicon-search"></i></button>
+                            <button type="button" class="btn btn-default" ng-click="ctrl.delete(category.id)" ng-if="ewall.unlocked==='true'"><i class="glyphicon glyphicon-trash"></i></button>
                         </div>
                     </div>
                 </td>
@@ -38,14 +38,14 @@
 
 
     <div ng-if="ctrl.entity">
-        <h2 ng-if="!ctrl.entity.id">Création catégorie</h2>
-        <h2 ng-if="ctrl.entity.id">Modification catégorie</h2>
+        <h2 ng-if="!ctrl.entity.id">Création d'un parcours</h2>
+        <h2 ng-if="ctrl.entity.id">Modification d'un parcours</h2>
 
         <uib-alert type="danger" ng-if="ctrl.error">{{ctrl.error}}</uib-alert>
         <uib-alert type="danger" ng-if="frm.$invalid">
             <span ng-if="frm.code.$error.required">Le code est obligatoire<br></span>
-            <span ng-if="frm.code.$error.maxlength">Le code ne peut pas faire plus de 3 caractères<br></span>
-            <span ng-if="frm.code.$error.uniqueCategoryCode">Ce code est déjà utilisé dans une autre catégorie<br></span>
+            <span ng-if="frm.code.$error.maxlength">Le code ne peut pas faire plus de 10 caractères<br></span>
+            <span ng-if="frm.code.$error.uniqueCategoryCode">Ce code est déjà utilisé dans un autre parcours<br></span>
             <span ng-if="frm.name.$error.required">Le nom est obligatoire<br></span>
             <span ng-if="frm.name.$error.maxlength">Le nom associé ne peut pas faire plus de 255 caractères<br></span>
             <span ng-if="frm.message.$error.maxlength">Vous ne pouvez définir qu'une lettre<br></span>
@@ -89,7 +89,7 @@
                         <button type="button"
                                 ng-disabled="(!frm.$pristine && frm.$invalid) || spinner==='on'"
                                 class="btn btn-primary"
-                                ng-if="ewall.unlocked===true"
+                                ng-if="ewall.unlocked==='true'"
                                 ng-click="ctrl.saveCategory()"><i class="glyphicon glyphicon-save"></i> Enregistrer</button>
                         <button type="button" class="btn btn-default"
                                 ng-click="ctrl.cancel()">Annuler</button>
