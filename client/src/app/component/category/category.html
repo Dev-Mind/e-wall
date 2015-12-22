@@ -58,7 +58,7 @@
                     <div class="form-group">
                         <label for="code">Code</label>
                         <input type="text" class="form-control" id="code" name="code"
-                               ng-maxlength="10"
+                               ng-maxlength="50"
                                ng-model="ctrl.entity.code"
                                ng-required="true"
                                placeholder="Code"
@@ -83,7 +83,7 @@
                     <div class="form-group">
                         <label for="name">URL liée au QR code</label>
                         <input type="text" class="form-control" disabled="true"
-                                value="http://www/emse.fr/ew/{{ctrl.entity.code}}">
+                                value="{{ewall.qrcodeurl}}/{{ctrl.entity.code}}">
                     </div>
                     <div class="form-group">
                         <button type="button"

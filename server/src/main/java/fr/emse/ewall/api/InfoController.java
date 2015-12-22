@@ -24,6 +24,9 @@ public class InfoController {
     @Value("${ewall.qrcode.unlocked}")
     private String unlocked;
 
+    @Value("${ewall.qrcode.url}")
+    private String qrcodeurl;
+
     @RequestMapping
     @ApiOperation(value = "Return the app parameters", httpMethod = "GET")
     public ResponseEntity<Map<String, String>> getVersion() {
@@ -31,6 +34,7 @@ public class InfoController {
         params.put("application", name);
         params.put("version", version);
         params.put("unlocked", unlocked);
+        params.put("qrcodeurl", qrcodeurl);
 
         return ResponseEntity
                 .ok()
