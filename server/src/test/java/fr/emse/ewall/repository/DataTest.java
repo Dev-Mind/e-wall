@@ -11,7 +11,7 @@ import com.ninja_squad.dbsetup.operation.Operation;
 public class DataTest {
 
     public static final Operation DELETE_ALL = deleteAllFrom(
-            "QrCode", "Work", "Category", "User_Authority", "Authority", "User"
+            "QrCode", "Production", "Category", "User_Authority", "Authority", "User"
     );
 
     public static Operation INSERT_AUTHORITIES = Operations.sequenceOf(

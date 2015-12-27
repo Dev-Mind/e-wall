@@ -18,13 +18,13 @@
       ctrl.currentTab = 'content';
       ctrl.category = category;
       ctrl.production = {};
-    }
+    };
 
     ctrl.cancel = function(){
       delete ctrl.currentTab;
       delete ctrl.category;
       delete ctrl.production;
-    }
+    };
 
     ctrl.saveProduction = function(){
       if(ctrl.category && ctrl.production){
