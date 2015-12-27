@@ -77,17 +77,13 @@
             <p>&nbsp;</p>
             <div class="form-group">
                 <button type="button"
-                        ng-disabled="(!frm.$pristine && frm.$invalid) || spinner==='on'"
+                        ng-disabled="(frm.$pristine && frm.$invalid) || spinner==='on'"
                         class="btn btn-primary"
-                        ng-click="ctrl.saveContent()"><i class="glyphicon glyphicon-save"></i> Enregistrer</button>
+                        ng-click="ctrl.saveProduction()"><i class="glyphicon glyphicon-save"></i> Enregistrer</button>
 
                 <button type="button" class="btn btn-default" ng-click="ctrl.cancel()">Annuler</button>
             </div>
         </form>
-
-        <cesar-button disabled="(!frm.$pristine && frm.$invalid) || spinner==='on'" id="action1"
-                      on-click="ctrl.updateAccount()" spinner="spinner" google-icon="save">
-        </cesar-button>
 
 
     </div>

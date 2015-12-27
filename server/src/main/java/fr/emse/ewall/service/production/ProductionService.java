@@ -1,10 +1,17 @@
 package fr.emse.ewall.service.production;
 
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Objects;
 
 import fr.emse.ewall.exception.ElementNotFoundException;
 import fr.emse.ewall.model.Production;
+import fr.emse.ewall.model.QrCode;
+import fr.emse.ewall.model.User;
+import fr.emse.ewall.repository.CategoryRepository;
 import fr.emse.ewall.repository.ProductionRepository;
+import fr.emse.ewall.repository.QrCodeRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,38 +33,48 @@ public class ProductionService {
     @Autowired
     private ProductionRepository productionRepository;
 
-    public Production save(Production production) {
+    @Autowired
+    private QrCodeRepository qrCodeRepository;
+
+    public Production save(Long idCategory, Production production, User user) {
+        Objects.requireNonNull(idCategory);
         Objects.requireNonNull(production);
 
-//        Category savedCategory;
-//
-//        //Code have to be unique
-//        Category unique = categoryRepository.findByCode(category.getCode());
-//        if (unique != null && !unique.getId().equals(category.getId())) {
-//            throw new DuplicateElementException();
-//        }
-//
-//        if (category.getId() == null) {
-//            savedCategory = categoryRepository.save(category);
-//            generateCategoryQRCodes(savedCategory, qrCodeMargin);
-//        }
-//        else {
-//            //On update we can only change the name
-//            savedCategory = categoryRepository.findOne(category.getId());
-//            //If user change the code we need to regenerate the codes
-//            if (!savedCategory.getCode().equals(category.getCode())) {
-//                //Old QrCode are deleted
-//                qrCodeRepository.delete(category.getQrcodes());
-//                savedCategory.getQrcodes().clear();
-//                //And new ones generated
-//                generateCategoryQRCodes(savedCategory, qrCodeMargin);
-//            }
-//            savedCategory.setName(category.getName()).setCode(category.getCode());
-//        }
+        Production savedProduction;
 
-        // return savedCategory;
-        return null;
+        if(production.getId()==null){
+            savedProduction = productionRepository.save(production.setUser(user));
+            linkToQrCode(idCategory, savedProduction);
+        }
+        else{
+            savedProduction = productionRepository.findOne(production.getId());
+            savedProduction.setContent(production.getContent());
+            if(!idCategory.equals(savedProduction.getQrcode().getCategory().getId())){
+                deleteLinkQRCode(savedProduction);
+                linkToQrCode(idCategory, savedProduction);
+            }
+        }
+        return savedProduction;
     }
+
+    /**
+     * Link to QRCode. The link is made with the category
+     */
+    public void linkToQrCode(Long idCategory, Production production) {
+        //We need to find
+        List<QrCode> qrcodes = qrCodeRepository.findByCategoryId(idCategory);
+        Collections.shuffle(qrcodes);
+
+        Iterator<QrCode> iterator = qrcodes.iterator();
+        while (iterator.hasNext()){
+            QrCode qrCode = iterator.next();
+            if(qrCode.getProduction()==null){
+                qrCode.setProduction(production);
+                break;
+            }
+        }
+    }
+
 
     /**
      * Deletes a production and the link in the qrcode
@@ -69,6 +86,10 @@ public class ProductionService {
         if (production == null) {
             throw new ElementNotFoundException();
         }
+        deleteLinkQRCode(production);
+    }
+
+    protected void deleteLinkQRCode(Production production) {
         production.getQrcode().setProduction(null);
         productionRepository.delete(production);
     }
