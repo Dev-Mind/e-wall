@@ -29,7 +29,7 @@ public class QrCode {
     public Category category;
 
     @ManyToOne
-    Work work;
+    Production production;
 
     @org.hibernate.annotations.Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
     private LocalDateTime generatedAt = LocalDateTime.now();
@@ -82,12 +82,12 @@ public class QrCode {
         return this;
     }
 
-    public Work getWork() {
-        return work;
+    public Production getProduction() {
+        return production;
     }
 
-    public QrCode setWork(Work work) {
-        this.work = work;
+    public QrCode setProduction(Production production) {
+        this.production = production;
         return this;
     }
 

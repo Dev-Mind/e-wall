@@ -1,11 +1,11 @@
 package fr.emse.ewall.repository;
 
-import fr.emse.ewall.model.Work;
+import fr.emse.ewall.model.Production;
 import org.springframework.data.repository.CrudRepository;
 
 /**
- * {@link Work}
+ * {@link Production}
  */
-public interface WorkRepository extends CrudRepository<Work, Long> {
+public interface WorkRepository extends CrudRepository<Production, Long> {
 
 }

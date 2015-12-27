@@ -18,7 +18,7 @@ import javax.persistence.OneToMany;
  * @since 07/12/15.
  */
 @Entity
-public class Work {
+public class Production {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -45,7 +45,7 @@ public class Work {
         return id;
     }
 
-    public Work setId(Long id) {
+    public Production setId(Long id) {
         this.id = id;
         return this;
     }
@@ -54,7 +54,7 @@ public class Work {
         return qrcodes.isEmpty() ? null : qrcodes.get(0);
     }
 
-    public Work setQrcode(QrCode qrcode) {
+    public Production setQrcode(QrCode qrcode) {
         this.qrcodes.clear();
         this.qrcodes.add(qrcode);
         return this;
@@ -64,7 +64,7 @@ public class Work {
         return user;
     }
 
-    public Work setUser(User user) {
+    public Production setUser(User user) {
         this.user = user;
         return this;
     }
@@ -73,7 +73,7 @@ public class Work {
         return createdAt;
     }
 
-    public Work setCreatedAt(LocalDateTime createdAt) {
+    public Production setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
         return this;
     }
@@ -82,7 +82,7 @@ public class Work {
         return content;
     }
 
-    public Work setContent(String content) {
+    public Production setContent(String content) {
         this.content = content;
         return this;
     }

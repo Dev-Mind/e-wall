@@ -10,10 +10,12 @@
 
     <div class="tab__container step-tab__container">
         <div class="tab__item text-center step-tab__completed">
-            <h3 class="step-tab__title" ng-click="ctrl.currentTab=undefined"><i class="glyphicon glyphicon-random">&nbsp;</i>Parcours</h3>
+            <h3 class="step-tab__title" ng-click="ctrl.cancel()"><i class="glyphicon glyphicon-random">
+                &nbsp;</i>Parcours</h3>
         </div>
-        <div class="tab__item text-center" ng-class="{ 'step-tab__todo' : ctrl.currentTab!=='content', 'step-tab__completed': ctrl.currentTab==='content'}">
-            <h3 class="step-tab__title"> <i class="glyphicon glyphicon-text-size">&nbsp;</i>Contenu</h3>
+        <div class="tab__item text-center"
+             ng-class="{ 'step-tab__todo' : ctrl.currentTab!=='content', 'step-tab__completed': ctrl.currentTab==='content'}">
+            <h3 class="step-tab__title"><i class="glyphicon glyphicon-text-size">&nbsp;</i>Contenu</h3>
         </div>
     </div>
 
@@ -28,7 +30,8 @@
                     <button class="qr-category__link btn"
                             ng-click="ctrl.selectCategory(category)"
                             ng-mouseover="ctrl.category = category"
-                            ng-mouseleave="ctrl.category = undefined">{{category.message}}</button>
+                            ng-mouseleave="ctrl.category = undefined">{{category.message}}
+                    </button>
                     <br>
                 </div>
 
@@ -41,7 +44,8 @@
         <div class="visible-xs">
             <div ng-repeat="category in ctrl.categories" class="category-selector">
                 <button class="category-link btn"
-                        ng-click="ctrl.selectCategory(category)">{{category.message}}</button>
+                        ng-click="ctrl.selectCategory(category)">{{category.message}}
+                </button>
                 {{category.name}}
                 <br>
             </div>
@@ -51,8 +55,40 @@
 
     <div ng-if="ctrl.currentTab==='content'">
 
-        Saisissez un texte dans le parcours <b>{{ctrl.category.name}}</b><br>
-        <textarea></textarea>
+        <div class="container">
+            Saisissez un texte dans le parcours <b>{{ctrl.category.name}}</b>
+        </div>
+        <p>&nbsp;</p>
+        <uib-alert type="danger" ng-if="ctrl.error">{{ctrl.error}}</uib-alert>
+        <uib-alert type="danger" ng-if="frm.$invalid">
+            <span ng-if="frm.content.$error.required">Vous devez saisir un texte<br></span>
+            <span ng-if="frm.content.$error.maxlength">Le texte ne peut pas faire plus de 3000 caractères<br></span>
+        </uib-alert>
+
+        <form novalidate name ="frm">
+            <div>
+                <textarea class="form-control" rows="10" ng-model="ctrl.production.content" name="content" ng-required="true"
+                          ng-maxlength="3000"></textarea>
+                <small ng-if="!frm.content.$error.maxlength">({{3000 - ctrl.production.content.length }} caractère{{ctrl.production.content.length<=2999 ? 's' :
+                    ''}} restant{{ctrl.production.content.length<=2999 ? 's' : ''}})
+                </small>
+                <small ng-if="frm.content.$error.maxlength"><b>Texte trop long</b></small>
+            </div>
+            <p>&nbsp;</p>
+            <div class="form-group">
+                <button type="button"
+                        ng-disabled="(!frm.$pristine && frm.$invalid) || spinner==='on'"
+                        class="btn btn-primary"
+                        ng-click="ctrl.saveContent()"><i class="glyphicon glyphicon-save"></i> Enregistrer</button>
+
+                <button type="button" class="btn btn-default" ng-click="ctrl.cancel()">Annuler</button>
+            </div>
+        </form>
+
+        <cesar-button disabled="(!frm.$pristine && frm.$invalid) || spinner==='on'" id="action1"
+                      on-click="ctrl.updateAccount()" spinner="spinner" google-icon="save">
+        </cesar-button>
+
 
     </div>
 </div>

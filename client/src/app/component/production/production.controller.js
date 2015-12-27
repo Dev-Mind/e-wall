@@ -18,6 +18,10 @@
       ctrl.currentTab = 'content';
       ctrl.category = category;
     }
+
+    ctrl.cancel = function(){
+      ctrl.currentTab=undefined;
+    }
   });
 
 })();
