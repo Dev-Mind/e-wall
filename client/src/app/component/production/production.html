@@ -12,7 +12,7 @@
         <div class="tab__item text-center step-tab__completed">
             <h3 class="step-tab__title" ng-click="ctrl.currentTab=undefined"><i class="glyphicon glyphicon-random">&nbsp;</i>Parcours</h3>
         </div>
-        <div class="tab__item text-center step-tab__todo">
+        <div class="tab__item text-center" ng-class="{ 'step-tab__todo' : ctrl.currentTab!=='content', 'step-tab__completed': ctrl.currentTab==='content'}">
             <h3 class="step-tab__title"> <i class="glyphicon glyphicon-text-size">&nbsp;</i>Contenu</h3>
         </div>
     </div>
@@ -51,6 +51,8 @@
 
     <div ng-if="ctrl.currentTab==='content'">
 
+        Saisissez un texte dans le parcours <b>{{ctrl.category.name}}</b><br>
+        <textarea></textarea>
 
     </div>
 </div>

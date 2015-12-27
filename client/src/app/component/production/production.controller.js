@@ -15,8 +15,8 @@
 
 
     ctrl.selectCategory = function(category){
-      console.log(category)
       ctrl.currentTab = 'content';
+      ctrl.category = category;
     }
   });
 
