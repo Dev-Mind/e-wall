@@ -28,7 +28,7 @@ public class Production {
      * In the reality this relation is a one-to-one relationship but we have a lot of problem in Hibernate to manage
      * these relations.
      */
-    @OneToMany(mappedBy = "work")
+    @OneToMany(mappedBy = "production")
     List<QrCode> qrcodes = new ArrayList<>();
 
 
