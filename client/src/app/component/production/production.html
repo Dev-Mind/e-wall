@@ -8,15 +8,49 @@
         <li class="active">Ajouter contenu</li>
     </ol>
 
-    <div class="tab__container" style="display: flex;background-color: #cccccc;margin: 1em 0; box-shadow: inset 0 -1px 0 rgba(0,0,0,.15); border-radius: 2px">
-        <div class="tab__item text-center" style="flex:1;background-image: linear-gradient(to bottom,#522b93 0,#6f5499 100%);color:white;padding: 4px 0px;border-radius: 2px">
-            <h3 style="margin: 0;padding: 0;"><i class="glyphicon glyphicon-random">&nbsp;</i>Parcours</h3>
+    <div class="tab__container step-tab__container">
+        <div class="tab__item text-center step-tab__completed">
+            <h3 class="step-tab__title" ng-click="ctrl.currentTab=undefined"><i class="glyphicon glyphicon-random">&nbsp;</i>Parcours</h3>
         </div>
-        <div class="tab__item text-center" style="flex:1; padding: 4px 0px;">
-            <h3 style="margin: 0;padding: 0;"> <i class="glyphicon glyphicon-text-size">&nbsp;</i>Contenu</h3>
+        <div class="tab__item text-center step-tab__todo">
+            <h3 class="step-tab__title"> <i class="glyphicon glyphicon-text-size">&nbsp;</i>Contenu</h3>
         </div>
     </div>
 
-    Cette page est à construire
+    <div ng-if="ctrl.currentTab!=='content'">
+        <p>
+            Choisissez le parcours sur lequel vous voulez ajouter du contenu.
+        </p>
 
+        <div class="hidden-xs">
+            <div class="qr-category__container">
+                <div ng-repeat="category in ctrl.categories">
+                    <button class="qr-category__link btn"
+                            ng-click="ctrl.selectCategory(category)"
+                            ng-mouseover="ctrl.category = category"
+                            ng-mouseleave="ctrl.category = undefined">{{category.message}}</button>
+                    <br>
+                </div>
+
+            </div>
+
+            <div class="text-center">
+                <h3 ng-if="ctrl.category">Parcours {{ctrl.category.name}}</h3>
+            </div>
+        </div>
+        <div class="visible-xs">
+            <div ng-repeat="category in ctrl.categories" class="category-selector">
+                <button class="category-link btn"
+                        ng-click="ctrl.selectCategory(category)">{{category.message}}</button>
+                {{category.name}}
+                <br>
+            </div>
+
+        </div>
+    </div>
+
+    <div ng-if="ctrl.currentTab==='content'">
+
+
+    </div>
 </div>
