@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
         "smaller QR codes. Each small QR code is a link to a text")
 @RestController
 @RequestMapping("/api/public/category")
-public class CategoryController {
+public class CategoryReaderController {
 
     @Autowired
     private CategoryRepository categoryRepository;

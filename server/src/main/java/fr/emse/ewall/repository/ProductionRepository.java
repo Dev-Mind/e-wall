@@ -6,6 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 /**
  * {@link Production}
  */
-public interface WorkRepository extends CrudRepository<Production, Long> {
+public interface ProductionRepository extends CrudRepository<Production, Long> {
 
 }
