@@ -1,8 +1,10 @@
 package fr.emse.ewall.api.free;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import fr.emse.ewall.model.CategoryDetailView;
 import fr.emse.ewall.model.FlatView;
 import fr.emse.ewall.model.Production;
+import fr.emse.ewall.model.ProductionDetailView;
 import fr.emse.ewall.repository.ProductionRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -30,8 +32,9 @@ public class ProductionReaderController {
 
     @RequestMapping(value = "/{id}")
     @ApiOperation(value = "Return a production", httpMethod = "GET")
+    @JsonView(ProductionDetailView.class)
     public Production findOne(@ApiParam(name = "id", value = "Production Id") @PathVariable(value = "id") Long id) {
-        return productionRepository.findOne(id);
+        return productionRepository.findByIdFetchMode(id);
     }
 
 }

@@ -19,7 +19,7 @@
       .state('home', new State(USER_ROLES, 'home', 'component/main/main.html').build())
       .state('monitor', new State(USER_ROLES, 'monitor', 'component/monitoring/monitoring.html').roles([USER_ROLES.admin]).controller('MonitoringCtrl').build())
       .state('parameter', new State(USER_ROLES, 'parameter', 'component/parameter/parameter.html').roles([USER_ROLES.admin]).controller('ParameterCtrl').build())
-      .state('production', new State(USER_ROLES, 'production', 'component/production/production.html').roles([USER_ROLES.admin, USER_ROLES.writer]).controller('ProductionCtrl').build())
+      .state('production', new State(USER_ROLES, 'production/:id', 'component/production/production.html').roles([USER_ROLES.admin, USER_ROLES.writer]).controller('ProductionCtrl').build())
       .state('productions', new State(USER_ROLES, 'productions', 'component/productions/productions.html').roles([USER_ROLES.admin, USER_ROLES.writer]).controller('ProductionsCtrl').build())
       .state('ewerror', new State(USER_ROLES, 'ewerror/{type}', 'component/error/error.html')
         .params({

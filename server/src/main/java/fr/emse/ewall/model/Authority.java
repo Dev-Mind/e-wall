@@ -22,12 +22,11 @@ public class Authority implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonView({FlatView.class, CompleteView.class})
+    @JsonView({FlatView.class})
     private Long id;
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    @JsonView(CompleteView.class)
     private Role name;
 
     public Long getId() {

@@ -23,10 +23,11 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonView({FlatView.class, ProductionDetailView.class})
     private Long id;
 
     @Size(max = 255)
-    @JsonView(FlatView.class)
+    @JsonView({FlatView.class, ProductionDetailView.class})
     private String esmeid;
 
     @JsonIgnore

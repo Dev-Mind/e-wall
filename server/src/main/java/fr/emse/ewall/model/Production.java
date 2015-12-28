@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -27,7 +26,7 @@ public class Production {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonView({FlatView.class, CompleteView.class})
+    @JsonView({FlatView.class, CategoryDetailView.class, ProductionDetailView.class})
     private Long id;
 
     /**
@@ -35,21 +34,22 @@ public class Production {
      * these relations.
      */
     @OneToMany(mappedBy = "production")
+    @JsonView(ProductionDetailView.class)
     List<QrCode> qrcodes = new ArrayList<>();
 
     @ManyToOne(optional = false)
-    @JsonView(CompleteView.class)
+    @JsonView(ProductionDetailView.class)
     public User user;
 
     @org.hibernate.annotations.Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-    @JsonView(CompleteView.class)
+    @JsonView(ProductionDetailView.class)
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @Lob
-    @JsonView({FlatView.class, CompleteView.class})
+    @JsonView({FlatView.class, ProductionDetailView.class})
     private String content;
 
-    @JsonView({FlatView.class, CompleteView.class})
+    @JsonView({FlatView.class, ProductionDetailView.class})
     @Enumerated(EnumType.STRING)
     private ProductionState state = ProductionState.PENDING;
 
@@ -68,7 +68,9 @@ public class Production {
 
     public Production setQrcode(QrCode qrcode) {
         this.qrcodes.clear();
-        this.qrcodes.add(qrcode);
+        if(qrcode!=null) {
+            this.qrcodes.add(qrcode);
+        }
         return this;
     }
 
