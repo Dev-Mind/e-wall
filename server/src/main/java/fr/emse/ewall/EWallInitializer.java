@@ -2,7 +2,10 @@ package fr.emse.ewall;
 
 import javax.annotation.PostConstruct;
 
+import fr.emse.ewall.model.Authority;
 import fr.emse.ewall.model.Category;
+import fr.emse.ewall.model.Role;
+import fr.emse.ewall.repository.AuthorityRepository;
 import fr.emse.ewall.repository.CategoryRepository;
 import fr.emse.ewall.service.category.CategoryService;
 import org.slf4j.Logger;
@@ -24,6 +27,9 @@ public class EWallInitializer {
     @Autowired
     private CategoryService categoryService;
 
+    @Autowired
+    private AuthorityRepository authorityRepository;
+
     @PostConstruct
     public void init() {
         if(categoryRepository.count()==0){
@@ -34,6 +40,10 @@ public class EWallInitializer {
             categoryService.save(new Category().setCode("rechindustrie").setName("Transfert recherche - industrie").setMessage("T"));
             categoryService.save(new Category().setCode("orgatravail").setName("Organisation du travail").setMessage("U"));
             categoryService.save(new Category().setCode("responsabilite").setName("Responsabilité sociétale et environnementale de l’ingénieur").setMessage("R"));
+
+            authorityRepository.save(new Authority().setId(1L).setName(Role.PUBLIC));
+            authorityRepository.save(new Authority().setId(1L).setName(Role.ADMIN));
+            authorityRepository.save(new Authority().setId(1L).setName(Role.WRITER));
 
             //TODO add characters
 //            Beaunier  - Territoire(s)
