@@ -24,28 +24,41 @@ public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonView(FlatView.class)
+    @JsonView({FlatView.class, CompleteView.class})
     private Long id;
 
     @Size(max = 255)
     @NotNull
-    @JsonView(FlatView.class)
+    @JsonView({FlatView.class, CompleteView.class})
     private String name;
 
+    /**
+     * The code is used in the QR Code URL. The width can change the size of the QRCode
+     */
     @Size(max = 50)
     @NotNull
-    @JsonView(FlatView.class)
+    @JsonView({FlatView.class, CompleteView.class})
     private String code;
     
     @OneToMany(mappedBy = "category")
+    @JsonView(CompleteView.class)
     List<QrCode> qrcodes = new ArrayList<>();
 
+    /**
+     * This messsage will be open when people will scan the QR code
+     */
     @Size(max = 255)
     @NotNull
-    @JsonView(FlatView.class)
+    @JsonView({FlatView.class, CompleteView.class})
     private String message;
 
+    @Size(max = 5)
+    @NotNull
+    @JsonView({FlatView.class, CompleteView.class})
+    private String shortCode;
+
     @org.hibernate.annotations.Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
+    @JsonView(CompleteView.class)
     private LocalDateTime createdAt = LocalDateTime.now();
 
     public Long getId() {
@@ -99,6 +112,15 @@ public class Category {
 
     public Category setMessage(String message) {
         this.message = message;
+        return this;
+    }
+
+    public String getShortCode() {
+        return shortCode;
+    }
+
+    public Category setShortCode(String shortCode) {
+        this.shortCode = shortCode;
         return this;
     }
 }

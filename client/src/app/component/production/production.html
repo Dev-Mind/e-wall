@@ -30,7 +30,7 @@
                     <button class="qr-category__link btn"
                             ng-click="ctrl.selectCategory(category)"
                             ng-mouseover="ctrl.category = category"
-                            ng-mouseleave="ctrl.category = undefined">{{category.message}}
+                            ng-mouseleave="ctrl.category = undefined">{{category.shortCode}}
                     </button>
                     <br>
                 </div>
@@ -44,7 +44,7 @@
         <div class="visible-xs">
             <div ng-repeat="category in ctrl.categories" class="category-selector">
                 <button class="category-link btn"
-                        ng-click="ctrl.selectCategory(category)">{{category.message}}
+                        ng-click="ctrl.selectCategory(category)">{{category.shortCode}}
                 </button>
                 {{category.name}}
                 <br>
