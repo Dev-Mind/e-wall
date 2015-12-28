@@ -47,6 +47,9 @@ public class Production {
     @JsonView({FlatView.class, CompleteView.class})
     private String content;
 
+    @JsonView({FlatView.class, CompleteView.class})
+    private ProductionState state = ProductionState.PENDING;
+
     public Long getId() {
         return id;
     }
@@ -90,6 +93,15 @@ public class Production {
 
     public Production setContent(String content) {
         this.content = content;
+        return this;
+    }
+
+    public ProductionState getState() {
+        return state;
+    }
+
+    public Production setState(ProductionState state) {
+        this.state = state;
         return this;
     }
 }
