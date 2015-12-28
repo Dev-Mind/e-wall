@@ -4,6 +4,7 @@
 @import 'component/main/main';
 @import 'component/category/category';
 @import 'component/production/production';
+@import 'component/productions/productions';
 
 $roboto-font-path: '../fonts';
 
@@ -88,7 +89,11 @@ th{
   }
 }
 
-
+@media (max-width: 768px) {
+  .ew-breadcrumb {
+    padding: 4px 4px 4px 0 !important;
+  }
+}
 
 .ew-spinner {
   display: table;

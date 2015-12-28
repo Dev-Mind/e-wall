@@ -39,5 +39,12 @@
     public: 'PUBLIC',
     writer: 'WRITER'
   });
+
+  angular.module('ew-admin').constant('STATE', {
+    PENDING: 'PENDING',
+    VALIDATED: 'VALIDATED',
+    CENSORED: 'CENSORED'
+  });
+
 })();
 
