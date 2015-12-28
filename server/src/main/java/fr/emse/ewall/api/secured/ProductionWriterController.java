@@ -1,8 +1,12 @@
 package fr.emse.ewall.api.secured;
 
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import fr.emse.ewall.model.FlatView;
 import fr.emse.ewall.model.Production;
+import fr.emse.ewall.repository.ProductionRepository;
 import fr.emse.ewall.repository.UserRepository;
 import fr.emse.ewall.service.production.ProductionService;
 import io.swagger.annotations.Api;
@@ -28,6 +32,9 @@ public class ProductionWriterController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private ProductionRepository productionRepository;
+
     @RequestMapping(value = "/production/{id}", method = RequestMethod.DELETE)
     @ApiOperation(value = "Delete one production", httpMethod = "DELETE")
     public ResponseEntity delete(@ApiParam(name = "id", value = "Production Id") @PathVariable(value = "id") Long id) {
@@ -44,5 +51,13 @@ public class ProductionWriterController {
 
         AttributePrincipal principal = (AttributePrincipal) request.getUserPrincipal();
         return ResponseEntity.ok().body(productionService.save(idCategorie, production, userRepository.findByEsmeid(principal.getName())));
+    }
+
+    @RequestMapping(value = "/production/myself")
+    @ApiOperation(value = "Return my productions", httpMethod = "GET")
+    @JsonView(FlatView.class)
+    public List<Production> findMyProductions(HttpServletRequest request) {
+        AttributePrincipal principal = (AttributePrincipal) request.getUserPrincipal();
+        return productionRepository.findByUserId(userRepository.findByEsmeid(principal.getName()).getId());
     }
 }

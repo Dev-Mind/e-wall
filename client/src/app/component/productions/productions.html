@@ -2,12 +2,40 @@
 
     <h1><i class="glyphicon glyphicon-edit"></i> Mes productions</h1>
 
-    <ol class="breadcrumb">
+    <ol class="breadcrumb ew-breadcrumb" style="padding: 4px 4px 4px 0">
         <li><a href="home">Accueil</a></li>
         <li><a href="admin">Sécurisé</a></li>
         <li class="active">Mes productions</li>
     </ol>
 
-    Cette page est à construire
-
+    <div class="list__action-header">
+        <button type="button" class="btn btn-primary" ui-sref="production"><i class="glyphicon glyphicon-plus"></i> Ajouter</button>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Mes productions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="production in ctrl.productions | orderBy:'state'">
+            <td>
+                <div class="list">
+                    <div class="list__content">
+                        <span class="label {{production.state | stateColor}} nw-label" style="padding: 2px 4px 1px"><i class="{{production.state | stateIcon}}"></i></span>&nbsp;
+                        <span class="hidden-xs">{{production.content | limitTo:100}}{{production.content.length>100 ? '...' : ''}}</span>
+                        <span class="visible-xs-*">{{production.content | limitTo:50}}{{production.content.length>50 ? '...' : ''}}</span>
+                    </div>
+                    <div class="list__action">
+                        <button type="button" class="btn btn-primary" ng-click="ctrl.update(production.id)" ng-if="production.state==='PENDING'"><i class="glyphicon glyphicon-pencil"></i></button>
+                        <button type="button" class="btn btn-default" ng-click="ctrl.delete(production.id)" ng-if="production.state!=='VALIDATED'"><i class="glyphicon glyphicon-trash"></i></button>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <span class="label {{'CENSORED' | stateColor}} nw-label"><i class="{{'CENSORED' | stateIcon}}"></i></span>&nbsp;<span class="nw-legend">Ne respecte pas la charte d'utilisation</span>
+    <span class="label {{'VALIDATED' | stateColor}} nw-label"><i class="{{'VALIDATED' | stateIcon}}"></i></span>&nbsp;<span class="nw-legend">En attente de validation</span>
+    <span class="label {{'PENDING' | stateColor}} nw-label"><i class="{{'PENDING' | stateIcon}}"></i></span>&nbsp;<span class="nw-legend">Validé</span>
 </div>

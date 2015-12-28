@@ -4,12 +4,15 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -34,7 +37,6 @@ public class Production {
     @OneToMany(mappedBy = "production")
     List<QrCode> qrcodes = new ArrayList<>();
 
-
     @ManyToOne(optional = false)
     @JsonView(CompleteView.class)
     public User user;
@@ -48,6 +50,7 @@ public class Production {
     private String content;
 
     @JsonView({FlatView.class, CompleteView.class})
+    @Enumerated(EnumType.STRING)
     private ProductionState state = ProductionState.PENDING;
 
     public Long getId() {
