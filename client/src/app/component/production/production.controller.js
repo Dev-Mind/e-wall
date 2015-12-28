@@ -32,7 +32,7 @@
         $http
           .post('/api/secured/' + ctrl.category.id + '/production', ctrl.production)
           .then(function(){
-            $state.go('home');
+            $state.go('admin');
           })
           .catch(function(response){
             switch(response.status){

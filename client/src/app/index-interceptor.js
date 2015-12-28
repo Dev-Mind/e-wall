@@ -17,12 +17,12 @@
 
     return {
       responseError: function(response){
-        if ((response.status === 401 || response.status === 403) && !response.config.ignoreErrorRedirection) {
+        if ((response.status === 401 || response.status === 403) && (response.config && !response.config.ignoreErrorRedirection)) {
           var deferred = $q.defer();
           $rootScope.$emit('$ewError', {type : 'RIGHTS'});
           return deferred.promise;
         }
-        else if (!isFunctionalError(response) && !response.config.ignoreErrorRedirection) {
+        else if (!isFunctionalError(response) && (response.config && !response.config.ignoreErrorRedirection)) {
           $rootScope.$emit('$ewError', response);
         }
         return $q.reject(response);

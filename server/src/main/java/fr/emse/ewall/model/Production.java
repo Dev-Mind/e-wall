@@ -11,6 +11,8 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 /**
  * A work is created by a user (role {@link Role#WRITER}). Texts is the most common way to create a work
  *
@@ -22,6 +24,7 @@ public class Production {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonView({FlatView.class, CompleteView.class})
     private Long id;
 
     /**
@@ -33,12 +36,15 @@ public class Production {
 
 
     @ManyToOne(optional = false)
+    @JsonView(CompleteView.class)
     public User user;
 
     @org.hibernate.annotations.Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
+    @JsonView(CompleteView.class)
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @Lob
+    @JsonView({FlatView.class, CompleteView.class})
     private String content;
 
     public Long getId() {

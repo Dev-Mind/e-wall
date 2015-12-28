@@ -56,7 +56,7 @@
               size : mainQr.dimension/2 * 1.5* ratio + 'px',
               x:dimension/4,
               y:dimension - dimension/4,
-              content:response.data.message
+              content:response.data.shortCode
             };
 
             ctrl.qrs.forEach(function(elt){

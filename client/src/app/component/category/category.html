@@ -23,7 +23,7 @@
             <tr ng-repeat="category in ctrl.categories">
                 <td>
                     <div class="list">
-                        <div class="list__content">{{category.name}} ({{category.message}})</div>
+                        <div class="list__content">{{category.name}} ({{category.shortCode}})</div>
                         <div class="list__action">
                             <button type="button" class="btn btn-primary" ng-click="ctrl.update(category.id)" ng-if="ewall.unlocked==='true'" ><i class="glyphicon glyphicon-pencil"></i></button>
                             <button type="button" class="btn btn-primary" ng-click="ctrl.update(category.id)" ng-if="ewall.unlocked!=='true'" ><i class="glyphicon glyphicon-search"></i></button>
@@ -48,15 +48,16 @@
             <span ng-if="frm.code.$error.uniqueCategoryCode">Ce code est déjà utilisé dans un autre parcours<br></span>
             <span ng-if="frm.name.$error.required">Le nom est obligatoire<br></span>
             <span ng-if="frm.name.$error.maxlength">Le nom associé ne peut pas faire plus de 255 caractères<br></span>
-            <span ng-if="frm.message.$error.maxlength">Vous ne pouvez définir qu'une lettre<br></span>
+            <span ng-if="frm.shortCode.$error.maxlength">Vous ne pouvez définir qu'une lettre<br></span>
+
+
         </uib-alert>
 
         <form novalidate name="frm">
-            {{ctrl.entity.id}}
             <div class="row">
                 <div class="col-sm-8">
                     <div class="form-group">
-                        <label for="code">Code</label>
+                        <label for="code">Code (la longueur influt sur le nombre de QR codes liés à la catégorie)</label>
                         <input type="text" class="form-control" id="code" name="code"
                                ng-maxlength="50"
                                ng-model="ctrl.entity.code"
@@ -75,13 +76,20 @@
                     </div>
                     <div class="form-group">
                         <label for="name">Lettre associée</label>
-                        <input type="text" class="form-control" id="message" name="message"
+                        <input type="text" class="form-control" id="shortCode" name="shortCode"
                                ng-maxlength="1"
-                               ng-model="ctrl.entity.message"
+                               ng-model="ctrl.entity.shortCode"
                                placeholder="Lettre associée">
                     </div>
                     <div class="form-group">
-                        <label for="name">URL liée au QR code</label>
+                        <label for="name">Message ouvert par le QR Code</label>
+                        <input type="text" class="form-control" id="message" name="message"
+                               ng-maxlength="255"
+                               ng-model="ctrl.entity.message"
+                               placeholder="Message lié au QR code">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">URL du QR code</label>
                         <input type="text" class="form-control" disabled="true"
                                 value="{{ewall.qrcodeurl}}/{{ctrl.entity.code}}">
                     </div>

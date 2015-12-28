@@ -2,7 +2,10 @@ package fr.emse.ewall;
 
 import javax.annotation.PostConstruct;
 
+import fr.emse.ewall.model.Authority;
 import fr.emse.ewall.model.Category;
+import fr.emse.ewall.model.Role;
+import fr.emse.ewall.repository.AuthorityRepository;
 import fr.emse.ewall.repository.CategoryRepository;
 import fr.emse.ewall.service.category.CategoryService;
 import org.slf4j.Logger;
@@ -24,27 +27,24 @@ public class EWallInitializer {
     @Autowired
     private CategoryService categoryService;
 
+    @Autowired
+    private AuthorityRepository authorityRepository;
+
     @PostConstruct
     public void init() {
         if(categoryRepository.count()==0){
             logger.info("This is the first start of the application. We create the different categories");
 
-            categoryService.save(new Category().setCode("territoire").setName("Territoire(s)").setMessage("F"));
-            categoryService.save(new Category().setCode("international").setName("International").setMessage("U"));
-            categoryService.save(new Category().setCode("rechindustrie").setName("Transfert recherche - industrie").setMessage("T"));
-            categoryService.save(new Category().setCode("orgatravail").setName("Organisation du travail").setMessage("U"));
-            categoryService.save(new Category().setCode("responsabilite").setName("Responsabilité sociétale et environnementale de l’ingénieur").setMessage("R"));
+            categoryService.save(new Category().setCode("territoire").setName("Territoire(s)").setShortCode("F").setMessage("Beaunier"));
+            categoryService.save(new Category().setCode("international").setName("International").setShortCode("U").setMessage("Boussingault"));
+            categoryService.save(new Category().setCode("rechindustrie").setName("Transfert recherche - industrie").setShortCode("T").setMessage("Grüner"));
+            categoryService.save(new Category().setCode("orgatravail").setName("Organisation du travail").setShortCode("U").setMessage("Fayol"));
+            categoryService.save(new Category().setCode("responsabilite").setName("Responsabilité sociétale et environnementale de l’ingénieur").setShortCode("R").setMessage("Neltner"));
 
-            //TODO add characters
-//            Beaunier  - Territoire(s)
-//
-//            Boussingault  - International
-//
-//            Grüner  - Transfert recherche - industrie
-//
-//            Fayol  - Organisation du travail
-//
-//            Neltner - Responsabilité sociétale et environnementale de l’ingénieur
+            authorityRepository.save(new Authority().setId(1L).setName(Role.PUBLIC));
+            authorityRepository.save(new Authority().setId(2L).setName(Role.ADMIN));
+            authorityRepository.save(new Authority().setId(3L).setName(Role.WRITER));
+
         }
     }
 

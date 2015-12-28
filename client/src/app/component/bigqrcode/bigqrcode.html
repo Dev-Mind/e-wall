@@ -1,7 +1,7 @@
 <div class="container">
     <div class="qr-category__container">
         <div ng-repeat="category in ctrl.categories">
-            <button class="qr-category__link btn" ng-click="ctrl.selectCategory(category.id)">{{category.message}}</button>
+            <button class="qr-category__link btn" ng-click="ctrl.selectCategory(category.id)">{{category.shortCode}}</button>
         </div>
     </div>
 </div>
