@@ -50,7 +50,7 @@ public class ProductionWriterController {
             HttpServletRequest request) {
 
         AttributePrincipal principal = (AttributePrincipal) request.getUserPrincipal();
-        return ResponseEntity.ok().body(productionService.save(idCategorie, production, userRepository.findByEsmeid(principal.getName())));
+        return ResponseEntity.ok().body(productionService.save(idCategorie, production, userRepository.findByEsmeid(principal.getName()), false));
     }
 
     @RequestMapping(value = "/production/myself")

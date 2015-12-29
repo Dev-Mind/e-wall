@@ -66,7 +66,7 @@
         .catch(function(response){
           switch(response.status){
             case 507:
-              ctrl.error = 'Erreur lors de la suppressioj des QR codes';
+              ctrl.error = 'Erreur lors de la suppression des QR codes';
               break;
             default:
               ctrl.error = 'Une erreur a été détectée lors de la suppression';

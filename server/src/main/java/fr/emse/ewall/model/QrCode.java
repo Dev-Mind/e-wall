@@ -23,30 +23,30 @@ public class QrCode {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonView({FlatView.class, CompleteView.class})
+    @JsonView({FlatView.class, CategoryDetailView.class, ProductionDetailView.class})
     private Long id;
 
     @ManyToOne
-    @JsonIgnore
+    @JsonView(ProductionDetailView.class)
     public Category category;
 
     @ManyToOne
-    @JsonView({FlatView.class, CompleteView.class})
+    @JsonView({FlatView.class, CategoryDetailView.class})
     Production production;
 
     @org.hibernate.annotations.Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-    @JsonView(CompleteView.class)
+    @JsonView(CategoryDetailView.class)
     private LocalDateTime generatedAt = LocalDateTime.now();
 
     /**
      * A QRcode help to open an URL
      */
     @NotNull
-    @JsonView(FlatView.class)
+    @JsonView({FlatView.class, CategoryDetailView.class, ProductionDetailView.class})
     private String url;
 
     @Lob
-    @JsonView(FlatView.class)
+    @JsonView({FlatView.class, CategoryDetailView.class, ProductionDetailView.class})
     private String svgPath;
 
     /**

@@ -15,4 +15,7 @@ public interface ProductionRepository extends CrudRepository<Production, Long> {
 
     @Query(value = "SELECT p FROM Production p LEFT JOIN FETCH p.user u LEFT JOIN FETCH p.qrcodes q where u.id = :userId")
     List<Production> findByUserId(@Param("userId") Long userId);
+
+    @Query(value = "SELECT p FROM Production p LEFT JOIN FETCH p.user u LEFT JOIN FETCH p.qrcodes q where p.id = :id")
+    Production findByIdFetchMode(@Param("id") Long id);
 }

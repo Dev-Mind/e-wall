@@ -24,12 +24,12 @@ public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonView({FlatView.class, CompleteView.class})
+    @JsonView({FlatView.class, CategoryDetailView.class, ProductionDetailView.class})
     private Long id;
 
     @Size(max = 255)
     @NotNull
-    @JsonView({FlatView.class, CompleteView.class})
+    @JsonView({FlatView.class, CategoryDetailView.class, ProductionDetailView.class})
     private String name;
 
     /**
@@ -37,11 +37,11 @@ public class Category {
      */
     @Size(max = 50)
     @NotNull
-    @JsonView({FlatView.class, CompleteView.class})
+    @JsonView({FlatView.class, CategoryDetailView.class})
     private String code;
     
     @OneToMany(mappedBy = "category")
-    @JsonView(CompleteView.class)
+    @JsonView(CategoryDetailView.class)
     List<QrCode> qrcodes = new ArrayList<>();
 
     /**
@@ -49,16 +49,16 @@ public class Category {
      */
     @Size(max = 255)
     @NotNull
-    @JsonView({FlatView.class, CompleteView.class})
+    @JsonView({FlatView.class, CategoryDetailView.class})
     private String message;
 
     @Size(max = 5)
     @NotNull
-    @JsonView({FlatView.class, CompleteView.class})
+    @JsonView({FlatView.class, CategoryDetailView.class})
     private String shortCode;
 
     @org.hibernate.annotations.Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-    @JsonView(CompleteView.class)
+    @JsonView(CategoryDetailView.class)
     private LocalDateTime createdAt = LocalDateTime.now();
 
     public Long getId() {

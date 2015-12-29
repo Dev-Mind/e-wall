@@ -2,7 +2,7 @@ package fr.emse.ewall.api.free;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import fr.emse.ewall.model.Category;
-import fr.emse.ewall.model.CompleteView;
+import fr.emse.ewall.model.CategoryDetailView;
 import fr.emse.ewall.model.FlatView;
 import fr.emse.ewall.repository.CategoryRepository;
 import io.swagger.annotations.Api;
@@ -32,7 +32,7 @@ public class CategoryReaderController {
 
     @RequestMapping(value = "/{id}")
     @ApiOperation(value = "Return one category", httpMethod = "GET")
-    @JsonView(CompleteView.class)
+    @JsonView(CategoryDetailView.class)
     public Category findOne(@ApiParam(name = "id", value = "Category Id") @PathVariable(value = "id") Long id) {
         return categoryRepository.findByIdFetchMode(id);
     }

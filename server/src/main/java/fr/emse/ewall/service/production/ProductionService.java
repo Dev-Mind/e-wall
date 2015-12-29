@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Objects;
 
 import fr.emse.ewall.exception.ElementNotFoundException;
+import fr.emse.ewall.exception.ForbiddenException;
 import fr.emse.ewall.model.Production;
+import fr.emse.ewall.model.ProductionState;
 import fr.emse.ewall.model.QrCode;
 import fr.emse.ewall.model.User;
 import fr.emse.ewall.repository.CategoryRepository;
@@ -36,7 +38,7 @@ public class ProductionService {
     @Autowired
     private QrCodeRepository qrCodeRepository;
 
-    public Production save(Long idCategory, Production production, User user) {
+    public Production save(Long idCategory, Production production, User user, boolean adminMode) {
         Objects.requireNonNull(idCategory);
         Objects.requireNonNull(production);
 
@@ -48,6 +50,10 @@ public class ProductionService {
         }
         else{
             savedProduction = productionRepository.findOne(production.getId());
+            //Only pending productions can be saved
+            if(!adminMode && !ProductionState.PENDING.equals(production.getState())) {
+                throw new ForbiddenException();
+            }
             savedProduction.setContent(production.getContent());
             if(!idCategory.equals(savedProduction.getQrcode().getCategory().getId())){
                 deleteLinkQRCode(savedProduction);
@@ -87,10 +93,12 @@ public class ProductionService {
             throw new ElementNotFoundException();
         }
         deleteLinkQRCode(production);
+        productionRepository.delete(production);
     }
 
     protected void deleteLinkQRCode(Production production) {
         production.getQrcode().setProduction(null);
-        productionRepository.delete(production);
+        qrCodeRepository.save(production.getQrcode());
+        production.setQrcode(null);
     }
 }
