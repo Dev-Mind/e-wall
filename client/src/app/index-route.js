@@ -21,6 +21,7 @@
       .state('parameter', new State(USER_ROLES, 'parameter', 'component/parameter/parameter.html').roles([USER_ROLES.admin]).controller('ParameterCtrl').build())
       .state('production', new State(USER_ROLES, 'production/:id', 'component/production/production.html').roles([USER_ROLES.admin, USER_ROLES.writer]).controller('ProductionCtrl').build())
       .state('productions', new State(USER_ROLES, 'productions', 'component/productions/productions.html').roles([USER_ROLES.admin, USER_ROLES.writer]).controller('ProductionsCtrl').build())
+      .state('myproductions', new State(USER_ROLES, 'myproductions', 'component/myproductions/myproductions.html').roles([USER_ROLES.admin, USER_ROLES.writer]).controller('MyProductionsCtrl').build())
       .state('user', new State(USER_ROLES, 'user', 'component/user/user.html').roles([USER_ROLES.admin]).controller('UserCtrl')
         .resolve({
           /* @ngInject */

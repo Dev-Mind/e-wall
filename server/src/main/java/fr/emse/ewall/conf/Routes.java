@@ -16,9 +16,11 @@ public class Routes {
             "/home",
             "/nwerror/{type:\\w+}",
             "/monitor",
+            "/myproductions",
             "/parameter",
             "/production/{type:\\w+}",
-            "/productions"
+            "/productions",
+            "/user"
     })
     public String index() {
         return "forward:/";
