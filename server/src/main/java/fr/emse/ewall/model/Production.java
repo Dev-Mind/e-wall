@@ -42,7 +42,7 @@ public class Production {
     public User user;
 
     @org.hibernate.annotations.Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
-    @JsonView(ProductionDetailView.class)
+    @JsonView({FlatView.class, ProductionDetailView.class})
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @Lob

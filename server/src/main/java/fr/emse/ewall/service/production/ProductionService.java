@@ -97,8 +97,7 @@ public class ProductionService {
     }
 
     protected void deleteLinkQRCode(Production production) {
-        production.getQrcode().setProduction(null);
-        qrCodeRepository.save(production.getQrcode());
+        qrCodeRepository.save(production.getQrcode().setProduction(null));
         production.setQrcode(null);
     }
 }

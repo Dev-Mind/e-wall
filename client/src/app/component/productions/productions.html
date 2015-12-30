@@ -24,11 +24,11 @@
                     <div class="list__content">
                         <span class="label {{production.state | stateColor}} nw-label" style="padding: 2px 4px 1px"><i class="{{production.state | stateIcon}}"></i></span>&nbsp;
                         <span class="hidden-xs">{{production.content | limitTo:100}}{{production.content.length>100 ? '...' : ''}}</span>
-                        <span class="visible-xs-*">{{production.content | limitTo:50}}{{production.content.length>50 ? '...' : ''}}</span>
+                        <span class="visible-xs">{{production.content | limitTo:50}}{{production.content.length>50 ? '...' : ''}}</span>
                     </div>
                     <div class="list__action">
-                        <button type="button" class="btn btn-primary" ng-click="ctrl.update(production.id)" ng-if="production.state==='PENDING'"><i class="glyphicon glyphicon-pencil"></i></button>
-                        <button type="button" class="btn btn-default" ng-click="ctrl.delete(production.id)" ng-if="production.state!=='VALIDATED'"><i class="glyphicon glyphicon-trash"></i></button>
+                        <button type="button" class="btn btn-primary" ng-click="ctrl.update(production)" ng-if="production.state==='PENDING'"><i class="glyphicon glyphicon-pencil"></i></button>
+                        <button type="button" class="btn btn-default" ng-click="ctrl.delete(production)" ng-if="production.state!=='VALIDATED'"><i class="glyphicon glyphicon-trash"></i></button>
                     </div>
                 </div>
             </td>
@@ -39,3 +39,19 @@
     <span class="label {{'VALIDATED' | stateColor}} nw-label"><i class="{{'VALIDATED' | stateIcon}}"></i></span>&nbsp;<span class="nw-legend">En attente de validation</span>
     <span class="label {{'PENDING' | stateColor}} nw-label"><i class="{{'PENDING' | stateIcon}}"></i></span>&nbsp;<span class="nw-legend">Validé</span>
 </div>
+
+<script type="text/ng-template" id="deleteProduction.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Suppresion d'un contenu</h3>
+    </div>
+    <div class="modal-body">
+        <p>Voulez vous vraiment supprimer le contenu créé le {{ selected.createdAt | ewDate}}</p>
+
+        <div class="hidden-xs content">{{ selected.content }}</div>
+        <div class="visible-xs content">{{ selected.content | limitTo:450}}{{selected.content.length>450 ? '...' : ''}}</div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+        <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</script>

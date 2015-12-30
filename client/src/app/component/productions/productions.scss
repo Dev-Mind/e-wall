@@ -1,3 +1,11 @@
+@import '../../common';
+
 .nw-label{
   padding: 2px 4px 1px;
+}
+
+.content{
+  background-color: $color-primary-very-light;
+  padding: 6px;
+  border-radius: 4px;
 }
