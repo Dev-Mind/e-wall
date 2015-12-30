@@ -38,18 +38,18 @@ public class ProductionService {
     @Autowired
     private QrCodeRepository qrCodeRepository;
 
-    public Production save(Long idCategory, Production production, User user, boolean adminMode) {
+    public Production saveMyProduction(Long idCategory, Production production, User user, boolean adminMode) {
         Objects.requireNonNull(idCategory);
         Objects.requireNonNull(production);
 
         Production savedProduction;
 
         if(production.getId()==null){
-            savedProduction = productionRepository.save(production.setUser(user));
+            savedProduction = productionRepository.save(production.setUser(user).setUserMaj(user.getEsmeid()));
             linkToQrCode(idCategory, savedProduction);
         }
         else{
-            savedProduction = productionRepository.findOne(production.getId());
+            savedProduction = productionRepository.findOne(production.getId()).setUserMaj(user.getEsmeid());
             //Only pending productions can be saved
             if(!adminMode && !ProductionState.PENDING.equals(production.getState())) {
                 throw new ForbiddenException();

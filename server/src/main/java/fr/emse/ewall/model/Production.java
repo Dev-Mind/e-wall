@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -52,6 +53,9 @@ public class Production {
     @JsonView({FlatView.class, ProductionDetailView.class})
     @Enumerated(EnumType.STRING)
     private ProductionState state = ProductionState.PENDING;
+
+    @Size(max = 255)
+    private String userMaj;
 
     public Long getId() {
         return id;
@@ -107,6 +111,24 @@ public class Production {
 
     public Production setState(ProductionState state) {
         this.state = state;
+        return this;
+    }
+
+    public List<QrCode> getQrcodes() {
+        return qrcodes;
+    }
+
+    public Production setQrcodes(List<QrCode> qrcodes) {
+        this.qrcodes = qrcodes;
+        return this;
+    }
+
+    public String getUserMaj() {
+        return userMaj;
+    }
+
+    public Production setUserMaj(String userMaj) {
+        this.userMaj = userMaj;
         return this;
     }
 }
