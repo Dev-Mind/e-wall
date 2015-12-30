@@ -21,17 +21,28 @@
       .state('parameter', new State(USER_ROLES, 'parameter', 'component/parameter/parameter.html').roles([USER_ROLES.admin]).controller('ParameterCtrl').build())
       .state('production', new State(USER_ROLES, 'production/:id', 'component/production/production.html').roles([USER_ROLES.admin, USER_ROLES.writer]).controller('ProductionCtrl').build())
       .state('productions', new State(USER_ROLES, 'productions', 'component/productions/productions.html').roles([USER_ROLES.admin, USER_ROLES.writer]).controller('ProductionsCtrl').build())
-      .state('ewerror', new State(USER_ROLES, 'ewerror/{type}', 'component/error/error.html')
-        .params({
-          error: {}
+      .state('user', new State(USER_ROLES, 'user', 'component/user/user.html').roles([USER_ROLES.admin]).controller('UserCtrl')
+        .resolve({
+          /* @ngInject */
+          users: function ($http) {
+            return $http.get('/api/public/user').then(function(response){
+                return response.data;
+                });
+          }
         })
-        .controller(
-        /* @ngInject */
-        function ($scope, $stateParams) {
-          $scope.error = $stateParams.error;
-          $scope.type = $stateParams.type;
-        })
-        .build());
+        .build())
+    .
+    state('ewerror', new State(USER_ROLES, 'ewerror/{type}', 'component/error/error.html')
+      .params({
+        error: {}
+      })
+      .controller(
+      /* @ngInject */
+      function ($scope, $stateParams) {
+        $scope.error = $stateParams.error;
+        $scope.type = $stateParams.type;
+      })
+      .build());
 
   });
 

@@ -66,7 +66,7 @@ public class User {
     }
 
     public List<String> getRoles() {
-        return authorities
+        return roles!=null ? roles : authorities
                 .stream()
                 .map(a -> a.getName().toString())
                 .collect(Collectors.toList());

@@ -1,0 +1,140 @@
+<div class="container">
+    <h1><i class="glyphicon glyphicon-tasks"></i> Utilisateurs</h1>
+
+    <ol class="breadcrumb ew-breadcrumb">
+        <li><a href="home">Accueil</a></li>
+        <li><a href="admin">Administration</a></li>
+        <li class="active">Utilisateurs</li>
+    </ol>
+
+    <div ng-if="!ctrl.entity">
+        <div class="list">
+            <div class="list__content">
+
+            </div>
+            <div class="list__content text-right">
+                <div class="input-group">
+                    <span class="input-group-addon" id="sizing-addon3"><i class="glyphicon glyphicon-search"></i></span>
+                    <input type="text" ng-model="search" class="form-control" placeholder="Filtrer la liste...">
+                </div>
+            </div>
+        </div>
+        Page {{currentPage}} / {{numPages}}
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Utilisateurs</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="user in ctrl.users | filter:search | orderBy:'esmeid' | limitTo:10:(currentPage-1)*10">
+                <td>
+                    <div class="list">
+                        <div class="list__content">{{user.esmeid}}
+                            <span class="badge" ng-repeat="role in user.roles" style="margin-right: 4px">{{role}}</span>
+                        </div>
+                        <div class="list__action">
+                            <button type="button" class="btn btn-primary" ng-click="ctrl.update(user.id)"><i
+                                    class="glyphicon glyphicon-pencil"></i></button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="text-center">
+            <uib-pagination class="hidden-xs"
+                            ng-init="currentPage=1"
+                            boundary-links="true"
+                            total-items="ctrl.users.length"
+                            ng-model="currentPage"
+                            class="pagination-sm"
+                            max-size="10"
+                            previous-text="&lsaquo;"
+                            next-text="&rsaquo;"
+                            first-text="&laquo;"
+                            last-text="&raquo;"
+                            num-pages="numPages">
+            </uib-pagination>
+            <uib-pagination class="visible-xs"
+                            ng-init="currentPage=1"
+                            boundary-links="true"
+                            total-items="ctrl.users.length"
+                            ng-model="currentPage"
+                            class="pagination-sm"
+                            max-size="5"
+                            previous-text="&lsaquo;"
+                            next-text="&rsaquo;"
+                            first-text="&laquo;"
+                            last-text="&raquo;"
+                            num-pages="numPages">
+            </uib-pagination>
+        </div>
+    </div>
+    &nbsp;
+
+    <div ng-if="ctrl.entity">
+        <h2>Modification d'un utilisateur</h2>
+
+        <uib-alert type="danger" ng-if="ctrl.error">{{ctrl.error}}</uib-alert>
+
+        <form novalidate name="frm">
+            <div class="form-group">
+                <label for="code">Identifiant</label>
+                <input type="text" class="form-control" id="code" name="code"
+                       ng-maxlength="50"
+                       ng-model="ctrl.entity.esmeid"
+                       ng-required="true"
+                       ng-disabled="true"
+                       placeholder="Code"
+                       unique-category-code
+                       id-category="ctrl.entity.id">
+            </div>
+            <div class="form-group">
+                Vous pouvez modifier les rôles des utilisateurs (les rôles attribués sont en violet)
+            </div>
+            <div class="form-group">
+                <div class="btn-group" role="group" aria-label="...">
+                    <button type="button" class="btn "
+                            ng-class="{'btn-default' : ctrl.entity.roles.indexOf(ctrl.roles.public)<0 , 'btn-primary' : ctrl.entity.roles.indexOf(ctrl.roles.public)>=0}"
+                            ng-click="ctrl.updateRole(ctrl.roles.public)">
+                        {{ctrl.roles.public}}</button>
+                    <button type="button" class="btn btn-default"
+                            ng-class="{'btn-default' : ctrl.entity.roles.indexOf(ctrl.roles.writer)<0, 'btn-primary' : ctrl.entity.roles.indexOf(ctrl.roles.writer)>=0}"
+                            ng-click="ctrl.updateRole(ctrl.roles.writer)">
+                        {{ctrl.roles.writer}}</button>
+                    <button type="button" class="btn btn-default"
+                            ng-class="{'btn-default' : ctrl.entity.roles.indexOf(ctrl.roles.admin)<0 , 'btn-primary' : ctrl.entity.roles.indexOf(ctrl.roles.admin)>=0}"
+                            ng-click="ctrl.updateRole(ctrl.roles.admin)">
+                        {{ctrl.roles.admin}}</button>
+                </div>
+            </div>
+            <div class="form-group">&nbsp;</div>
+            <div class="form-group">
+                <button type="button"
+                        ng-disabled="(!frm.$pristine && frm.$invalid) || spinner==='on'"
+                        class="btn btn-primary"
+                        ng-click="ctrl.saveUser()"><i class="glyphicon glyphicon-save"></i> Enregistrer
+                </button>
+                <button type="button" class="btn btn-default"
+                        ng-click="ctrl.cancel()">Annuler
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<script type="text/ng-template" id="deleteCategory.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Suppresion d'un parcours</h3>
+    </div>
+    <div class="modal-body">
+        <p>Voulez vous vraiment supprimer le parcours <b>{{ selected.name}}</b> créé le {{ selected.createdAt | ewDate}}
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+        <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</script>
