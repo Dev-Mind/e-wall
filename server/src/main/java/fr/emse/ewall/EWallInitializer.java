@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Initialize data if db is empty
@@ -31,6 +32,7 @@ public class EWallInitializer {
     private AuthorityRepository authorityRepository;
 
     @PostConstruct
+    @Transactional
     public void init() {
         if(categoryRepository.count()==0){
             logger.info("This is the first start of the application. We create the different categories");
