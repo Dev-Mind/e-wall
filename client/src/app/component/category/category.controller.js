@@ -2,7 +2,7 @@
 
   'use strict';
 
-  angular.module('ew-admin').controller('CategoryCtrl', function ($http) {
+  angular.module('ew-admin').controller('CategoryCtrl', function ($http, $uibModal) {
     'ngInject';
 
     var ctrl = this;
@@ -57,24 +57,52 @@
         });
     };
 
-    ctrl.delete = function(id){
-      $http
-        .delete('/api/secured/category/' + id)
-        .then(function(response){
-          refresh();
-        })
-        .catch(function(response){
-          switch(response.status){
-            case 507:
-              ctrl.error = 'Erreur lors de la suppression des QR codes';
-              break;
-            default:
-              ctrl.error = 'Une erreur a été détectée lors de la suppression';
+    ctrl.delete = function(category){
+
+      var modalInstance = $uibModal.open({
+        animation: true,
+        templateUrl: 'deleteCategory.html',
+        controller: 'DeleteCategoryCtrl',
+        resolve: {
+          category: function () {
+            return category;
           }
-        });
+        }
+      });
+
+      modalInstance.result.then(function () {
+        $http
+          .delete('/api/secured/category/' + category.id)
+          .then(function(response){
+            refresh();
+          })
+          .catch(function(response){
+            switch(response.status){
+              case 507:
+                ctrl.error = 'Erreur lors de la suppression des QR codes';
+                break;
+              default:
+                ctrl.error = 'Une erreur a été détectée lors de la suppression';
+            }
+          });
+      });
     };
 
     refresh();
+  });
+
+  angular.module('ew-admin').controller('DeleteCategoryCtrl', function ($scope, $uibModalInstance, category) {
+    'ngInject';
+
+    $scope.selected = category;
+
+    $scope.ok = function () {
+      $uibModalInstance.close();
+    };
+
+    $scope.cancel = function () {
+      $uibModalInstance.dismiss('cancel');
+    };
   });
 
 })();

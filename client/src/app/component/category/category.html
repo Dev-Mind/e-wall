@@ -27,7 +27,7 @@
                         <div class="list__action">
                             <button type="button" class="btn btn-primary" ng-click="ctrl.update(category.id)" ng-if="ewall.unlocked==='true'" ><i class="glyphicon glyphicon-pencil"></i></button>
                             <button type="button" class="btn btn-primary" ng-click="ctrl.update(category.id)" ng-if="ewall.unlocked!=='true'" ><i class="glyphicon glyphicon-search"></i></button>
-                            <button type="button" class="btn btn-default" ng-click="ctrl.delete(category.id)" ng-if="ewall.unlocked==='true'"><i class="glyphicon glyphicon-trash"></i></button>
+                            <button type="button" class="btn btn-default" ng-click="ctrl.delete(category)" ng-if="ewall.unlocked==='true'"><i class="glyphicon glyphicon-trash"></i></button>
                         </div>
                     </div>
                 </td>
@@ -117,3 +117,16 @@
     </div>
 
 </div>
+
+<script type="text/ng-template" id="deleteCategory.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Suppresion d'un parcours</h3>
+    </div>
+    <div class="modal-body">
+        <p>Voulez vous vraiment supprimer le parcours  <b>{{ selected.name}}</b> créé le {{ selected.createdAt | ewDate}}</p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+        <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</script>
