@@ -26,7 +26,7 @@ public class ProductionReaderController {
     @ApiOperation(value = "Return all the productions", httpMethod = "GET")
     @JsonView(FlatView.class)
     public Iterable<Production> findAll() {
-        return productionRepository.findAll();
+        return productionRepository.findAllValidated();
     }
 
 
