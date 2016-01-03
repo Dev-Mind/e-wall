@@ -6,8 +6,11 @@ import javax.servlet.http.HttpServletRequest;
 import com.fasterxml.jackson.annotation.JsonView;
 import fr.emse.ewall.model.FlatView;
 import fr.emse.ewall.model.Production;
+import fr.emse.ewall.model.Role;
+import fr.emse.ewall.model.User;
 import fr.emse.ewall.repository.ProductionRepository;
 import fr.emse.ewall.repository.UserRepository;
+import fr.emse.ewall.security.CheckUserRole;
 import fr.emse.ewall.service.production.ProductionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -34,6 +37,19 @@ public class ProductionWriterController {
 
     @Autowired
     private ProductionRepository productionRepository;
+
+    @Autowired
+    private CheckUserRole checkUserRole;
+
+
+    @RequestMapping(value = "/production")
+    @ApiOperation(value = "Return all the productions", httpMethod = "GET")
+    @JsonView(FlatView.class)
+    public Iterable<Production> findAll(HttpServletRequest request) {
+        checkUserRole.checkRole(request, Role.ADMIN);
+        return productionRepository.findAll();
+    }
+
 
     @RequestMapping(value = "/production/{id}", method = RequestMethod.DELETE)
     @ApiOperation(value = "Delete one production", httpMethod = "DELETE")

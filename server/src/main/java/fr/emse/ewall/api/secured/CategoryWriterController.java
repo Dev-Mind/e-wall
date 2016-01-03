@@ -1,7 +1,11 @@
 package fr.emse.ewall.api.secured;
 
+import javax.servlet.http.HttpServletRequest;
+
 import fr.emse.ewall.model.Category;
+import fr.emse.ewall.model.Role;
 import fr.emse.ewall.repository.CategoryRepository;
+import fr.emse.ewall.security.CheckUserRole;
 import fr.emse.ewall.service.category.CategoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,6 +36,9 @@ public class CategoryWriterController {
     @Autowired
     private CategoryService categoryService;
 
+    @Autowired
+    private CheckUserRole checkUserRole;
+
     @RequestMapping(value = "/check/{code}")
     @ApiOperation(value = "Check if code is used by another category", httpMethod = "GET")
     public ResponseEntity<Void> checkCode(
@@ -49,7 +56,8 @@ public class CategoryWriterController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ApiOperation(value = "Delete one category (be careful all the QR codes linked to this category will be deleted!)", httpMethod = "DELETE")
-    public ResponseEntity delete(@ApiParam(name = "id", value = "Category Id") @PathVariable(value = "id") Long id) {
+    public ResponseEntity delete(@ApiParam(name = "id", value = "Category Id") @PathVariable(value = "id") Long id, HttpServletRequest request) {
+        checkUserRole.checkRole(request, Role.ADMIN);
         if(Boolean.TRUE.equals(unlocked)) {
             categoryService.deleteCategory(id);
             return ResponseEntity.ok().build();
@@ -61,7 +69,8 @@ public class CategoryWriterController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ApiOperation(value = "Create or update a category. For a new one a set of QR codes are generated", httpMethod = "POST")
-    public ResponseEntity<Category> save(@ApiParam(name = "category", value = "Category") @RequestBody Category category) {
+    public ResponseEntity<Category> save(@ApiParam(name = "category", value = "Category") @RequestBody Category category, HttpServletRequest request) {
+        checkUserRole.checkRole(request, Role.ADMIN);
         if(Boolean.TRUE.equals(unlocked)) {
             return ResponseEntity.ok().body(categoryService.save(category));
         }
