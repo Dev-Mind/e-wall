@@ -2,68 +2,40 @@
 
   'use strict';
 
-  angular.module('ew-admin').controller('ProductionsCtrl', function ($http, $state, $uibModal) {
+  angular.module('ew-admin').controller('ProductionsCtrl', function ($http, ProductionService, STATE) {
     'ngInject';
 
     var ctrl = this;
+    ctrl.currentPage = 1;
+    ctrl.search = {
+      state : 'PENDING'
+    };
+    ctrl.states = STATE;
 
-    function refresh(){
+    ctrl.refresh = function(){
       $http
-        .get('/api/secured/production/myself')
+        .put('/api/secured/production/' + (ctrl.currentPage - 1), {
+          category : ctrl.search.category ? ctrl.search.category.code : null,
+          state : ctrl.search.state,
+          content: ctrl.search.content
+        })
         .then(function(response){
-          ctrl.productions = response.data;
+          ctrl.productionsPage = response.data;
         });
-    }
-
-    refresh();
-
-    ctrl.update = function(production){
-      $state.go('production', {id : production.id});
     };
 
+    $http
+      .get('/api/public/category')
+      .then(function (response) {
+        ctrl.categories = response.data;
+      });
+
+    ctrl.refresh();
+    ctrl.update = ProductionService.updateProduction;
     ctrl.delete = function(production){
-
-      var modalInstance = $uibModal.open({
-        animation: true,
-        templateUrl: 'deleteProduction.html',
-        controller: 'DeleteProductionCtrl',
-        resolve: {
-          production: function () {
-            return production;
-          }
-        }
-      });
-
-      modalInstance.result.then(function () {
-        $http
-          .delete('/api/secured/production/' + production.id)
-          .then(function(response){
-            refresh();
-          })
-          .catch(function(response){
-            switch(response.status){
-              default:
-                ctrl.error = 'Une erreur a été détectée lors de la suppression';
-            }
-          });
-      });
-
-
+      ProductionService.deleteProduction(production, refresh);
     };
 
   });
 
-  angular.module('ew-admin').controller('DeleteProductionCtrl', function ($scope, $uibModalInstance, production) {
-    'ngInject';
-
-    $scope.selected = production;
-
-    $scope.ok = function () {
-      $uibModalInstance.close();
-    };
-
-    $scope.cancel = function () {
-      $uibModalInstance.dismiss('cancel');
-    };
-  });
 })();

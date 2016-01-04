@@ -7,13 +7,9 @@
 
     var ctrl = this;
 
-    $http.get('api/secured/role')
-      .then(function(response) {
-        ctrl.isAdmin = SecurityService.isAuthorized('ADMIN', response.data);
-      })
-      .catch(function(response) {
-        ctrl.isAdmin = false;
-      });
+    SecurityService.isAdmin(function(response){
+      ctrl.isAdmin = response;
+    });
 
   });
 

@@ -38,9 +38,19 @@
       return isAuth;
     }
 
+    function isAdmin(callback){
+      $http.get('api/secured/role')
+        .then(function(response) {
+          callback(isAuthorized('ADMIN', response.data));
+        })
+        .catch(function(response) {
+          callback(false);
+        });
+    }
+
     return {
       'valid': valid,
-      'isAuthorized': isAuthorized
+      'isAdmin': isAdmin
     };
   });
 
