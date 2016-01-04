@@ -7,13 +7,28 @@
         <li class="active">Productions</li>
     </ol>
 
-    <p>
-        Cette page permet de visualiser, valider ou rejeter toutes les productions
-    </p>
-    <div class="list__action-header">
-        Ici le formaulaire de recherche
-        A valider par défaut
+    <div class="row">
+        <div class="col-sm-4 form-group">
+            <select ng-options="category.name for category in ctrl.categories" class="form-control" ng-model="ctrl.search.category">
+                <option value="">Catégorie</option>
+            </select>
+        </div>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" id="category" name="content"
+                   ng-maxlength="50"
+                   ng-model="ctrl.search.content"
+                   placeholder="Contenu ou user">
+        </div>
+        <div class="col-sm-3">
+            <input type="radio" ng-model="ctrl.search.state" value="PENDING"> En attente
+            <input type="radio" ng-model="ctrl.search.state" value="VALIDATED"> Validé
+            <input type="radio" ng-model="ctrl.search.state" value="CENSORED" > Rejetté
+        </div>
+        <div class="col-sm-1">
+            <button class="btn btn-default" ng-click="ctrl.refresh()"><i class="glyphicon glyphicon-search"></i></button>
+        </div>
     </div>
+    Page {{ctrl.productionsPage.number + 1}} / {{ctrl.productionsPage.totalPages}}
     <table class="table table-bordered">
         <thead>
         <tr>
@@ -21,37 +36,76 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="production in ctrl.productions | orderBy:'state'">
+        <tr ng-repeat="production in ctrl.productionsPage.content | orderBy:'state'">
             <td>
                 <div class="list">
                     <div class="list__content">
-                        <span class="label {{production.state | stateColor}} nw-label" style="padding: 2px 4px 1px"><i class="{{production.state | stateIcon}}"></i></span>&nbsp;
+                        <span class="label {{production.state | stateColor}} nw-label" style="padding: 2px 4px 1px"><i
+                                class="{{production.state | stateIcon}}"></i></span>&nbsp;
                         <span class="hidden-xs">{{production.content | limitTo:100}}{{production.content.length>100 ? '...' : ''}}</span>
                         <span class="visible-xs">{{production.content | limitTo:50}}{{production.content.length>50 ? '...' : ''}}</span>
+                        <span class="hidden-xs nw-creator"><br>Créé par <b>{{production.user}}</b> le {{ production.createdAt | ewDate}} dans la catégorie <b>{{production.category}}</b></span>
                     </div>
                     <div class="list__action">
-                        <button type="button" class="btn btn-primary" ng-click="ctrl.update(production)" ng-if="production.state==='PENDING'"><i class="glyphicon glyphicon-pencil"></i></button>
-                        <button type="button" class="btn btn-default" ng-click="ctrl.delete(production)" ng-if="production.state!=='VALIDATED'"><i class="glyphicon glyphicon-trash"></i></button>
+                        <button type="button" class="btn btn-primary" ng-click="ctrl.update(production)"
+                                ng-if="production.state==='PENDING'"><i class="glyphicon glyphicon-pencil"></i></button>
+                        <button type="button" class="btn btn-default" ng-click="ctrl.delete(production)"
+                                ng-if="production.state!=='VALIDATED'"><i class="glyphicon glyphicon-trash"></i>
+                        </button>
                     </div>
                 </div>
             </td>
         </tr>
         </tbody>
     </table>
-    <span class="label {{'CENSORED' | stateColor}} nw-label"><i class="{{'CENSORED' | stateIcon}}"></i></span>&nbsp;<span class="nw-legend">Ne respecte pas la charte d'utilisation</span>
-    <span class="label {{'VALIDATED' | stateColor}} nw-label"><i class="{{'VALIDATED' | stateIcon}}"></i></span>&nbsp;<span class="nw-legend">En attente de validation</span>
-    <span class="label {{'PENDING' | stateColor}} nw-label"><i class="{{'PENDING' | stateIcon}}"></i></span>&nbsp;<span class="nw-legend">Validé</span>
+    <span class="label {{'CENSORED' | stateColor}} nw-label"><i
+            class="{{'CENSORED' | stateIcon}}"></i></span>&nbsp;<span class="nw-legend">Ne respecte pas la charte d'utilisation</span>
+    <span class="label {{'VALIDATED' | stateColor}} nw-label"><i
+            class="{{'VALIDATED' | stateIcon}}"></i></span>&nbsp;<span class="nw-legend">En attente de validation</span>
+    <span class="label {{'PENDING' | stateColor}} nw-label"><i class="{{'PENDING' | stateIcon}}"></i></span>&nbsp;<span
+        class="nw-legend">Validé</span>
+    <div class="text-center">
+        <uib-pagination class="hidden-xs"
+                        boundary-links="true"
+                        total-items="ctrl.productionsPage.totalElements"
+                        ng-model="ctrl.currentPage"
+                        ng-click="ctrl.refresh()"
+                        class="pagination-sm"
+                        max-size="10"
+                        previous-text="&lsaquo;"
+                        next-text="&rsaquo;"
+                        first-text="&laquo;"
+                        last-text="&raquo;"
+                        num-pages="ctrl.productionsPage.totalPages">
+        </uib-pagination>
+        <uib-pagination class="visible-xs"
+                        boundary-links="true"
+                        total-items="ctrl.users.length"
+                        ng-model="ctrl.currentPage"
+                        ng-click="ctrl.refresh()"
+                        class="pagination-sm"
+                        max-size="5"
+                        previous-text="&lsaquo;"
+                        next-text="&rsaquo;"
+                        first-text="&laquo;"
+                        last-text="&raquo;"
+                        num-pages="ctrl.productionsPage.totalPages">
+        </uib-pagination>
+    </div>
+
 </div>
 
 <script type="text/ng-template" id="deleteProduction.html">
     <div class="modal-header">
-        <h3 class="modal-title">Suppresion d'un contenu</h3>
+        <h3 class="modal-title">Suppression d'un contenu</h3>
     </div>
     <div class="modal-body">
         <p>Voulez vous vraiment supprimer le contenu créé le {{ selected.createdAt | ewDate}}</p>
 
         <div class="hidden-xs content">{{ selected.content }}</div>
-        <div class="visible-xs content">{{ selected.content | limitTo:450}}{{selected.content.length>450 ? '...' : ''}}</div>
+        <div class="visible-xs content">{{ selected.content | limitTo:450}}{{selected.content.length>450 ? '...' :
+            ''}}
+        </div>
     </div>
     <div class="modal-footer">
         <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>

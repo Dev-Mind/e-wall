@@ -12,6 +12,8 @@ info:
     name: ${project.name}
 
 ewall:
+  list:
+    maxsize: 10
   baseurl: ${EMSE_EW_BASEURL:http://localhost:8080}
   qrcode:
     path: ${EMSE_EW_QRCODE_PATH:/tmp}

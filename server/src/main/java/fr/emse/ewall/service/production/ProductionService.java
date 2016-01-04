@@ -5,18 +5,22 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
+import com.google.common.base.Strings;
+import fr.emse.ewall.api.dto.ProductionDto;
 import fr.emse.ewall.exception.ElementNotFoundException;
 import fr.emse.ewall.exception.ForbiddenException;
 import fr.emse.ewall.model.Production;
 import fr.emse.ewall.model.ProductionState;
 import fr.emse.ewall.model.QrCode;
 import fr.emse.ewall.model.User;
-import fr.emse.ewall.repository.CategoryRepository;
 import fr.emse.ewall.repository.ProductionRepository;
 import fr.emse.ewall.repository.QrCodeRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -81,6 +85,24 @@ public class ProductionService {
         }
     }
 
+
+    public Page<Production> filterProductions(Integer page, Integer listMaxSize, ProductionDto filter){
+        Page<Production> productions;
+        Pageable pageable = new PageRequest(page, listMaxSize);
+        if(Objects.nonNull(filter.getCategory()) && !Strings.isNullOrEmpty(filter.getContent())){
+            productions = productionRepository.findAll(pageable, filter.getState(), filter.getCategory(), filter.getContent());
+        }
+        else if(Objects.nonNull(filter.getCategory())){
+            productions = productionRepository.findAll(pageable, filter.getState(), filter.getCategory());
+        }
+        else if(!Strings.isNullOrEmpty(filter.getContent())){
+            productions = productionRepository.findAll(pageable, filter.getState(), filter.getContent(), true);
+        }
+        else{
+            productions = productionRepository.findAll(pageable, filter.getState())
+        }
+        return productions;
+    }
 
     /**
      * Deletes a production and the link in the qrcode

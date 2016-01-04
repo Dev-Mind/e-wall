@@ -3,9 +3,16 @@
 .nw-label{
   padding: 2px 4px 1px;
 }
-
+.nw-creator{
+  padding-left: 28px;
+}
 .content{
   background-color: $color-primary-very-light;
   padding: 6px;
+  border-radius: 4px;
+}
+
+.nw-form {
+  border: 1px solid $color-primary-light;
   border-radius: 4px;
 }
