@@ -53,21 +53,25 @@ public class QrCode {
      * If true the QR Code is linked to the category to navigate to it.
      * If false the QR code is used to paint a big one and we define coordinates x and y axis
      */
+    @JsonView({FlatView.class, CategoryDetailView.class})
     private Boolean big;
 
     /**
      * X axis value for a QRCode included in a big one
      */
+    @JsonView({FlatView.class, CategoryDetailView.class, ProductionDetailView.class})
     private int x;
 
     /**
      * Y axis value for a QRCode included in a big one
      */
+    @JsonView({FlatView.class, CategoryDetailView.class, ProductionDetailView.class})
     private int y;
 
     /**
      * Dimension depends on the QRCode version
      */
+    @JsonView({FlatView.class, CategoryDetailView.class, ProductionDetailView.class})
     private int dimension;
 
     public Long getId() {
