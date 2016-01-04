@@ -77,7 +77,7 @@ public class User {
     }
 
     public User setEsmeid(String esmeid) {
-        this.esmeid = esmeid;
+        this.esmeid = esmeid != null ? esmeid.toLowerCase() : null;
         return this;
     }
 

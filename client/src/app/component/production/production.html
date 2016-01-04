@@ -77,7 +77,15 @@
                 </small>
                 <small ng-if="frm.content.$error.maxlength"><b>Texte trop long</b></small>
             </div>
-            <p>&nbsp;</p>
+
+            <p ng-if="ctrl.isAdmin && ctrl.production.id">Vous pouvez changer l'état de lademande</p>
+            <div ng-if="ctrl.isAdmin && ctrl.production.id">
+                <div class="col-sm-3">
+                    <input type="radio" ng-model="ctrl.production.state" value="PENDING" id="statePENDING"> <label for="statePENDING" class="label-radio">En attente</label>
+                    <input type="radio" ng-model="ctrl.production.state" value="VALIDATED" id="stateVALIDATED"> <label for="stateVALIDATED" class="label-radio">Validé</label>
+                    <input type="radio" ng-model="ctrl.production.state" value="CENSORED" id="stateCENSORED"> <label for="stateCENSORED" class="label-radio">Rejetté</label>
+                </div>
+            </div>
 
             <div class="form-group">
                 <button type="button"

@@ -2,7 +2,7 @@
 
   'use strict';
 
-  angular.module('ew-admin').controller('ProductionCtrl', function ($http, $state, $stateParams) {
+  angular.module('ew-admin').controller('ProductionCtrl', function ($http, $state, $stateParams, SecurityService) {
     'ngInject';
 
     var ctrl = this;
@@ -48,7 +48,7 @@
       if (ctrl.category && ctrl.production) {
         delete ctrl.error;
         $http
-          .post('/api/secured/' + ctrl.category.id + '/production', ctrl.production)
+          .post('/api/secured/category/' + ctrl.category.id + '/production', ctrl.production)
           .then(function () {
             $state.go('admin');
           })
@@ -63,6 +63,10 @@
           });
       }
     };
+
+    SecurityService.isAdmin(function(response){
+      ctrl.isAdmin = response;
+    });
   });
 
 })();

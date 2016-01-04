@@ -20,15 +20,23 @@
                    placeholder="Contenu ou user">
         </div>
         <div class="col-sm-3">
-            <input type="radio" ng-model="ctrl.search.state" value="PENDING"> En attente
-            <input type="radio" ng-model="ctrl.search.state" value="VALIDATED"> Validé
-            <input type="radio" ng-model="ctrl.search.state" value="CENSORED" > Rejetté
+            <input type="radio" ng-model="ctrl.search.state" value="PENDING" id="statePENDING"> <label for="statePENDING" class="label-radio">En attente</label>
+            <input type="radio" ng-model="ctrl.search.state" value="VALIDATED" id="stateVALIDATED"> <label for="stateVALIDATED" class="label-radio">Validé</label>
+            <input type="radio" ng-model="ctrl.search.state" value="CENSORED" id="stateCENSORED"> <label for="stateCENSORED" class="label-radio">Rejetté</label>
         </div>
         <div class="col-sm-1">
             <button class="btn btn-default" ng-click="ctrl.refresh()"><i class="glyphicon glyphicon-search"></i></button>
         </div>
     </div>
-    Page {{ctrl.productionsPage.number + 1}} / {{ctrl.productionsPage.totalPages}}
+
+    <div class="list">
+        <div class="list__content">
+            Page {{ctrl.productionsPage.number + 1}} / {{ctrl.productionsPage.totalPages}}
+        </div>
+        <div class="list__action-header">
+            {{ctrl.productionsPage.totalElements}} {{ctrl.productionsPage.totalElements>1 ? 'éléments' : 'élément'}}
+        </div>
+    </div>
     <table class="table table-bordered">
         <thead>
         <tr>
@@ -36,7 +44,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="production in ctrl.productionsPage.content | orderBy:'state'">
+        <tr ng-repeat="production in ctrl.productionsPage.content | orderBy:['state', 'category', 'createdAt']">
             <td>
                 <div class="list">
                     <div class="list__content">
@@ -47,8 +55,7 @@
                         <span class="hidden-xs nw-creator"><br>Créé par <b>{{production.user}}</b> le {{ production.createdAt | ewDate}} dans la catégorie <b>{{production.category}}</b></span>
                     </div>
                     <div class="list__action">
-                        <button type="button" class="btn btn-primary" ng-click="ctrl.update(production)"
-                                ng-if="production.state==='PENDING'"><i class="glyphicon glyphicon-pencil"></i></button>
+                        <button type="button" class="btn btn-primary" ng-click="ctrl.update(production)"><i class="glyphicon glyphicon-pencil"></i></button>
                         <button type="button" class="btn btn-default" ng-click="ctrl.delete(production)"
                                 ng-if="production.state!=='VALIDATED'"><i class="glyphicon glyphicon-trash"></i>
                         </button>

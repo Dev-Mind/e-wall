@@ -10,6 +10,7 @@ import com.google.common.base.Strings;
 import fr.emse.ewall.api.dto.ProductionDto;
 import fr.emse.ewall.model.FlatView;
 import fr.emse.ewall.model.Production;
+import fr.emse.ewall.model.ProductionDetailView;
 import fr.emse.ewall.model.Role;
 import fr.emse.ewall.model.User;
 import fr.emse.ewall.repository.ProductionRepository;
@@ -53,7 +54,6 @@ public class ProductionWriterController {
     @Autowired
     private CheckUserRole checkUserRole;
 
-
     @RequestMapping(value = "/production/{page}", method = RequestMethod.PUT)
     @ApiOperation(value = "Return all the productions", httpMethod = "GET")
     public Page<ProductionDto> findAll(
@@ -79,17 +79,6 @@ public class ProductionWriterController {
         return ResponseEntity.ok().build();
     }
 
-    @RequestMapping(value = "/{idCategorie}/production", method = RequestMethod.POST)
-    @ApiOperation(value = "Create or update a production. For a new one a link with a QR codes is added", httpMethod = "POST")
-    public ResponseEntity<Production> save(
-            @ApiParam(name = "idCategorie", value = "Category Id") @PathVariable(value = "idCategorie") Long idCategorie,
-            @ApiParam(name = "production", value = "Production") @RequestBody Production production,
-            HttpServletRequest request) {
-
-        AttributePrincipal principal = (AttributePrincipal) request.getUserPrincipal();
-        return ResponseEntity.ok().body(productionService.saveMyProduction(idCategorie, production, userRepository.findByEsmeid(principal.getName()), false));
-    }
-
     @RequestMapping(value = "/production/myself")
     @ApiOperation(value = "Return my productions", httpMethod = "GET")
     @JsonView(FlatView.class)
@@ -97,4 +86,17 @@ public class ProductionWriterController {
         AttributePrincipal principal = (AttributePrincipal) request.getUserPrincipal();
         return productionRepository.findByUserId(userRepository.findByEsmeid(principal.getName()).getId());
     }
+
+    @RequestMapping(value = "/category/{idCategorie}/production", method = RequestMethod.POST)
+    @ApiOperation(value = "Create or update a production. For a new one a link with a QR codes is added", httpMethod = "POST")
+    @JsonView(ProductionDetailView.class)
+    public ResponseEntity<Production> save(
+            @ApiParam(name = "idCategorie", value = "Category Id") @PathVariable(value = "idCategorie") Long idCategorie,
+            @ApiParam(name = "production", value = "Production") @RequestBody Production production,
+            HttpServletRequest request) {
+
+        AttributePrincipal principal = (AttributePrincipal) request.getUserPrincipal();
+        return ResponseEntity.ok().body(productionService.saveMyProduction(idCategorie, production, userRepository.findByEsmeid(principal.getName())));
+    }
+
 }

@@ -22,7 +22,7 @@
         .then(function(response){
           ctrl.productionsPage = response.data;
         });
-    }
+    };
 
     $http
       .get('/api/public/category')
@@ -34,7 +34,7 @@
     ctrl.update = ProductionService.updateProduction;
     ctrl.delete = function(production){
       ProductionService.deleteProduction(production, refresh);
-    }
+    };
 
   });
 

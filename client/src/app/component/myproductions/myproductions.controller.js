@@ -19,12 +19,12 @@
 
     ctrl.changePage = function(page){
       console.log(page);
-    }
+    };
 
     ctrl.update = ProductionService.updateProduction;
     ctrl.delete = function(production){
       ProductionService.deleteProduction(production, refresh);
-    }
+    };
 
   });
 
