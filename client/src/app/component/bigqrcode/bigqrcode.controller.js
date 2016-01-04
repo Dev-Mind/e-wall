@@ -50,21 +50,28 @@
             svg.style.height = dimension;
             svg.style.width = dimension;
 
-            var ratio = dimension/(mainQr.dimension + ctrl.parameterMap.qrcode_margin);
+            var ratio = dimension/mainQr.dimension;
 
             ctrl.text = {
-              size : mainQr.dimension/2 * 1.5* ratio + 'px',
+              size : mainQr.dimension/2 * 1.3* ratio + 'px',
               x:dimension/4,
-              y:dimension - dimension/4,
+              y:dimension - dimension/5,
               content:response.data.shortCode
             };
 
             ctrl.qrs.forEach(function(elt){
-              elt.x = elt.x*ratio + elt.x*ctrl.parameterMap.qrcode_margin;
-              elt.y = elt.y*ratio + elt.y*ctrl.parameterMap.qrcode_margin;
-              elt.scaleDimension = ratio;
+              elt.background = {
+                x : elt.x*ratio,
+                y :elt.y*ratio,
+                dimensionScaled : ratio
+              };
+              elt.foreground = {
+                x : elt.x*ratio + ctrl.parameterMap.qrcode_margin,
+                y :elt.y*ratio + ctrl.parameterMap.qrcode_margin,
+                dimensionScaled : ratio - 2 *ctrl.parameterMap.qrcode_margin
+              };
               elt.scaleRatio = ratio/(elt.dimension);
-              //ctrl.parameterMap.qrcode_margin * mainQr.dimension
+
             });
           });
 

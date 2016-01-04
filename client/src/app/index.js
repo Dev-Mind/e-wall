@@ -30,7 +30,7 @@
     qrcode_foreground: '#3A3A3A',
     qrcode_background: '#B0BEC5',
     qrcode_colour_hover: '#2196f3',
-    qrcode_colour_text: '#2196f3'
+    qrcode_colour_text: '#7d5ccf'
   });
 
   angular.module('ew').constant('USER_ROLES', {
