@@ -1,3 +1,6 @@
+server:
+  port : ${EMSE_EW_PORT:8080}
+
 project:
   artifactId: e-wall
   name: e-Wall
