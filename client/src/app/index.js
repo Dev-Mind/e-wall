@@ -30,7 +30,7 @@
     qrcode_foreground: '#4c3e5e',
     qrcode_foreground_na :  '#746983',
     qrcode_background: '#9790a2',
-    qrcode_colour_hover: '#4f2d94',
+    qrcode_colour_hover: '#F9D214',
     qrcode_colour_text: '#7d5ccf'
   });
 

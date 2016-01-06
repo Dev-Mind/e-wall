@@ -3,6 +3,10 @@ package fr.emse.ewall.api.free;
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import fr.emse.ewall.model.FlatView;
+import fr.emse.ewall.model.QrCode;
+import fr.emse.ewall.repository.QrCodeRepository;
 import fr.emse.ewall.service.qrcode.QrCodeFileService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -20,6 +24,8 @@ public class QrCodeController {
     @Autowired
     private QrCodeFileService qrCodeFileService;
 
+    @Autowired
+    private QrCodeRepository qrCodeRepository;
 
     @RequestMapping(value = "{category}/{name:.+}")
     @ApiOperation(value = "Return a QR code", httpMethod = "GET")
@@ -31,4 +37,10 @@ public class QrCodeController {
         response.getOutputStream().write(qrCodeFileService.getQrCode(String.format("/%s/%s", category, name)));
     }
 
+    @RequestMapping(value = "/{id}")
+    @ApiOperation(value = "Return one QRCode", httpMethod = "GET")
+    @JsonView(FlatView.class)
+    public QrCode findOne(@ApiParam(name = "id", value = "QR code Id") @PathVariable(value = "id") Long id) {
+        return qrCodeRepository.findById(id);
+    }
 }   

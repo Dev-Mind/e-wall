@@ -39,7 +39,7 @@ public class Production {
     List<QrCode> qrcodes = new ArrayList<>();
 
     @ManyToOne(optional = false)
-    @JsonView(ProductionDetailView.class)
+    @JsonView({FlatView.class, ProductionDetailView.class})
     public User user;
 
     @org.hibernate.annotations.Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")

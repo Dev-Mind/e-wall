@@ -2,7 +2,7 @@
 
   'use strict';
 
-  angular.module('ew-admin').controller('BigQRCodeCtrl', function ($http, $timeout, $window, qrCodeParameters) {
+  angular.module('ew-admin').controller('BigQRCodeCtrl', function ($http, $timeout, $window, $uibModal, qrCodeParameters) {
     'ngInject';
 
     var ctrl = this;
@@ -81,7 +81,33 @@
         });
     };
 
+    ctrl.seeProduction = function(qr){
+      if(!!qr.production) {
+        var modalInstance = $uibModal.open({
+          animation: true,
+          templateUrl: 'seeProduction.html',
+          controller: 'SeeProductionCtrl',
+          resolve: {
+            qr: function () {
+              return $http.get('/api/public/qrcode/'+qr.production.id).then(function(response){
+                return response.data;
+              });
+            }
+          }
+        });
+      }
+    };
+
     refresh();
   });
 
+  angular.module('ew-admin').controller('SeeProductionCtrl', function ($scope, $uibModalInstance, qr) {
+    'ngInject';
+
+    $scope.selected = qr.production;
+
+    $scope.cancel = function () {
+      $uibModalInstance.dismiss('cancel');
+    };
+  });
 })();

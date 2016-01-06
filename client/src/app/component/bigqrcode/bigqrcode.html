@@ -10,7 +10,7 @@
 
     <svg class="bigqrcode">
         <style type="text/css" >
-            path:hover {
+            path.production:hover {
                 stroke : {{ctrl.parameterMap.qrcode_colour_hover}};
             }
             text{
@@ -42,15 +42,23 @@
                  ng-attr-x="{{qr.foreground.x}}"
                  ng-attr-y="{{qr.foreground.y}}">
 
-                <path ng-attr-stroke="{{!!qr.production ? ctrl.parameterMap.qrcode_foreground : ctrl.parameterMap.qrcode_foreground_na }}"
+                <path class="{{!!qr.production ? 'production' : 'naproduction'}}" ng-attr-stroke="{{!!qr.production ? ctrl.parameterMap.qrcode_foreground : ctrl.parameterMap.qrcode_foreground_na }}"
                       ng-attr-transform="scale({{qr.scaleRatio}})"
                       ng-attr-width="{{qr.foreground.dimensionScaled}}"
                       ng-attr-height="{{qr.foreground.dimensionScaled}}"
-                      ng-attr-d="{{qr.svgPath}}">
+                      ng-attr-d="{{qr.svgPath}}"
+                      ng-click="ctrl.seeProduction(qr)">
                 </path>
             </svg>
 
         </g>
     </svg>
-
 </div>
+
+<script type="text/ng-template" id="seeProduction.html">
+    <div class="modal-body">
+        <p> Créé le <b>{{ selected.createdAt | ewDate}}</b> par <b>{{ selected.user.esmeid}}</b></p>
+
+        <p>{{ selected.content }}</p>
+    </div>
+</script>
