@@ -56,7 +56,7 @@
             <div class="row">
                 <div class="col-sm-8">
                     <div class="form-group">
-                        <label for="code">Code (la longueur influt sur le nombre de QR codes liés à la catégorie)</label>
+                        <label for="code">Code (la longueur influe sur le nombre de QR codes liés à la catégorie)</label>
                         <input type="text" class="form-control" id="code" name="code"
                                ng-maxlength="50"
                                ng-model="ctrl.entity.code"
@@ -102,7 +102,7 @@
                                 ng-click="ctrl.cancel()">Annuler</button>
                     </div>
                     <div class="form-group">
-                        Cette catégorie peut contenir {{ctrl.entity.qrcodes.length > 2 ? ctrl.entity.qrcodes.length-2 : 0}} QR codes. Le nombre est défini par le nombre nécéssaire pour dessiner le QR code de la catégorie.
+                        Cette catégorie peut contenir {{ctrl.entity.qrcodes.length > 2 ? ctrl.entity.qrcodes.length-2 : 0}} QR codes. Le nombre est défini par le nombre nécessaire pour dessiner le QR code de la catégorie.
                     </div>
                 </div>
                 <div class="col-sm-4" ng-if="ctrl.entity.id">
