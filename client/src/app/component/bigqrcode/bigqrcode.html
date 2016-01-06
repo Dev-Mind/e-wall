@@ -42,7 +42,7 @@
                  ng-attr-x="{{qr.foreground.x}}"
                  ng-attr-y="{{qr.foreground.y}}">
 
-                <path ng-attr-stroke="{{ctrl.parameterMap.qrcode_foreground}}"
+                <path ng-attr-stroke="{{!!qr.production ? ctrl.parameterMap.qrcode_foreground : ctrl.parameterMap.qrcode_foreground_na }}"
                       ng-attr-transform="scale({{qr.scaleRatio}})"
                       ng-attr-width="{{qr.foreground.dimensionScaled}}"
                       ng-attr-height="{{qr.foreground.dimensionScaled}}"

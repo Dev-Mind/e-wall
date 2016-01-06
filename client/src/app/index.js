@@ -27,9 +27,10 @@
 
   angular.module('ew').constant('qrCodeParameters', {
     qrcode_margin: 0,
-    qrcode_foreground: '#3A3A3A',
-    qrcode_background: '#B0BEC5',
-    qrcode_colour_hover: '#2196f3',
+    qrcode_foreground: '#4c3e5e',
+    qrcode_foreground_na :  '#746983',
+    qrcode_background: '#9790a2',
+    qrcode_colour_hover: '#4f2d94',
     qrcode_colour_text: '#7d5ccf'
   });
 

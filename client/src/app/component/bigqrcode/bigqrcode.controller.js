@@ -53,8 +53,8 @@
             var ratio = dimension/mainQr.dimension;
 
             ctrl.text = {
-              size : mainQr.dimension/2 * 1.3* ratio + 'px',
-              x:dimension/4,
+              size : mainQr.dimension/2 * ratio + 'px',
+              x:dimension/3,
               y:dimension - dimension/5,
               content:response.data.shortCode
             };
@@ -70,6 +70,9 @@
                 y :elt.y*ratio + ctrl.parameterMap.qrcode_margin,
                 dimensionScaled : ratio - 2 *ctrl.parameterMap.qrcode_margin
               };
+              if(elt.foreground.dimensionScaled<0){
+                elt.foreground.dimensionScaled = 1;
+              }
               elt.scaleRatio = ratio/(elt.dimension);
 
             });
