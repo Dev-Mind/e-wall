@@ -24,7 +24,10 @@ ewall:
     margin: 6
     unlocked: ${EMSE_EW_UNLOCK_CATEGORY:true}
 ldap:
-  todefine: url
+  server:
+    name: 193.49.174.194
+    port: 389
+  base: ou=people,dc=emse,dc=fr
 
 spring:
   datasource:
@@ -46,12 +49,6 @@ spring:
           enabled: true
           paths: /**
 
-cas:
-  server-url-prefix: ${EMSE_EW_CAS_URL:https://cas.emse.fr}
-  server-login-url: ${EMSE_EW_CAS_LOGIN:https://cas.emse.fr/login}
-  client-host-url: ${ewall.baseurl}
-  redirectAfterValidation: true
-  authenticationUrlPatterns: /api/secured/*, /monitoring/*
 
 management:
   context-path: /monitoring
@@ -63,3 +60,4 @@ spring:
 ---
 spring:
   profiles: server
+

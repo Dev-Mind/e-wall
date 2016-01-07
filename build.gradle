@@ -35,7 +35,6 @@ buildscript {
         classpath "org.flywaydb:flyway-gradle-plugin:${vFlyway}"
         classpath 'net.researchgate:gradle-release:2.3.3'
         classpath "gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:1.4.7"
-
         classpath "com.h2database:h2:${vH2}"
         classpath "mysql:mysql-connector-java:${vMysql}"
     }
@@ -105,6 +104,8 @@ configure([project(':server')]) {
 
         compile "com.h2database:h2:${vH2}"
         compile "mysql:mysql-connector-java:${vMysql}"
+
+        compile "org.springframework.ldap:spring-ldap-core:2.0.4.RELEASE"
 
         compile "io.springfox:springfox-swagger2:${vSwagger}"
         compile "io.springfox:springfox-swagger-ui:${vSwagger}"

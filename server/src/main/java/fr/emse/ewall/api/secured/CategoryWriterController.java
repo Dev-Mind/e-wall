@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import fr.emse.ewall.model.Category;
 import fr.emse.ewall.model.Role;
 import fr.emse.ewall.repository.CategoryRepository;
-import fr.emse.ewall.security.CheckUserRole;
+import fr.emse.ewall.security.NeedsRole;
 import fr.emse.ewall.service.category.CategoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -36,9 +36,6 @@ public class CategoryWriterController {
     @Autowired
     private CategoryService categoryService;
 
-    @Autowired
-    private CheckUserRole checkUserRole;
-
     @RequestMapping(value = "/check/{code}")
     @ApiOperation(value = "Check if code is used by another category", httpMethod = "GET")
     public ResponseEntity<Void> checkCode(
@@ -46,19 +43,19 @@ public class CategoryWriterController {
             @ApiParam(name = "code", required = true, value = "Code to check") @PathVariable(value = "code") String code) {
 
 
-            Category category = categoryRepository.findByCode(code);
+        Category category = categoryRepository.findByCode(code);
 
-            if (category == null || (id != null && category.getId().equals(id))) {
-                return ResponseEntity.ok().build();
-            }
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        if (category == null || (id != null && category.getId().equals(id))) {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.status(HttpStatus.CONFLICT).build();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ApiOperation(value = "Delete one category (be careful all the QR codes linked to this category will be deleted!)", httpMethod = "DELETE")
+    @NeedsRole(Role.ADMIN)
     public ResponseEntity delete(@ApiParam(name = "id", value = "Category Id") @PathVariable(value = "id") Long id, HttpServletRequest request) {
-        checkUserRole.checkRole(request, Role.ADMIN);
-        if(Boolean.TRUE.equals(unlocked)) {
+        if (Boolean.TRUE.equals(unlocked)) {
             categoryService.deleteCategory(id);
             return ResponseEntity.ok().build();
         }
@@ -69,12 +66,12 @@ public class CategoryWriterController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ApiOperation(value = "Create or update a category. For a new one a set of QR codes are generated", httpMethod = "POST")
+    @NeedsRole(Role.ADMIN)
     public ResponseEntity<Category> save(@ApiParam(name = "category", value = "Category") @RequestBody Category category, HttpServletRequest request) {
-        checkUserRole.checkRole(request, Role.ADMIN);
-        if(Boolean.TRUE.equals(unlocked)) {
+        if (Boolean.TRUE.equals(unlocked)) {
             return ResponseEntity.ok().body(categoryService.save(category));
         }
-        else{
+        else {
             return ResponseEntity.status(HttpStatus.LOCKED).body(null);
         }
     }

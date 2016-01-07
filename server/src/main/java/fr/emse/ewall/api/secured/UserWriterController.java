@@ -1,14 +1,12 @@
 package fr.emse.ewall.api.secured;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import fr.emse.ewall.model.Role;
 import fr.emse.ewall.model.User;
 import fr.emse.ewall.repository.AuthorityRepository;
 import fr.emse.ewall.repository.UserRepository;
-import fr.emse.ewall.security.CheckUserRole;
+import fr.emse.ewall.security.NeedsRole;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -31,14 +29,12 @@ public class UserWriterController {
     @Autowired
     private AuthorityRepository authorityRepository;
 
-    @Autowired
-    private CheckUserRole checkUserRole;
 
     @RequestMapping(method = RequestMethod.PUT)
     @ApiOperation(value = "Update a user", httpMethod = "PUT")
     @Transactional
+    @NeedsRole(Role.ADMIN)
     public ResponseEntity<User> save(@ApiParam(name = "User", value = "User") @RequestBody User user, HttpServletRequest request) {
-        checkUserRole.checkRole(request, Role.ADMIN);
         User userDb = userRepository.findByEsmeid(user.getEsmeid());
         userDb.getAuthorities().clear();
         user.getRoles().stream().forEach(r -> userDb.addAuthority(authorityRepository.findByName(Role.valueOf(r))));

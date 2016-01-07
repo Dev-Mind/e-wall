@@ -41,6 +41,9 @@ public class User {
     @org.hibernate.annotations.Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentLocalDateTime")
     private LocalDateTime firstConnectionAt = LocalDateTime.now();
 
+    @Size(max = 255)
+    private String token;
+
     public Long getId() {
         return id;
     }
@@ -88,6 +91,14 @@ public class User {
     public User setFirstConnectionAt(LocalDateTime firstConnectionAt) {
         this.firstConnectionAt = firstConnectionAt;
         return this;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     @Override

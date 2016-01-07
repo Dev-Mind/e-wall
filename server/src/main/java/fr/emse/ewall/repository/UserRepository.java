@@ -9,4 +9,6 @@ import org.springframework.data.repository.CrudRepository;
 public interface UserRepository extends CrudRepository<User, Long> {
 
     User findByEsmeid(String esmeid);
+
+    User findByToken(String token);
 }
