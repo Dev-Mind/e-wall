@@ -16,6 +16,8 @@ import fr.emse.ewall.model.User;
 import fr.emse.ewall.repository.UserRepository;
 import fr.emse.ewall.service.user.UserService;
 import org.jasig.cas.client.authentication.AttributePrincipal;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
@@ -29,6 +31,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
  */
 public class AfterAuthenticationFilter extends OncePerRequestFilter {
 
+    private static final Logger logger = LoggerFactory.getLogger(AfterAuthenticationFilter.class);
+
     @Autowired
     private UserService userService;
 
@@ -38,9 +42,12 @@ public class AfterAuthenticationFilter extends OncePerRequestFilter {
         AttributePrincipal principal = (AttributePrincipal)request  .getUserPrincipal();
 
         if(principal==null){
+            logger.error("Impossible to find the principal user in request");
             response.sendError(HttpStatus.UNAUTHORIZED.value(), "User unknown");
             return;
         }
+        logger.debug("Cas authenticated " + principal.getName());
+
         userService.findOrCreateUser(principal.getName(), Role.PUBLIC);
         filterChain.doFilter(request, response);
 
