@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%date{HH:mm:ss} [%thread] %-5level %logger{16} - %msg%n%rEx</pattern>
+        </encoder>
+    </appender>
+
+
+    <appender name="LOGFILE" class="ch.qos.logback.core.FileAppender">
+        <file>/var/log/e-wall.log</file>
+        <encoder>
+            <pattern>%date{HH:mm:ss} [%thread] %-5level %logger{16} - %msg%n%rEx</pattern>
+        </encoder>
+    </appender>
+
+    <!-- If we use embedded tomcat we use 2 loggers console and file -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="LOGFILE"/>
+    </root>
+
+    <logger name="fr.emse.ewall" level="TRACE"/>
+
+</configuration>
