@@ -6,6 +6,7 @@
 @import 'component/production/production';
 @import 'component/myproductions/myproductions';
 @import 'component/user/user';
+@import 'component/login/login';
 
 $roboto-font-path: '../fonts';
 
@@ -129,4 +130,7 @@ th{
 
 input.ng-invalid{
   border: 1px solid #F06292;
+}
+input.ng-pristine{
+  border-color: #aaa;
 }

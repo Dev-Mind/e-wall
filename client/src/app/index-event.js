@@ -33,6 +33,11 @@
       $state.go('ewerror', {error: response});
     });
 
+    //Error are catched to redirect user on login page
+    $rootScope.$on('$ewLoginRequired', function (event, response) {
+      $state.go('login');
+    });
+
     //When a ui-router state change we watch if user is authorized
     $rootScope.$on('$stateChangeStart', function (event, next) {
       SecurityService.valid(next.authorizedRoles);

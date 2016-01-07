@@ -1,0 +1,38 @@
+<div class="container ">
+    <h1>Login</h1>
+
+    <p class="ew-text">Pour pouvoir utiliser cette partie de l'application vous devez vous connecter.</p>
+
+    <div>
+        <a ui-sref="home">Retourner à la page d'accueil</a>
+    </div>
+
+
+    <form novalidate class="cesar-form" name="frm">
+        <div class="nw-login-container">
+            <div class="form-group">
+                <label for="username">Identifiant (racine de votre adresse email)</label>
+                <input type="text" class="form-control" id="username" name="username"
+                       ng-maxlength="100"
+                       ng-model="ctrl.credentials.username"
+                       ng-required="true"
+                       placeholder="prenom.nom">
+            </div>
+            <div class="form-group">
+                <label for="password">Mot de passe (le même que celui du portail)</label>
+                <input type="text" class="form-control" id="password" name="password"
+                       ng-maxlength="100"
+                       ng-model="ctrl.credentials.password"
+                       ng-required="true">
+            </div>
+            <div class="form-group">
+                <button type="button"
+                        ng-disabled="(frm.$pristine && frm.$invalid) || spinner==='on'"
+                        class="btn btn-primary"
+                        ng-click="ctrl.saveProduction()"><i class="glyphicon glyphicon-log-in"></i> Se connecter
+                </button>
+            </div>
+        </div>
+
+    </form>
+</div>
