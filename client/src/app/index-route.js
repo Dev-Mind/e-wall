@@ -16,7 +16,7 @@
       .state('admin', new State(USER_ROLES, 'admin', 'component/admin/admin.html').controller('AdminCtrl').roles([USER_ROLES.admin, USER_ROLES.writer]).build())
       .state('bigqrcode', new State(USER_ROLES, 'bigqrcode', 'component/bigqrcode/bigqrcode.html').controller('BigQRCodeCtrl').build())
       .state('category', new State(USER_ROLES, 'category', 'component/category/category.html').roles([USER_ROLES.admin]).controller('CategoryCtrl').build())
-      .state('home', new State(USER_ROLES, 'home', 'component/main/main.html').build())
+      .state('home', new State(USER_ROLES, 'home', 'component/main/main.html').controller('MainCtrl').build())
       .state('login', new State(USER_ROLES, 'login', 'component/login/login.html').controller('LoginCtrl').build())
       .state('logout', new State(USER_ROLES, 'logout', 'component/main/main.html').controller('LogoutCtrl').build())
       .state('logoutmain', new State(USER_ROLES, 'logoutmain', 'component/main/main.html').controller('LogoutMainCtrl').build())

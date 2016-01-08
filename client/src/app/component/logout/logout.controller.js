@@ -2,7 +2,7 @@
 
   'use strict';
 
-  angular.module('ew-structure').controller('LogoutCtrl', function ($http, $state) {
+  angular.module('ew-structure').controller('LogoutCtrl', function ($http, $state, SecurityService) {
     'ngInject';
 
     $http
@@ -10,6 +10,10 @@
       .then(function () {
         $state.go('home');
       });
+
+    SecurityService.isAdmin(function(response){
+      ctrl.isAdmin = response;
+    });
 
   });
 

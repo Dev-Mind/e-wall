@@ -5,16 +5,23 @@
 </div>
 
 <div class="container ew-menu">
+    <p class="ew-text">La semaine Industrie du Futur se veut, pour chaque personne de l’Ecole, l’occasion d’arrêter le temps,
+        de s’ouvrir à une problématique majeure pour l’avenir, d’échanger dans un contexte convivial et différent, et de
+        s’engager aussi dans une autre dynamique de travail. Accédez aux différentes productions ou proposez la vôtre!</p>
+    <p>&nbsp;</p>
+
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-sm-6">
             <a ui-sref="admin" class="ew-menu__link btn"><i class="glyphicon glyphicon-log-in"></i></a>
-            <h2>Sécurisé</h2>
-            <p>Accès réservé aux contributeurs et aux administrateurs de la solution</p>
+            <h2>Produire</h2>
+            <p>Voir mes productions ou en saisir une nouvelle
+                <span  ng-if="ctrl.isAdmin"> et gérer la solution (paramètres, serveur, etc.)</span></p>
+
         </div>
-        <div class="col-lg-6 visible-lg">
+        <div class="col-sm-6">
             <a ui-sref="bigqrcode" class="ew-menu__link btn"><i class="glyphicon glyphicon-blackboard"></i></a>
-            <h2>Grand écran</h2>
-            <p>Vous pouvez ouvrir le mur numérique afin d'afficher les QR codes par catégories</p>
+            <h2>Mur</h2>
+            <p>Accéder au mur numérique afin de visualiser les différentes productions</p>
         </div>
     </div>
 </div>
