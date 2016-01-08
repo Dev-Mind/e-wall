@@ -10,6 +10,7 @@
       if(authorizedRoles && authorizedRoles.indexOf(USER_ROLES.all)<0) {
         $http.get('api/secured/role')
           .then(function(response){
+            $rootScope.autenticated = true;
             var roles = response.data;
 
             if(!isAuthorized(authorizedRoles, roles)){
@@ -17,7 +18,18 @@
             }
           })
           .catch(function(){
+            $rootScope.autenticated = false;
             $rootScope.$broadcast('$ewError', {type : 'RIGHTS'});
+          });
+      }
+      else{
+        $http
+          .get('api/public/connected')
+          .then(function(response){
+            $rootScope.autenticated = response.data;
+          })
+          .catch(function(){
+            $rootScope.autenticated = false;
           });
       }
     }

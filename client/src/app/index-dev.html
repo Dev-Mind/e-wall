@@ -27,7 +27,12 @@
 <header class="ew-header">
     <div class="container-fluid">
         <a class="navbar-brand" ui-sref="home"><img src="img/logo.svg" class="hidden-xs"><span class="visible-xs">E-Wall</span></a>
+        <div class="navbar-login"  ng-controller="LogoutMainCtrl">
+            <a ui-sref="login" ng-if="!autenticated" tooltip-placement="bottom"  uib-tooltip="Se connecter"><i class="glyphicon glyphicon-log-in"></i> </a>
+            <a ui-sref="logout" ng-if="autenticated" tooltip-placement="bottom"  uib-tooltip="Se déconnecter"><i class="glyphicon glyphicon-log-out"></i></a>
+        </div>
     </div>
+
 </header>
 
 <div class="ew-body" ui-view></div>

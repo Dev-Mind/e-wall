@@ -18,6 +18,8 @@
       .state('category', new State(USER_ROLES, 'category', 'component/category/category.html').roles([USER_ROLES.admin]).controller('CategoryCtrl').build())
       .state('home', new State(USER_ROLES, 'home', 'component/main/main.html').build())
       .state('login', new State(USER_ROLES, 'login', 'component/login/login.html').controller('LoginCtrl').build())
+      .state('logout', new State(USER_ROLES, 'logout', 'component/main/main.html').controller('LogoutCtrl').build())
+      .state('logoutmain', new State(USER_ROLES, 'logoutmain', 'component/main/main.html').controller('LogoutMainCtrl').build())
       .state('monitor', new State(USER_ROLES, 'monitor', 'component/monitoring/monitoring.html').roles([USER_ROLES.admin]).controller('MonitoringCtrl').build())
       .state('parameter', new State(USER_ROLES, 'parameter', 'component/parameter/parameter.html').roles([USER_ROLES.admin]).controller('ParameterCtrl').build())
       .state('production', new State(USER_ROLES, 'production/:id', 'component/production/production.html').roles([USER_ROLES.admin, USER_ROLES.writer]).controller('ProductionCtrl').build())

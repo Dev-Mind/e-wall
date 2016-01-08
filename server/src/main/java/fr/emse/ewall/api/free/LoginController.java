@@ -4,10 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import fr.emse.ewall.exception.UserNotFoundException;
 import fr.emse.ewall.model.FlatView;
 import fr.emse.ewall.model.User;
-import fr.emse.ewall.repository.UserRepository;
 import fr.emse.ewall.security.CookieService;
 import fr.emse.ewall.security.CurrentUser;
 import fr.emse.ewall.security.ldap.LdapService;
@@ -26,9 +24,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/public")
 public class LoginController {
-
-    @Autowired
-    private UserRepository userRepository;
 
     @Autowired
     private CookieService cookieService;
@@ -58,8 +53,8 @@ public class LoginController {
         }
 
         //We now call the LDAP to control the password
-        User user =  ldapService.checkUser(username[0], password[0]);
-        cookieService.setCookieInResponse(response, user);
+        User user = ldapService.checkUser(username[0], password[0]);
+        cookieService.setCookieInResponse(response, user, true);
 
         return ResponseEntity.ok().body(user);
     }
@@ -67,10 +62,22 @@ public class LoginController {
     /**
      * When a user log out we regenerate a new token
      */
-    @RequestMapping
+    @RequestMapping(value = "/logout")
     public void logout(HttpServletResponse response) {
         CurrentUser currentUser = applicationContext.getBean(CurrentUser.class);
+        cookieService.setCookieInResponse(response, currentUser.getCredentials().orElse(null), false);
+    }
 
-        currentUser.getCredentials().ifPresent(credentials -> cookieService.setCookieInResponse(response, credentials));
+    /**
+     * When a user log out we regenerate a new token
+     */
+    @RequestMapping(value = "/connected")
+    public ResponseEntity<Boolean> connected(HttpServletResponse response) {
+        CurrentUser currentUser = applicationContext.getBean(CurrentUser.class);
+
+        if (currentUser == null || !currentUser.getCredentials().isPresent()) {
+            return ResponseEntity.ok().body(Boolean.FALSE);
+        }
+        return ResponseEntity.ok().body(Boolean.TRUE);
     }
 }

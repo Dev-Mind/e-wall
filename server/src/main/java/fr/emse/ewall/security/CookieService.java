@@ -22,11 +22,13 @@ public class CookieService {
     /**
      * Create token if it does'nt exist
      */
-    public void setCookieInResponse(HttpServletResponse response, User user) {
-        user.setToken(UUID.randomUUID().toString());
-        userRepository.save(user);
+    public void setCookieInResponse(HttpServletResponse response, User user, boolean creation) {
 
-        Cookie cookie = new Cookie(LdapAuthenticationFilter.TOKEN_COOKIE_NAME, user.getToken());
+        if(user!=null && user.getEsmeid()!=null){
+            userRepository.findByEsmeid(user.getEsmeid()).setToken(UUID.randomUUID().toString());
+        }
+
+        Cookie cookie = new Cookie(LdapAuthenticationFilter.TOKEN_COOKIE_NAME, creation ? user.getToken() : "deconnected");
         cookie.setPath("/");
         cookie.setMaxAge((int) Duration.of(1, ChronoUnit.HOURS).getSeconds());
         response.addCookie(cookie);
