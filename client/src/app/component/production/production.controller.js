@@ -19,6 +19,7 @@
         .then(function (response) {
           ctrl.production = response.data;
           ctrl.currentTab = 'content';
+          ctrl.isLocked = !ctrl.isAdmin && ctrl.production.state!=='PENDING';
 
           if (response.data.qrcodes && response.data.qrcodes[0] && response.data.qrcodes[0].category) {
             $http.get('/api/public/category/' + response.data.qrcodes[0].category.id)
@@ -37,7 +38,9 @@
 
     //Go back on the first tab
     ctrl.changeCategory = function () {
-      delete ctrl.currentTab;
+      if(!ctrl.isLocked){
+        delete ctrl.currentTab;
+      }
     };
 
     ctrl.cancel = function () {

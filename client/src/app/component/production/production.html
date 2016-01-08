@@ -68,7 +68,7 @@
 
         <form novalidate name="frm">
             <div>
-                    <textarea class="form-control" rows="10" ng-model="ctrl.production.content" name="content"
+                    <textarea class="form-control" rows="10" ng-model="ctrl.production.content" name="content" ng-disabled="ctrl.isLocked"
                               ng-required="true"
                               ng-maxlength="3000"></textarea>
                 <small ng-if="!frm.content.$error.maxlength">({{3000 - ctrl.production.content.length }}
@@ -91,9 +91,9 @@
                 <button type="button"
                         ng-disabled="(frm.$pristine && frm.$invalid) || spinner==='on'"
                         class="btn btn-primary"
-                        ng-click="ctrl.saveProduction()"><i class="glyphicon glyphicon-save"></i> Enregistrer
+                        ng-click="ctrl.saveProduction()" ng-if="!ctrl.isLocked"><i class="glyphicon glyphicon-save"></i> Enregistrer
                 </button>
-                <button type="button" class="btn btn-default" ng-click="ctrl.changeCategory()">Changer la catégorie
+                <button type="button" class="btn btn-default" ng-if="!ctrl.isLocked" ng-click="ctrl.changeCategory()">Changer la catégorie
                 </button>
                 <button type="button" class="btn btn-default" ng-click="ctrl.cancel()">Annuler</button>
             </div>

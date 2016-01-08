@@ -28,6 +28,7 @@
                     </div>
                     <div class="list__action">
                         <button type="button" class="btn btn-primary" ng-click="ctrl.update(production)" ng-if="production.state==='PENDING'"><i class="glyphicon glyphicon-pencil"></i></button>
+                        <button type="button" class="btn btn-primary" ng-click="ctrl.update(production)" ng-if="production.state!=='PENDING'"><i class="glyphicon glyphicon-search"></i></button>
                         <button type="button" class="btn btn-default" ng-click="ctrl.delete(production)" ng-if="production.state!=='VALIDATED'"><i class="glyphicon glyphicon-trash"></i></button>
                     </div>
                 </div>
