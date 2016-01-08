@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 
-import fr.emse.ewall.model.CurrentUser;
+import fr.emse.ewall.security.CurrentUser;
 import fr.emse.ewall.model.User;
 import fr.emse.ewall.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

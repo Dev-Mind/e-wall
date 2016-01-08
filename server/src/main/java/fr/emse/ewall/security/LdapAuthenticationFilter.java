@@ -9,7 +9,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.emse.ewall.model.CurrentUser;
 import fr.emse.ewall.model.User;
 import fr.emse.ewall.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

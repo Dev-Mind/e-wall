@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import fr.emse.ewall.api.dto.ProductionDto;
-import fr.emse.ewall.model.CurrentUser;
+import fr.emse.ewall.security.CurrentUser;
 import fr.emse.ewall.model.FlatView;
 import fr.emse.ewall.model.Production;
 import fr.emse.ewall.model.ProductionDetailView;

@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 
 import fr.emse.ewall.exception.AuthenticationRequiredException;
 import fr.emse.ewall.exception.ForbiddenException;
-import fr.emse.ewall.model.CurrentUser;
 import fr.emse.ewall.model.Role;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;

@@ -17,13 +17,14 @@
 
     return {
       responseError: function(response){
+        var deferred;
         if (response.status === 401 && response.config && !response.config.ignoreErrorRedirection) {
-          var deferred = $q.defer();
+          deferred = $q.defer();
           $rootScope.$emit('$ewLoginRequired');
           return deferred.promise;
         }
         else if (response.status === 403 && response.config && !response.config.ignoreErrorRedirection) {
-          var deferred = $q.defer();
+          deferred = $q.defer();
           $rootScope.$emit('$ewError', {type : 'RIGHTS'});
           return deferred.promise;
         }

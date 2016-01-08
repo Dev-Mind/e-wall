@@ -8,6 +8,7 @@ public class FunctionalError {
     public enum Type {
         UNAUTHORIZED,
         FORBIDDEN,
+        USER_NOT_FOUND,
         VALIDATION,
         QRCODE
     }

@@ -8,6 +8,7 @@ import fr.emse.ewall.model.Role;
 import fr.emse.ewall.repository.AuthorityRepository;
 import fr.emse.ewall.repository.CategoryRepository;
 import fr.emse.ewall.service.category.CategoryService;
+import fr.emse.ewall.service.user.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,9 @@ public class EWallInitializer {
     @Autowired
     private AuthorityRepository authorityRepository;
 
+    @Autowired
+    private UserService userService;
+
     @PostConstruct
     @Transactional
     public void init() {
@@ -46,6 +50,8 @@ public class EWallInitializer {
             authorityRepository.save(new Authority().setId(1L).setName(Role.PUBLIC));
             authorityRepository.save(new Authority().setId(2L).setName(Role.ADMIN));
             authorityRepository.save(new Authority().setId(3L).setName(Role.WRITER));
+
+            userService.findOrCreateUser("agnes.crepet", Role.PUBLIC, Role.WRITER, Role.ADMIN);
 
         }
     }

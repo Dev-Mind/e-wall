@@ -7,11 +7,12 @@
         <a ui-sref="home">Retourner à la page d'accueil</a>
     </div>
 
+    <uib-alert type="danger" ng-if="ctrl.error">{{ctrl.error}}</uib-alert>
 
     <form novalidate class="cesar-form" name="frm">
         <div class="nw-login-container">
             <div class="form-group">
-                <label for="username">Identifiant (racine de votre adresse email)</label>
+                <label for="username">Identifiant</label>
                 <input type="text" class="form-control" id="username" name="username"
                        ng-maxlength="100"
                        ng-model="ctrl.credentials.username"
@@ -19,7 +20,7 @@
                        placeholder="prenom.nom">
             </div>
             <div class="form-group">
-                <label for="password">Mot de passe (le même que celui du portail)</label>
+                <label for="password">Mot de passe</label>
                 <input type="text" class="form-control" id="password" name="password"
                        ng-maxlength="100"
                        ng-model="ctrl.credentials.password"
@@ -29,7 +30,7 @@
                 <button type="button"
                         ng-disabled="(frm.$pristine && frm.$invalid) || spinner==='on'"
                         class="btn btn-primary"
-                        ng-click="ctrl.saveProduction()"><i class="glyphicon glyphicon-log-in"></i> Se connecter
+                        ng-click="ctrl.login()"><i class="glyphicon glyphicon-log-in"></i> Se connecter
                 </button>
             </div>
         </div>

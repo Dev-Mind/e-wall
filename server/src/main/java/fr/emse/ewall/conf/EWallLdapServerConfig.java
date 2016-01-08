@@ -1,8 +1,7 @@
 package fr.emse.ewall.conf;
 
-import javax.servlet.Filter;
-
-import fr.emse.ewall.security.LdapAuthenticationFilter;
+import fr.emse.ewall.security.ldap.LdapServerService;
+import fr.emse.ewall.security.ldap.LdapService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +18,7 @@ import org.springframework.ldap.core.support.LdapContextSource;
  */
 @Configuration
 @Profile("default")
-public class EWallSecurityLdapConfig {
+public class EWallLdapServerConfig {
 
     @Value("${ldap.server.name}")
     private String server;
@@ -29,6 +28,11 @@ public class EWallSecurityLdapConfig {
 
     @Value("${ldap.base}")
     private String base;
+
+    @Bean
+    public LdapService ldapService() {
+        return new LdapServerService();
+    }
 
     @Bean
     public LdapTemplate ldapTemplate() {
@@ -41,15 +45,5 @@ public class EWallSecurityLdapConfig {
         ldapContextSource.setUrl(String.format("ldap://%s:%s", server, port));
         ldapContextSource.setBase(base);
         return ldapContextSource;
-    }
-
-    @Bean
-    public Filter securityFilter() {
-        return new LdapAuthenticationFilter()
-                .addPathPatterns(
-                        "/api/secured/**/*",
-                        "/monitoring/**/*"
-                )
-                .excludePathPatterns("/api/public/**/*");
     }
 }

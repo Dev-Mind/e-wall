@@ -1,12 +1,12 @@
 package fr.emse.ewall.api;
 
-import static fr.emse.ewall.model.FunctionalError.Type.FORBIDDEN;
-import static fr.emse.ewall.model.FunctionalError.Type.QRCODE;
-import static fr.emse.ewall.model.FunctionalError.Type.VALIDATION;
+import static fr.emse.ewall.model.FunctionalError.Type.*;
 
 import javax.validation.ConstraintViolationException;
 
+import fr.emse.ewall.exception.BadCredentialsException;
 import fr.emse.ewall.exception.QrCodeFileException;
+import fr.emse.ewall.exception.UserNotFoundException;
 import fr.emse.ewall.model.FunctionalError;
 import fr.emse.ewall.exception.AuthenticationRequiredException;
 import fr.emse.ewall.exception.ForbiddenException;
@@ -38,6 +38,17 @@ public class WebControllerAdvice {
         return buildFunctionalError(exception, FORBIDDEN, HttpStatus.FORBIDDEN);
     }
 
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<FunctionalError> handleException(BadCredentialsException exception) {
+        logger.error("BadCredentialsException ", exception);
+        return buildFunctionalError(exception, UNAUTHORIZED, HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<FunctionalError> handleException(UserNotFoundException exception) {
+        logger.error("UserNotFoundException ", exception);
+        return buildFunctionalError(exception, USER_NOT_FOUND, HttpStatus.FORBIDDEN);
+    }
 
     @ExceptionHandler(AuthenticationRequiredException.class)
     public ResponseEntity<FunctionalError> handleException(AuthenticationRequiredException exception) {

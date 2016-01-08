@@ -1,7 +1,8 @@
-package fr.emse.ewall.model;
+package fr.emse.ewall.security;
 
 import java.util.Optional;
 
+import fr.emse.ewall.model.User;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
