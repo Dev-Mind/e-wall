@@ -80,6 +80,15 @@ public class QrCodeFileService {
     }
 
     /**
+     * Save a QrCode on file system
+     */
+    public String getQRCodePath(QRCode qrCode){
+        //The content is save in database for the small QR codes. We have to regenerate the SVG in the HTML
+        // to be able to change the style via CSS. Otherwise it's not possible
+        return svgConverter.generatePathSvg(qrCode);
+    }
+
+    /**
      * Creates a directory if it does not exist and archives old qr codes in a subdirectory
      */
     public Path createDirectoryForQrCode(Long idCategory) {

@@ -97,7 +97,7 @@ public class CategoryService {
         String categoryUrl = qrCodePrefixUrl + "/" + category.getCode();
 
         //Prepares files tree
-        Path directory = qrCodeFileService.createDirectoryForQrCode(category.getId());
+        //Path directory = qrCodeFileService.createDirectoryForQrCode(category.getId());
 
 
         //A file is generated
@@ -110,7 +110,7 @@ public class CategoryService {
                         .setCategory(category)
                         .setUrl(categoryUrl)
                         .setDimension(physicalQrCode.getMatrix().getWidth())
-                        .setSvgPath(qrCodeFileService.saveQrCodeAsFile(physicalQrCode, directory.resolve("cat.min.svg"))));
+                        .setSvgPath(qrCodeFileService.getQRCodePath(physicalQrCode)));
 
         //We need now to generate a bigger QR Code compounded with smaller ones
         QRCode targetQRCode = new QRCode();
@@ -146,7 +146,7 @@ public class CategoryService {
                                     .setDimension(smallQrCode.getMatrix().getWidth());
 
                     //Now we have an id and an object atteched to the hibernate session
-                    qrCode.setSvgPath(qrCodeFileService.saveQrCodeAsFile(smallQrCode, directory.resolve(qrCode.getId() + ".svg")));
+                    qrCode.setSvgPath(qrCodeFileService.getQRCodePath(smallQrCode));
 
                     qrCodeGenerator.writeQRCodeInByteMatrix(
                             smallQrCode,
@@ -158,9 +158,8 @@ public class CategoryService {
             }
         }
 
-        //The big QRCode is saved and not saved in database
-        qrCodeFileService.saveQrCodeAsFile(targetQRCode, directory.resolve("cat.max.svg"));
     }
+
 
     /**
      * Deletes a category and all te QRCode linked. The files are keep to simplify a restoration on error

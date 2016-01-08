@@ -81,13 +81,6 @@
                                placeholder="Lettre associée">
                     </div>
                     <div class="form-group">
-                        <label for="name">Message ouvert par le QR Code</label>
-                        <input type="text" class="form-control" id="message" name="message"
-                               ng-maxlength="255"
-                               ng-model="ctrl.entity.message"
-                               placeholder="Message lié au QR code">
-                    </div>
-                    <div class="form-group">
                         <label for="name">URL du QR code</label>
                         <input type="text" class="form-control" disabled="true"
                                 value="{{ewall.qrcodeurl}}/{{ctrl.entity.code}}">
@@ -102,13 +95,20 @@
                                 ng-click="ctrl.cancel()">Annuler</button>
                     </div>
                     <div class="form-group">
-                        Cette catégorie peut contenir {{ctrl.entity.qrcodes.length > 2 ? ctrl.entity.qrcodes.length-2 : 0}} QR codes. Le nombre est défini par le nombre nécessaire pour dessiner le QR code de la catégorie.
+                        Ce parcours peut contenir <b>{{ctrl.entity.qrcodes.length > 1 ? ctrl.entity.qrcodes.length-1 : 0}}</b> QR codes. Le nombre est défini par le nombre nécessaire pour dessiner le QR code de la catégorie.
+                        Pour le moment <b>{{ctrl.nbProd}}</b> production{{ctrl.nbProd>1 ? 's sont' : ' sest'}} attachée{{ctrl.nbProd>1 ? 's' : ''}} à ce parcours
                     </div>
                 </div>
-                <div class="col-sm-4" ng-if="ctrl.entity.id">
+                <div class="col-sm-4 qrCodeContainer" ng-if="ctrl.entity.id">
                     QR code associé
                     <div>
-                        <img ng-src="api/public/qrcode/{{ctrl.entity.id}}/cat.min.svg" alt="QR code de la catégorie"/>
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         class="qrCode"
+                         ng-attr-width="{{ctrl.categoryQRCode.dimension}}"
+                         ng-attr-height="{{ctrl.categoryQRCode.dimension}}">
+
+                        <path stroke="black"  ng-attr-d="{{ctrl.categoryQRCode.path}}" ng-attr-transform="scale({{ctrl.categoryQRCode.scaleRatio}})"/>
+                    </svg>
                     </div>
                 </div>
             </div>

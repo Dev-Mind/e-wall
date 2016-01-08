@@ -41,11 +41,11 @@ public class EWallInitializer {
         if(categoryRepository.count()==0){
             logger.info("This is the first start of the application. We create the different categories");
 
-            categoryService.save(new Category().setCode("territoire").setName("Territoire(s)").setShortCode("F").setMessage("Beaunier"));
-            categoryService.save(new Category().setCode("international").setName("International").setShortCode("U").setMessage("Boussingault"));
-            categoryService.save(new Category().setCode("rechindustrie").setName("Transfert recherche - industrie").setShortCode("T").setMessage("Grüner"));
-            categoryService.save(new Category().setCode("orgatravail").setName("Organisation du travail").setShortCode("U").setMessage("Fayol"));
-            categoryService.save(new Category().setCode("responsabilite").setName("Responsabilité sociétale et environnementale de l’ingénieur").setShortCode("R").setMessage("Neltner"));
+            categoryService.save(new Category().setCode("territoire").setName("Territoire(s)").setShortCode("F"));
+            categoryService.save(new Category().setCode("international").setName("International").setShortCode("U"));
+            categoryService.save(new Category().setCode("rechindustrie").setName("Transfert recherche - industrie").setShortCode("T"));
+            categoryService.save(new Category().setCode("orgatravail").setName("Organisation du travail").setShortCode("U"));
+            categoryService.save(new Category().setCode("responsabilite").setName("Responsabilité sociétale et environnementale de l’ingénieur").setShortCode("R"));
 
             authorityRepository.save(new Authority().setId(1L).setName(Role.PUBLIC));
             authorityRepository.save(new Authority().setId(2L).setName(Role.ADMIN));

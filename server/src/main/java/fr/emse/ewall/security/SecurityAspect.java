@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import fr.emse.ewall.exception.AuthenticationRequiredException;
 import fr.emse.ewall.exception.ForbiddenException;
 import fr.emse.ewall.model.Role;
+import fr.emse.ewall.repository.UserRepository;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -23,6 +24,9 @@ public class SecurityAspect {
     @Autowired
     private ApplicationContext applicationContext;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Before("@annotation(authenticated)")
     public void checkAccess(JoinPoint joinPoint, Authenticated authenticated) {
         if (!applicationContext.getBean(CurrentUser.class).getCredentials().isPresent()) {
@@ -37,7 +41,8 @@ public class SecurityAspect {
         if (!currentUser.getCredentials().isPresent()) {
             throw new AuthenticationRequiredException();
         }
-        List<Role> userRoles = currentUser.getCredentials().get().getRoles().stream().map(r -> Role.valueOf(r)).collect(Collectors.toList());
+
+        List<Role> userRoles = userRepository.findByEsmeid(currentUser.getCredentials().get().getEsmeid()).getRoles().stream().map(r -> Role.valueOf(r)).collect(Collectors.toList());
         if (Arrays.stream(needsRole.value()).noneMatch(userRoles::contains)) {
             throw new ForbiddenException();
         }

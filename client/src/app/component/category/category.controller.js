@@ -2,7 +2,7 @@
 
   'use strict';
 
-  angular.module('ew-admin').controller('CategoryCtrl', function ($http, $uibModal) {
+  angular.module('ew-admin').controller('CategoryCtrl', function ($http, $uibModal, $timeout) {
     'ngInject';
 
     var ctrl = this;
@@ -10,7 +10,7 @@
     function refresh(){
       delete ctrl.error;
       delete ctrl.entity;
-
+      delete ctrl.categoryQRCode;
       $http
         .get('/api/public/category')
         .then(function(response){
@@ -42,6 +42,7 @@
     };
 
     ctrl.add = function(){
+      delete ctrl.error;
       ctrl.entity = {};
     };
 
@@ -50,10 +51,32 @@
     };
 
     ctrl.update = function(id){
+      delete ctrl.error;
+      ctrl.categoryQRCode = {};
+
       $http
         .get('/api/public/category/' + id)
         .then(function(response){
           ctrl.entity = response.data;
+
+          //We need to read all the QR code to know which are linked to a production
+          var i=0;
+          ctrl.entity.qrcodes.forEach(function(elt){
+            if(elt.big){
+              ctrl.categoryQRCode.path = elt.svgPath;
+
+              $timeout(function() {
+                var svg = document.querySelector('.qrCode');
+                var container = document.querySelector('.qrCodeContainer');
+                ctrl.categoryQRCode.dimension =  container.innerWidth || container.clientWidth * 0.93;
+                ctrl.categoryQRCode.scaleRatio =  ctrl.categoryQRCode.dimension/elt.dimension;
+              }, 50);
+            }
+            else if(!!elt.production){
+              i++;
+            }
+          });
+          ctrl.nbProd = i;
         });
     };
 
@@ -89,6 +112,8 @@
     };
 
     refresh();
+
+
   });
 
   angular.module('ew-admin').controller('DeleteCategoryCtrl', function ($scope, $uibModalInstance, category) {

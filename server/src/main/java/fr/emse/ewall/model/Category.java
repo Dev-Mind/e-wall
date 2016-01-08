@@ -44,14 +44,6 @@ public class Category {
     @JsonView(CategoryDetailView.class)
     List<QrCode> qrcodes = new ArrayList<>();
 
-    /**
-     * This messsage will be open when people will scan the QR code
-     */
-    @Size(max = 255)
-    @NotNull
-    @JsonView({FlatView.class, CategoryDetailView.class})
-    private String message;
-
     @Size(max = 5)
     @NotNull
     @JsonView({FlatView.class, CategoryDetailView.class})
@@ -103,15 +95,6 @@ public class Category {
 
     public Category setCode(String code) {
         this.code = code;
-        return this;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public Category setMessage(String message) {
-        this.message = message;
         return this;
     }
 
