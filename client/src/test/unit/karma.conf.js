@@ -22,6 +22,7 @@ module.exports = function(config) {
       { pattern: 'node_modules/angular-ui-router/release/angular-ui-router.min.js', watched:false },
       { pattern: 'node_modules/angular-mocks/angular-mocks.js', watched:false },
       { pattern: 'node_modules/moment/moment.js', watched:false },
+      { pattern: 'node_modules/markdown/lib/markdown.js', watched:false },
 
       'src/app/index.js',
       'src/app/**/*.js',

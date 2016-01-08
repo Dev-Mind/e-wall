@@ -2,7 +2,7 @@
 
   'use strict';
 
-  angular.module('ew-structure', ['ui.router', 'ew-templates']);
+  angular.module('ew-structure', ['ui.router', 'ew-templates', 'ngSanitize']);
   angular.module('ew-admin', ['ew-templates']);
   angular.module('ew-qrcode', ['ew-templates']);
 
