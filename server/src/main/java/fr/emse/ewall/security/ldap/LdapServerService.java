@@ -28,7 +28,7 @@ public class LdapServerService implements LdapService {
 
     @Override
     public User checkUser(String login, String password) {
-        LdapQuery query = query().where("objectClass").is("person").and("uid").is("login");
+        LdapQuery query = query().where("objectClass").is("person").and("uid").is(login);
 
         try {
             ldapTemplate.authenticate(query, password);
