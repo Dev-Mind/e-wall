@@ -99,7 +99,7 @@
                         Pour le moment <b>{{ctrl.nbProd}}</b> production{{ctrl.nbProd>1 ? 's sont' : ' sest'}} attachée{{ctrl.nbProd>1 ? 's' : ''}} à ce parcours
                     </div>
                 </div>
-                <div class="col-sm-4 qrCodeContainer" ng-if="ctrl.entity.id">
+                <div class="col-sm-4 qrCodeContainer" ng-if="ctrl.entity.id && ctrl.categoryQRCode">
                     QR code associé
                     <div>
                     <svg xmlns="http://www.w3.org/2000/svg"

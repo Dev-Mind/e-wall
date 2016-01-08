@@ -2,14 +2,10 @@
 
   'use strict';
 
-  angular.module('ew-admin').controller('MainCtrl', function ($http, SecurityService) {
+  angular.module('ew-admin').controller('MainCtrl', function () {
     'ngInject';
 
     var ctrl = this;
-
-    SecurityService.isAdmin(function(response){
-      ctrl.isAdmin = response;
-    });
 
   });
 

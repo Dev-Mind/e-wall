@@ -2,9 +2,10 @@
 
 .qr-category__container{
   display: flex;
+  flex-wrap:wrap;
   align-items: center;
   justify-content: center;
-
+  align-items: flex-start;
 
   button:hover{
     background-color: $color-primary-light;

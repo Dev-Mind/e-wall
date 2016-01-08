@@ -30,6 +30,13 @@ public class CategoryReaderController {
     }
 
 
+    @RequestMapping(value = "/with-qrcode")
+    @ApiOperation(value = "Return all the categories with data to generate QR code", httpMethod = "GET")
+    @JsonView(CategoryDetailView.class)
+    public Iterable<Category> findAllWithQrcode() {
+        return categoryRepository.findAllithQrCode();
+    }
+
     @RequestMapping(value = "/{id}")
     @ApiOperation(value = "Return one category", httpMethod = "GET")
     @JsonView(CategoryDetailView.class)

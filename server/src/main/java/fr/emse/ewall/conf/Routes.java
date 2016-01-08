@@ -13,6 +13,8 @@ public class Routes {
             "/admin",
             "/bigqrcode",
             "/category",
+            "/login",
+            "/logout",
             "/home",
             "/nwerror/{type:\\w+}",
             "/monitor",
@@ -20,10 +22,10 @@ public class Routes {
             "/parameter",
             "/production/{type:\\w+}",
             "/productions",
-            "/user"
+            "/user",
+            "/wall"
     })
     public String index() {
         return "forward:/";
     }
 }
-

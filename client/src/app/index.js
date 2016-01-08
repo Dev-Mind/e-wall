@@ -10,6 +10,7 @@
     'ui.router',
     'ui.bootstrap',
     'ngSanitize',
+    'ngAnimate',
     'ew-structure',
     'ew-admin',
     'ew-qrcode'
@@ -26,11 +27,11 @@
 
 
   angular.module('ew').constant('qrCodeParameters', {
-    qrcode_margin: 0,
-    qrcode_foreground: '#4c3e5e',
-    qrcode_foreground_na :  '#746983',
-    qrcode_background: '#9790a2',
-    qrcode_colour_hover: '#F9D214',
+    qrcode_margin: 2,
+    qrcode_foreground: '#C4B2F1',
+    qrcode_foreground_na :  '#7d5ccf',
+    qrcode_background: '#3a3a3a',
+    qrcode_colour_hover: '#ECF714',
     qrcode_colour_text: '#7d5ccf'
   });
 

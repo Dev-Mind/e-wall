@@ -47,7 +47,7 @@
                 <button class="category-link btn"
                         ng-click="ctrl.selectCategory(category)">{{category.shortCode}}
                 </button>
-                {{category.name}}
+                <a ng-click="ctrl.selectCategory(category)">{{category.name}}</a>
                 <br>
             </div>
 

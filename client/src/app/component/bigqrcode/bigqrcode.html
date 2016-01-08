@@ -1,4 +1,12 @@
 <div class="container">
+
+    <h1><i class="glyphicon glyphicon-blackboard"></i> Mur numérique</h1>
+    <ol class="breadcrumb ew-breadcrumb" style="padding: 4px 4px 4px 0">
+        <li><a href="home">Accueil</a></li>
+        <li><a href="wall">Mur</a></li>
+        <li class="active">Mur</li>
+    </ol>
+
     <div class="qr-category__container">
         <div ng-repeat="category in ctrl.categories">
             <button class="qr-category__link btn" ng-click="ctrl.selectCategory(category.id)">{{category.shortCode}}</button>
@@ -13,9 +21,12 @@
             path.production:hover {
                 stroke : {{ctrl.parameterMap.qrcode_colour_hover}};
             }
-            text{
-                fill: {{ctrl.parameterMap.qrcode_colour_text}};
-                font-size: {{ctrl.text.size}};
+            rect.production:hover {
+                fill : {{ctrl.parameterMap.qrcode_colour_hover}};
+                fill-opacity:1;
+            }
+            rect.production,rect.naproduction {
+                fill-opacity:0.1;
             }
         </style>
 
@@ -34,8 +45,6 @@
 
             </svg>
 
-            <text  fill-opacity="1" ng-attr-x="{{ctrl.text.x}}" ng-attr-y="{{ctrl.text.y}}" font-family="Bad Script" >{{ctrl.text.content}}</text>
-
             <svg ng-repeat="qr in ctrl.qrs"
                  ng-attr-width="{{qr.foreground.dimensionScaled}}"
                  ng-attr-height="{{qr.foreground.dimensionScaled}}"
@@ -51,6 +60,18 @@
                 </path>
             </svg>
 
+            <svg ng-repeat="qr in ctrl.qrs"
+                 ng-attr-width="{{qr.background.dimensionScaled}}"
+                 ng-attr-height="{{qr.background.dimensionScaled}}"
+                 ng-attr-x="{{qr.background.x}}"
+                 ng-attr-y="{{qr.background.y}}">
+
+                <rect class="{{!!qr.production ? 'production' : 'naproduction'}}"
+                      ng-attr-width="{{qr.background.dimensionScaled}}"
+                      ng-attr-height="{{qr.background.dimensionScaled}}">
+                </rect>
+
+            </svg>
         </g>
     </svg>
 </div>
