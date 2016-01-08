@@ -1,6 +1,7 @@
 package fr.emse.ewall.security.ldap;
 
 import fr.emse.ewall.model.Role;
+import fr.emse.ewall.model.User;
 import fr.emse.ewall.service.user.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,8 +19,8 @@ public class LdapDevService implements LdapService {
     private UserService userService;
 
     @Override
-    public void checkUser(String login, String password) {
+    public User checkUser(String login, String password) {
         logger.warn("This class should be only use in development");
-        userService.findOrCreateUser(login, Role.PUBLIC, Role.WRITER);
+        return userService.findOrCreateUser(login, Role.PUBLIC, Role.WRITER);
     }
 }

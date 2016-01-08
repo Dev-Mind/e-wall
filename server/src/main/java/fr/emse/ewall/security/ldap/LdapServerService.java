@@ -4,6 +4,7 @@ import static org.springframework.ldap.query.LdapQueryBuilder.query;
 
 import fr.emse.ewall.exception.BadCredentialsException;
 import fr.emse.ewall.model.Role;
+import fr.emse.ewall.model.User;
 import fr.emse.ewall.service.user.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,12 +27,12 @@ public class LdapServerService implements LdapService {
     private UserService userService;
 
     @Override
-    public void checkUser(String login, String password) {
+    public User checkUser(String login, String password) {
         LdapQuery query = query().where("objectClass").is("person").and("uid").is("login");
 
         try {
             ldapTemplate.authenticate(query, password);
-            userService.findOrCreateUser(login, Role.PUBLIC, Role.WRITER);
+            return userService.findOrCreateUser(login, Role.PUBLIC, Role.WRITER);
         }
         catch (RuntimeException e) {
             logger.error("Error on login", e);

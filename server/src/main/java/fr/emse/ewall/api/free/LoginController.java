@@ -57,14 +57,8 @@ public class LoginController {
             throw new IllegalArgumentException("User and password are required");
         }
 
-        User user = userRepository.findByEsmeid(username[0]);
-
-        if (user == null) {
-            throw new UserNotFoundException();
-        }
-
         //We now call the LDAP to control the password
-        ldapService.checkUser(username[0], password[0]);
+        User user =  ldapService.checkUser(username[0], password[0]);
         cookieService.setCookieInResponse(response, user);
 
         return ResponseEntity.ok().body(user);
