@@ -2,7 +2,7 @@
 
   'use strict';
 
-  angular.module('ew-admin').controller('ProductionCtrl', function ($http, $state, $stateParams, SecurityService) {
+  angular.module('ew-admin').controller('ProductionCtrl', function ($http, $state, $stateParams, $uibModal, SecurityService) {
     'ngInject';
 
     var ctrl = this;
@@ -47,13 +47,15 @@
       $state.go('admin');
     };
 
-    ctrl.saveProduction = function () {
+    ctrl.saveProduction = function (visu) {
       if (ctrl.category && ctrl.production) {
         delete ctrl.error;
         $http
           .post('/api/secured/category/' + ctrl.category.id + '/production', ctrl.production)
           .then(function () {
-            $state.go('admin');
+            if(!visu){
+              $state.go('admin');
+            }
           })
           .catch(function (response) {
             switch (response.status) {
@@ -65,6 +67,19 @@
             }
           });
       }
+    };
+
+    ctrl.seeProduction = function(){
+      var modalInstance = $uibModal.open({
+        animation: true,
+        templateUrl: 'seeProduction.html',
+        controller: 'SeeProductionCtrl',
+        resolve: {
+          production: function () {
+            return ctrl.production;
+          }
+        }
+      });
     };
 
     SecurityService.isAdmin(function(response){

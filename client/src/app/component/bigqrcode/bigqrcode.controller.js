@@ -88,9 +88,9 @@
           templateUrl: 'seeProduction.html',
           controller: 'SeeProductionCtrl',
           resolve: {
-            qr: function () {
+            production: function () {
               return $http.get('/api/public/qrcode/'+qr.production.id).then(function(response){
-                return response.data;
+                return response.data.production;
               });
             }
           }
@@ -101,13 +101,5 @@
     refresh();
   });
 
-  angular.module('ew-admin').controller('SeeProductionCtrl', function ($scope, $uibModalInstance, qr) {
-    'ngInject';
 
-    $scope.selected = qr.production;
-
-    $scope.cancel = function () {
-      $uibModalInstance.dismiss('cancel');
-    };
-  });
 })();

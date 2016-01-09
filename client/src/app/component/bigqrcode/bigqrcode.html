@@ -32,7 +32,7 @@
 
         <g>
 
-            <svg ng-repeat="qr in ctrl.qrs"
+            <svg ng-repeat-start="qr in ctrl.qrs"
                  ng-attr-width="{{qr.background.dimensionScaled}}"
                  ng-attr-height="{{qr.background.dimensionScaled}}"
                  ng-attr-x="{{qr.background.x}}"
@@ -40,12 +40,13 @@
 
                 <rect fill="{{ctrl.parameterMap.qrcode_background}}" stroke="{{ctrl.parameterMap.qrcode_background}}"
                       ng-attr-width="{{qr.background.dimensionScaled}}"
-                      ng-attr-height="{{qr.background.dimensionScaled}}">
+                      ng-attr-height="{{qr.background.dimensionScaled}}"
+                      ng-click="ctrl.seeProduction(qr)">
                 </rect>
 
             </svg>
 
-            <svg ng-repeat="qr in ctrl.qrs"
+            <svg
                  ng-attr-width="{{qr.foreground.dimensionScaled}}"
                  ng-attr-height="{{qr.foreground.dimensionScaled}}"
                  ng-attr-x="{{qr.foreground.x}}"
@@ -56,15 +57,17 @@
                       ng-attr-width="{{qr.foreground.dimensionScaled}}"
                       ng-attr-height="{{qr.foreground.dimensionScaled}}"
                       ng-attr-d="{{qr.svgPath}}"
-                      ng-click="ctrl.seeProduction(qr)">
+                      ng-click="ctrl.seeProduction(qr)"
+                     >
                 </path>
             </svg>
 
-            <svg ng-repeat="qr in ctrl.qrs"
+            <svg ng-repeat-end
                  ng-attr-width="{{qr.background.dimensionScaled}}"
                  ng-attr-height="{{qr.background.dimensionScaled}}"
                  ng-attr-x="{{qr.background.x}}"
-                 ng-attr-y="{{qr.background.y}}">
+                 ng-attr-y="{{qr.background.y}}"
+                 ng-click="ctrl.seeProduction(qr)">
 
                 <rect class="{{!!qr.production ? 'production' : 'naproduction'}}"
                       ng-attr-width="{{qr.background.dimensionScaled}}"
@@ -80,6 +83,6 @@
     <div class="modal-body">
         <p> Créé le <b>{{ selected.createdAt | ewDate}}</b> par <b>{{ selected.user.esmeid}}</b></p>
 
-        <p>{{ selected.content }}</p>
+        <p ng-bind-html="selected.content | markdown"></p>
     </div>
 </script>
