@@ -41,7 +41,7 @@ public class LdapAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        if (request instanceof HttpServletRequest && matches(request.getServletPath())) {
+        if (request instanceof HttpServletRequest) {
             String token = request.getHeader(TOKEN_REQUEST_HEADER_PARAM);
 
             if (token != null) {
@@ -50,19 +50,14 @@ public class LdapAuthenticationFilter extends OncePerRequestFilter {
                     CurrentUser currentUser = applicationContext.getBean(CurrentUser.class);
                     currentUser.setCredentials(user);
                     filterChain.doFilter(request, response);
-                }
-                else {
-                    response.sendError(HttpStatus.UNAUTHORIZED.value(), "User unknown");
+                    return;
                 }
             }
-            else {
+            if(matches(request.getServletPath())){
                 response.sendError(HttpStatus.UNAUTHORIZED.value(), "Invalid credentials");
             }
         }
-        else {
-            filterChain.doFilter(request, response);
-        }
-
+        filterChain.doFilter(request, response);
     }
 
     /**

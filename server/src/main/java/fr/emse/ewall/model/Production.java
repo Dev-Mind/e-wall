@@ -57,6 +57,10 @@ public class Production {
     @Size(max = 255)
     private String userMaj;
 
+    @Size(max = 255)
+    @JsonView({FlatView.class, ProductionDetailView.class})
+    private String author;
+
     public Long getId() {
         return id;
     }
@@ -102,6 +106,15 @@ public class Production {
 
     public Production setContent(String content) {
         this.content = content;
+        return this;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public Production setAuthor(String author) {
+        this.author = author;
         return this;
     }
 

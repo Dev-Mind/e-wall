@@ -18,7 +18,7 @@ public class ProductionDto {
     
     private Long id;
     
-    public String user;
+    public String author;
 
     public String category;
 
@@ -64,14 +64,15 @@ public class ProductionDto {
         return this;
     }
 
-    public ProductionDto setUser(String user) {
-        this.user = user;
+    public String getAuthor() {
+        return author;
+    }
+
+    public ProductionDto setAuthor(String author) {
+        this.author = author;
         return this;
     }
 
-    public String getUser() {
-        return user;
-    }
 
     public String getCategory() {
         return category;
@@ -88,7 +89,7 @@ public class ProductionDto {
                 .setContent(production.getContent())
                 .setCreatedAt(production.getCreatedAt())
                 .setState(production.getState())
-                .setUser(production.getUser().getEsmeid())
+                .setAuthor(production.getAuthor())
                 .setCategory(production.getQrcode()!=null ? production.getQrcode().getCategory().getName() : null);
     }
 }

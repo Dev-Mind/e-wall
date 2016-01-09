@@ -57,15 +57,15 @@
     <div ng-if="ctrl.currentTab==='content'">
 
         <div class="container">
-            Saisissez un texte dans le parcours <b>{{ctrl.category.name}}</b>. Vous pouvez formater le texte en utilisant le langage Markdown. Si vous
-            ne connaissez pas vous pouvez suivre ce <a href="https://help.github.com/articles/markdown-basics/">tutoriel</a>. Le principe consiste
-            à appliquer des formats en utilisant des caractères spéciaux (* = * [] !).
+            Saisissez un texte dans le parcours <b>{{ctrl.category.name}}</b>.
         </div>
         <p>&nbsp;</p>
         <uib-alert type="danger" ng-if="ctrl.error">{{ctrl.error}}</uib-alert>
         <uib-alert type="danger" ng-if="frm.$invalid">
             <span ng-if="frm.content.$error.required">Vous devez saisir un texte<br></span>
             <span ng-if="frm.content.$error.maxlength">Le texte ne peut pas faire plus de 3000 caractères<br></span>
+            <span ng-if="frm.author.$error.required">Vous devez saisir les identifiants des personnes ayant créés cet article<br></span>
+            <span ng-if="frm.author.$error.maxlength">Le texte ne peut pas faire plus de 255 caractères<br></span>
         </uib-alert>
 
         <form novalidate name="frm">
@@ -74,11 +74,15 @@
                 <div class="list__action-header">
                     <button type="button"
                             class="btn btn-primary"
+                            tooltip-placement="bottom"  uib-tooltip="Visualiser votre production"
                             ng-click="ctrl.seeProduction()"><i class="glyphicon glyphicon-search"></i> </button>
                 </div>
             </div>
-            <div>
-                    <textarea class="form-control" rows="10" ng-model="ctrl.production.content" name="content" ng-disabled="ctrl.isLocked"
+            <div class="form-group">
+                <label for="content">Vous pouvez formater le texte en utilisant le langage Markdown. Si vous
+                    ne connaissez pas vous pouvez suivre ce <a href="https://help.github.com/articles/markdown-basics/">tutoriel</a>. Le principe consiste
+                    à appliquer des formats en utilisant des caractères spéciaux (* = * [] !).</label>
+                    <textarea class="form-control" rows="10" ng-model="ctrl.production.content" id="content" name="content" ng-disabled="ctrl.isLocked"
                               ng-required="true"
                               ng-maxlength="3000"></textarea>
                 <small ng-if="!frm.content.$error.maxlength">({{3000 - ctrl.production.content.length }}
@@ -86,6 +90,16 @@
                     ''}} restant{{ctrl.production.content.length<=2999 ? 's' : ''}})
                 </small>
                 <small ng-if="frm.content.$error.maxlength"><b>Texte trop long</b></small>
+            </div>
+
+            <div class="form-group">
+                <label for="author">Rajouter votre identifiant EMSE, à savoir la partie gauche de votre email, par exemple prenom.nom</label>
+                <input type="text" class="form-control" id="author" name="author"
+                       ng-maxlength="255"
+                       ng-model="ctrl.production.author"
+                       ng-required="true"
+                       ng-disabled="ctrl.isLocked"
+                       placeholder="Auteurs">
             </div>
 
             <p ng-if="ctrl.isAdmin && ctrl.production.id">Vous pouvez changer l'état de lademande</p>
@@ -115,7 +129,7 @@
 
 <script type="text/ng-template" id="seeProduction.html">
     <div class="modal-body" style="max-height: 80%;overflow-y: auto">
-        <p> Créé le <b>{{ selected.createdAt | ewDate}}</b> par <b>{{ selected.user.esmeid}}</b></p>
+        <p> Créé <span ng-if="selected.createdAt"> le <b>{{ selected.createdAt | ewDate}}</b></span> par <b>{{ selected.author}}</b></p>
 
         <p ng-bind-html="selected.content | markdown"></p>
     </div>

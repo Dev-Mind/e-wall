@@ -13,6 +13,8 @@
         ctrl.categories = response.data;
       });
 
+
+
     if ($stateParams.id) {
       //We are in edition mode and we want to load the production for this id
       $http.get('/api/public/production/' + $stateParams.id)
@@ -34,6 +36,14 @@
     ctrl.selectCategory = function (category) {
       ctrl.currentTab = 'content';
       ctrl.category = category;
+
+      $http
+        .get('api/public/connected')
+        .then(function(response){
+          ctrl.production = {
+            author: response.data.emseid
+          };
+        });
     };
 
     //Go back on the first tab

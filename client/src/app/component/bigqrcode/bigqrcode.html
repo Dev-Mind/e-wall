@@ -81,7 +81,7 @@
 
 <script type="text/ng-template" id="seeProduction.html">
     <div class="modal-body">
-        <p> Créé le <b>{{ selected.createdAt | ewDate}}</b> par <b>{{ selected.user.esmeid}}</b></p>
+        <p> Créé le <b>{{ selected.createdAt | ewDate}}</b> par <b>{{ selected.user.author}}</b></p>
 
         <p ng-bind-html="selected.content | markdown"></p>
     </div>

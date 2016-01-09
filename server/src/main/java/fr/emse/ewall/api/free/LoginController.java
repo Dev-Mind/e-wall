@@ -72,12 +72,13 @@ public class LoginController {
      * When a user log out we regenerate a new token
      */
     @RequestMapping(value = "/connected")
-    public ResponseEntity<Boolean> connected(HttpServletResponse response) {
+    @JsonView(FlatView.class)
+    public ResponseEntity<String> connected(HttpServletResponse response) {
         CurrentUser currentUser = applicationContext.getBean(CurrentUser.class);
 
         if (currentUser == null || !currentUser.getCredentials().isPresent()) {
-            return ResponseEntity.ok().body(Boolean.FALSE);
+            return ResponseEntity.ok().body(null);
         }
-        return ResponseEntity.ok().body(Boolean.TRUE);
+        return ResponseEntity.ok().body(String.format("{\"emseid\" : \"%s\"}", currentUser.getCredentials().get().getEsmeid()));
     }
 }

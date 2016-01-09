@@ -52,7 +52,7 @@
                                 class="{{production.state | stateIcon}}"></i></span>&nbsp;
                         <span class="hidden-xs">{{production.content | limitTo:100}}{{production.content.length>100 ? '...' : ''}}</span>
                         <span class="visible-xs">{{production.content | limitTo:50}}{{production.content.length>50 ? '...' : ''}}</span>
-                        <span class="hidden-xs nw-creator"><br>Créé par <b>{{production.user}}</b> le {{ production.createdAt | ewDate}} dans la catégorie <b>{{production.category}}</b></span>
+                        <span class="hidden-xs nw-creator"><br>Créé par <b>{{production.author}}</b> le {{ production.createdAt | ewDate}} dans la catégorie <b>{{production.category}}</b></span>
                     </div>
                     <div class="list__action">
                         <button type="button" class="btn btn-primary" ng-click="ctrl.update(production)"><i class="glyphicon glyphicon-pencil"></i></button>
