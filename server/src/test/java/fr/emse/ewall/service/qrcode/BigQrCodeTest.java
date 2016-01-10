@@ -30,7 +30,6 @@ public class BigQrCodeTest {
     public void init(){
         svgConverter = new SvgConverter();
         qrCodeGenerator = new QrCodeGenerator();
-        qrCodeGenerator.setMatrixParser(svgConverter);
     }
 
 //    private void writeQRCodeInByteMatrix(ByteMatrix byteMatrix, QRCode smallQrCode, Point start, Point end){
@@ -52,7 +51,7 @@ public class BigQrCodeTest {
         String url = "https://dev-mind.fr/a";
 
         //In the first step we generate a qrCode
-        QRCode qrCode = qrCodeGenerator.generateQRCode(url);
+        QRCode qrCode = qrCodeGenerator.generateQRCode(url, null);
 
         QRCode targetQRCode = new QRCode();
         targetQRCode.setMode(qrCode.getMode());
@@ -79,16 +78,8 @@ public class BigQrCodeTest {
                 if(qrCode.getMatrix().get(x,y)==1){
                     cpt++;
                     String newUrl = url.concat("/").concat(String.valueOf(cpt));
-                    QRCode smallQrCode = qrCodeGenerator.generateQRCode(newUrl);
-//                    if(smallQrCode.getVersion().getVersionNumber()!=qrCode.getVersion().getVersionNumber()){
-//                        throw new IllegalArgumentException("Pas bonne version big="
-//                                + qrCode.getVersion().getVersionNumber()
-//                                + " small="
-//                                + smallQrCode.getVersion().getVersionNumber());
-//                   }
+                    QRCode smallQrCode = qrCodeGenerator.generateQRCode(newUrl, null);
 
-                    //TODO add small QRCode to category
-                    //...
                     int d = dimension +4 ;
                     qrCodeGenerator.writeQRCodeInByteMatrix(
                             smallQrCode,

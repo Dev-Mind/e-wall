@@ -10,8 +10,10 @@ import java.util.Objects;
 import java.util.UUID;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.google.zxing.qrcode.encoder.QRCode;
 import fr.emse.ewall.exception.QrCodeFileException;
+import fr.emse.ewall.model.QrCode;
 import fr.emse.ewall.service.svg.SvgConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,10 +35,14 @@ public class QrCodeFileService {
     @Value("${ewall.qrcode.path}")
     private String qrCodePath;
 
+    @Value("${ewall.qrcode.url}")
+    private String qrCodePrefixUrl;
+
     @Autowired
     private SvgConverter svgConverter;
 
-
+    @Autowired
+    private QrCodeGenerator qrCodeGenerator;
 
     /**
      * Return a QRCode file.
@@ -141,6 +147,12 @@ public class QrCodeFileService {
                 throw new QrCodeFileException();
             }
         }
+    }
+
+    public byte[] generateRandomyQRCode() {
+        String url = qrCodePrefixUrl + "/r";
+        QRCode physicalQrCode = qrCodeGenerator.generateQRCode(url, ErrorCorrectionLevel.L);
+        return svgConverter.generateSvg(physicalQrCode, "#000000", svgConverter.generatePathSvg(physicalQrCode)).getBytes();
     }
 
     @VisibleForTesting

@@ -3,6 +3,7 @@ package fr.emse.ewall.service.category;
 import java.nio.file.Path;
 import java.util.Objects;
 
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.google.zxing.qrcode.encoder.ByteMatrix;
 import com.google.zxing.qrcode.encoder.QRCode;
 import fr.emse.ewall.exception.DuplicateElementException;
@@ -101,7 +102,7 @@ public class CategoryService {
 
 
         //A file is generated
-        QRCode physicalQrCode = qrCodeGenerator.generateQRCode(categoryUrl);
+        QRCode physicalQrCode = qrCodeGenerator.generateQRCode(categoryUrl, null);
 
         //We generate a main qrcode
         qrCodeRepository.save(
@@ -135,7 +136,7 @@ public class CategoryService {
                     cpt++;
                     String newUrl = categoryUrl.concat("/").concat(String.valueOf(cpt));
 
-                    QRCode smallQrCode = qrCodeGenerator.generateQRCode(newUrl);
+                    QRCode smallQrCode = qrCodeGenerator.generateQRCode(newUrl, null);
                     QrCode qrCode = qrCodeRepository.save(
                             new QrCode()
                                     .setBig(false)

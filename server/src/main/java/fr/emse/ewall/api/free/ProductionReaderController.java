@@ -54,7 +54,7 @@ public class ProductionReaderController {
             @ApiParam(name = "category", value = "Category code") @PathVariable(value = "category") String category,
             @ApiParam(name = "id", value = "QR code numd") @PathVariable(value = "num") String num) {
 
-        if("random".equals(category)){
+        if("random".equals(category) || "r".equals(category)){
             //We choose a random production
             List<Production> productions = productionRepository.findAllValidated();
             Collections.shuffle(productions);

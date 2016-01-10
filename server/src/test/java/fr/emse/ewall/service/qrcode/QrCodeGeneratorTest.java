@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.UUID;
 
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.google.zxing.qrcode.encoder.ByteMatrix;
 import com.google.zxing.qrcode.encoder.QRCode;
 import fr.emse.ewall.service.svg.Point;
@@ -34,23 +35,22 @@ public class QrCodeGeneratorTest {
     public void init(){
         svgConverter = new SvgConverter();
         qrCodeGenerator = new QrCodeGenerator();
-        qrCodeGenerator.setMatrixParser(svgConverter);
     }
 
     /**
-     * Test {@link QrCodeGenerator#generateQRCode(String)}
+     * Test {@link QrCodeGenerator#generateQRCode(String, ErrorCorrectionLevel)} }
      */
     @Test(expected = NullPointerException.class)
     public void should_not_generate_QRCode_and_throw_npe_when_url_is_null(){
-        qrCodeGenerator.generateQRCode(null);
+        qrCodeGenerator.generateQRCode(null, null);
     }
 
     /**
-     * Test {@link QrCodeGenerator#generateQRCode(String)}
+     * Test {@link QrCodeGenerator#generateQRCode(String, ErrorCorrectionLevel)}
      */
     @Test
     public void should_generate_QRCode_from_URL(){
-        QRCode qrCode =qrCodeGenerator.generateQRCode("https://dev-mind.fr");
+        QRCode qrCode =qrCodeGenerator.generateQRCode("https://dev-mind.fr", null);
 
         //For this tiny URL the QRCode has a version 3 (29*29 pixels)
         assertThat(qrCode.getVersion().getVersionNumber()).isEqualTo(3);
@@ -58,11 +58,11 @@ public class QrCodeGeneratorTest {
     }
 
     /**
-     * Test {@link QrCodeGenerator#generateQRCode(String)}}
+     * Test {@link QrCodeGenerator#generateQRCode(String, ErrorCorrectionLevel)}}
      */
     @Test
     public void should_save_a_qr_code_in_svg() throws Exception{
-        QRCode qrCode = qrCodeGenerator.generateQRCode("https://dev-mind.fr/" + UUID.randomUUID().toString());
+        QRCode qrCode = qrCodeGenerator.generateQRCode("https://dev-mind.fr/" + UUID.randomUUID().toString(), null);
         String svg = svgConverter.generateSvg(qrCode, "black", svgConverter.generatePathSvg(qrCode));
 
         File createdFile= folder.newFile("QRTest.svg");

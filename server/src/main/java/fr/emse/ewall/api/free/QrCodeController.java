@@ -43,4 +43,12 @@ public class QrCodeController {
     public QrCode findOne(@ApiParam(name = "id", value = "QR code Id") @PathVariable(value = "id") Long id) {
         return qrCodeRepository.findById(id);
     }
+
+    @RequestMapping(value = "/random")
+    @ApiOperation(value = "Return image for random QR code", httpMethod = "GET")
+    @JsonView(FlatView.class)
+    public void findRandom(HttpServletResponse response) throws IOException{
+        response.setContentType("image/svg+xml");
+        response.getOutputStream().write(qrCodeFileService.generateRandomyQRCode());
+    }
 }   
