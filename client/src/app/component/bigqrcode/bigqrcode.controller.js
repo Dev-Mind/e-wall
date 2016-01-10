@@ -30,6 +30,7 @@
     ctrl.selectCategory = function(id){
       $http.get('/api/public/category/' + id)
         .then(function (response) {
+          ctrl.category = response.data;
           ctrl.qrs = response.data.qrcodes
             .filter(function(elt){
               return elt.big!==true;
@@ -44,8 +45,8 @@
             var svg = document.querySelector('.bigqrcode');
 
             //The svg dimension is computed with the window size
-            var h  = (window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight)*0.83;
-            var w  = (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth)*0.83;
+            var h  = (window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight)*0.73;
+            var w  = (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth)*0.73;
             var dimension = h > w ? w : h;
             svg.style.height = dimension;
             svg.style.width = dimension;

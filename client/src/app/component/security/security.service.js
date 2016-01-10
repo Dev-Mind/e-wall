@@ -56,7 +56,6 @@
           callback(isAuthorized('ADMIN', response.data));
         })
         .catch(function(response) {
-          console.log(response);
           callback(false);
         });
     }

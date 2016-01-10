@@ -13,7 +13,6 @@
       .get('/api/public/production/' + $stateParams.code + '/general')
       .then(function (response) {
         ctrl.production =  response.data;
-        console.log(ctrl.production)
         if(!ctrl.production.author){
           $http
             .get('api/public/connected')

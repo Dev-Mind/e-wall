@@ -1,7 +1,7 @@
 <div class="container">
 
     <h1 uib-collapse="isCollapsed"><i class="glyphicon glyphicon-blackboard"></i> Mur numérique <span style="float: right">
-        <button ng-click="isCollapsed = !isCollapsed" class="btn btn-default"><i class="glyphicon glyphicon-eye-close"></i></button></span>
+        <button ng-click="isCollapsed = !isCollapsed" class="btn btn-default hidden-xs"><i class="glyphicon glyphicon-eye-close"></i></button></span>
     </h1>
     <ol class="breadcrumb ew-breadcrumb" style="padding: 4px 4px 4px 0" uib-collapse="isCollapsed">
         <li><a href="home">Accueil</a></li>
@@ -11,8 +11,14 @@
 
     <div class="qr-category__container">
         <div ng-repeat="category in ctrl.categories">
-            <button class="qr-category__link btn" ng-click="ctrl.selectCategory(category.id)">{{category.shortCode}}</button>
+            <button class="qr-category__link btn"
+                    ng-click="ctrl.selectCategory(category.id)"
+                    ng-mouseover="ctrl.categorytemp = category"
+                    ng-mouseleave="ctrl.categorytemp = undefined">{{category.shortCode}}</button>
         </div>
+    </div>
+    <div class="text-center">
+        <h3>Parcours <b>{{ctrl.categorytemp ? ctrl.categorytemp.name : ctrl.category.name}}</b></h3>
     </div>
 </div>
 
