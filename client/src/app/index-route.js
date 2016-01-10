@@ -17,6 +17,8 @@
       .state('bigqrcode', new State(USER_ROLES, 'bigqrcode/:id', 'component/bigqrcode/bigqrcode.html').controller('BigQRCodeCtrl').build())
       .state('wall', new State(USER_ROLES, 'wall', 'component/wall/wall.html').controller('WallCtrl').build())
       .state('category', new State(USER_ROLES, 'category', 'component/category/category.html').roles([USER_ROLES.admin]).controller('CategoryCtrl').build())
+      .state('e-wall-cat', new State(USER_ROLES, 'e-wall/:category', 'component/production/production-public.html').controller('ProductionPublicCtrl').build())
+      .state('e-wall', new State(USER_ROLES, 'e-wall/:category/:id', 'component/production/production-public.html').controller('ProductionPublicCtrl').build())
       .state('home', new State(USER_ROLES, 'home', 'component/main/main.html').controller('MainCtrl').build())
       .state('login', new State(USER_ROLES, 'login', 'component/login/login.html').controller('LoginCtrl').build())
       .state('logout', new State(USER_ROLES, 'logout', 'component/main/main.html').controller('LogoutCtrl').build())

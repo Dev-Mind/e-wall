@@ -15,6 +15,7 @@ public class Routes {
             "/category",
             "/login",
             "/logout",
+            "/e-wall/{type:\\w+}",
             "/home",
             "/nwerror/{type:\\w+}",
             "/monitor",

@@ -25,6 +25,10 @@ public interface ProductionRepository extends CrudRepository<Production, Long> {
     @Query(value = "SELECT p FROM Production p LEFT JOIN FETCH p.user u LEFT JOIN FETCH p.qrcodes q where p.id = :id")
     Production findByIdFetchMode(@Param("id") Long id);
 
+    @Query(value = "SELECT p FROM Production p LEFT JOIN FETCH p.user u LEFT JOIN FETCH p.qrcodes q where q.url = :url and  p.state = 'VALIDATED'")
+    Production findByUrl(@Param("url") String url);
+
+
     /**
      * To use a fetch with Spring data we must specify how Spring has to count the number of enreg
      * http://codingexplained.com/coding/java/spring-framework/fetch-query-not-working-spring-data-jpa-pageable

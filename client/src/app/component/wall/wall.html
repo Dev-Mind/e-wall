@@ -13,18 +13,16 @@
     <div class="hidden-xs">
         <div class="qr-category__container">
             <div ng-repeat="category in ctrl.categories" style="margin: 1em">
-                <svg width="158" height="158" class="qrCode" ng-click="ctrl.goBigQrCode(category)">
+                <a ng-click="ctrl.goBigQrCode(category)"><svg width="158" height="158" class="qrCode" ng-click="ctrl.goBigQrCode(category)">
                     <style type="text/css">
                         .link_svg:hover {
                             fill: #707070;
-                            cursor: hand;
                             box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
                         }
 
                         text.high {
                             fill: white;
                             font-size: 40px;
-                            cursor: hand;
                         }
                     </style>
                     <g>
@@ -43,7 +41,7 @@
                         <text fill-opacity="1" x="65" y="90" class="high">{{category.shortCode}}</text>
                     </g>
 
-                </svg>
+                </svg></a>
                 <div style="max-width:158px" class="text-center">{{category.name}}</div>
             </div>
         </div>
