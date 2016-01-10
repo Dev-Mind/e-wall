@@ -38,7 +38,7 @@ public class Production {
     @JsonView(ProductionDetailView.class)
     List<QrCode> qrcodes = new ArrayList<>();
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     @JsonView({FlatView.class, ProductionDetailView.class})
     public User user;
 

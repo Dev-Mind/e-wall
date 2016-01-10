@@ -6,5 +6,6 @@ package fr.emse.ewall.model;
 public enum ProductionState {
     PENDING,
     VALIDATED,
-    CENSORED
+    CENSORED,
+    CATEGORY
 }

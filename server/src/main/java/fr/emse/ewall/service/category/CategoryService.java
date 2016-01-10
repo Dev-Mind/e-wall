@@ -8,8 +8,11 @@ import com.google.zxing.qrcode.encoder.ByteMatrix;
 import com.google.zxing.qrcode.encoder.QRCode;
 import fr.emse.ewall.exception.DuplicateElementException;
 import fr.emse.ewall.model.Category;
+import fr.emse.ewall.model.Production;
+import fr.emse.ewall.model.ProductionState;
 import fr.emse.ewall.model.QrCode;
 import fr.emse.ewall.repository.CategoryRepository;
+import fr.emse.ewall.repository.ProductionRepository;
 import fr.emse.ewall.repository.QrCodeRepository;
 import fr.emse.ewall.service.qrcode.QrCodeFileService;
 import fr.emse.ewall.service.qrcode.QrCodeGenerator;
@@ -44,6 +47,9 @@ public class CategoryService {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    private ProductionRepository productionRepository;
 
     @Autowired
     private QrCodeRepository qrCodeRepository;
@@ -104,14 +110,19 @@ public class CategoryService {
         //A file is generated
         QRCode physicalQrCode = qrCodeGenerator.generateQRCode(categoryUrl, null);
 
+        Production productionCategory = productionRepository.save(new Production().setState(ProductionState.CATEGORY));
+
         //We generate a main qrcode
         qrCodeRepository.save(
                 new QrCode()
                         .setBig(true)
                         .setCategory(category)
                         .setUrl(categoryUrl)
+                        .setProduction(productionCategory)
                         .setDimension(physicalQrCode.getMatrix().getWidth())
                         .setSvgPath(qrCodeFileService.getQRCodePath(physicalQrCode)));
+
+
 
         //We need now to generate a bigger QR Code compounded with smaller ones
         QRCode targetQRCode = new QRCode();

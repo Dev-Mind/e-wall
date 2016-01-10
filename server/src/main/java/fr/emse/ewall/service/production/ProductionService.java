@@ -63,6 +63,7 @@ public class ProductionService {
             savedProduction
                     .setUserMaj(user.getEsmeid())
                     .setContent(production.getContent())
+                    .setAuthor(production.getAuthor())
                     .setState(production.getState());
 
             if(!idCategory.equals(savedProduction.getQrcode().getCategory().getId())){

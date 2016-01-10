@@ -22,6 +22,7 @@ public class Routes {
             "/myproductions",
             "/parameter",
             "/production/{type:\\w+}",
+            "/productioncat/{type:\\w+}",
             "/productions",
             "/user",
             "/wall"

@@ -3,7 +3,7 @@
 
     <ol class="breadcrumb ew-breadcrumb">
         <li><a href="home">Accueil</a></li>
-        <li><a href="admin">Administration</a></li>
+        <li><a href="admin">Produire</a></li>
         <li class="active">Parcours</li>
     </ol>
 
@@ -23,7 +23,8 @@
                 <td>
                     <div class="list">
                         <div class="list__content">{{category.name}} ({{category.shortCode}})</div>
-                        <div class="list__action">
+                        <div class="list__action" style="flex: 0.7">
+                            <button type="button" class="btn btn-primary" ng-click="ctrl.addProduction(category)"><i class="glyphicon glyphicon-text-width"></i></button>
                             <button type="button" class="btn btn-primary" ng-click="ctrl.update(category.id)" ng-if="ewall.unlocked==='true'" ><i class="glyphicon glyphicon-pencil"></i></button>
                             <button type="button" class="btn btn-primary" ng-click="ctrl.update(category.id)" ng-if="ewall.unlocked!=='true'" ><i class="glyphicon glyphicon-search"></i></button>
                             <button type="button" class="btn btn-default" ng-click="ctrl.delete(category)" ng-if="ewall.unlocked==='true'"><i class="glyphicon glyphicon-trash"></i></button>
