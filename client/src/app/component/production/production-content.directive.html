@@ -5,7 +5,7 @@
 <uib-alert type="danger" ng-if="ctrl.error">{{ctrl.error}}</uib-alert>
 <uib-alert type="danger" ng-if="frm.$invalid">
     <span ng-if="frm.content.$error.required">Vous devez saisir un texte<br></span>
-    <span ng-if="frm.content.$error.maxlength">Le texte ne peut pas faire plus de 3000 caractères<br></span>
+    <span ng-if="frm.content.$error.maxlength">Le texte ne peut pas faire plus de 5000 caractères<br></span>
     <span ng-if="frm.author.$error.required">Vous devez saisir les identifiants des personnes ayant créés cet article<br></span>
     <span ng-if="frm.author.$error.maxlength">Le texte ne peut pas faire plus de 255 caractères<br></span>
 </uib-alert>
@@ -26,8 +26,8 @@
             à appliquer des formats en utilisant des caractères spéciaux (* = * [] !).</label>
                     <textarea class="form-control" rows="10" ng-model="ctrl.production.content" id="content" name="content" ng-disabled="ctrl.isLocked"
                               ng-required="true"
-                              ng-maxlength="3000"></textarea>
-        <small ng-if="!frm.content.$error.maxlength">({{3000 - ctrl.production.content.length }}
+                              ng-maxlength="5000"></textarea>
+        <small ng-if="!frm.content.$error.maxlength">({{5000 - ctrl.production.content.length }}
             caractère{{ctrl.production.content.length<=2999 ? 's' :
             ''}} restant{{ctrl.production.content.length<=2999 ? 's' : ''}})
         </small>
