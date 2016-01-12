@@ -26,8 +26,8 @@
                               ng-required="true"
                               ng-maxlength="5000"></textarea>
         <small ng-if="!frm.content.$error.maxlength">({{5000 - ctrl.production.content.length }}
-            caractère{{ctrl.production.content.length<=2999 ? 's' :
-            ''}} restant{{ctrl.production.content.length<=2999 ? 's' : ''}})
+            caractère{{ctrl.production.content.length<=4999 ? 's' :
+            ''}} restant{{ctrl.production.content.length<=4999 ? 's' : ''}})
         </small>
         <small>Aucune obligation, mais vous pouvez formater le texte en utilisant le langage <a href="https://help.github.com/articles/markdown-basics/">Markdown</a>. Le principe consiste
             à appliquer des formats en utilisant des caractères spéciaux (* = * [] !) pour améliorer le rendu.</small>
