@@ -29,20 +29,19 @@
             caractère{{ctrl.production.content.length<=4999 ? 's' :
             ''}} restant{{ctrl.production.content.length<=4999 ? 's' : ''}})
         </small>
-        <small>Aucune obligation, mais vous pouvez formater le texte en utilisant le langage <a href="https://help.github.com/articles/markdown-basics/">Markdown</a>. Le principe consiste
-            à appliquer des formats en utilisant des caractères spéciaux (* = * [] !) pour améliorer le rendu.</small>
+        <small>Vous pouvez formater le texte en utilisant la syntaxe <a href="https://help.github.com/articles/markdown-basics/" target="_blank">Markdown</a>. Il s'agit d'utiliser des caractères spéciaux (* = * [] !) pour améliorer le rendu.</small>
         <small ng-if="frm.content.$error.maxlength"><b>Texte trop long</b></small>
     </div>
 
     <div class="form-group">
-        <label for="author">Auteur(s)/label>
+        <label for="author">Auteur(s)</label>
         <input type="text" class="form-control" id="author" name="author"
                ng-maxlength="255"
                ng-model="ctrl.production.author"
                ng-required="true"
                ng-disabled="ctrl.isLocked"
                placeholder="Auteurs">
-        <small>Indiquez votre identifiant EMSE, à savoir la partie gauche de votre email (par exemple : prenom.nom). Si vous faites un texte de manière collective, rajoutez les autres contributeurs, en rajoutant, séparés par un espace, leurs identifiants.</small>
+        <small>Indiquez votre identifiant EMSE, à savoir la partie gauche de votre email (par exemple : prenom.nom). Si vous faites un texte de manière collective, rajoutez les identifiants des contributeurs, séparés par un espace.</small>
 
     </div>
 
