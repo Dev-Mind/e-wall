@@ -32,7 +32,7 @@ ldap:
 spring:
   datasource:
     driver-class-name: ${EMSE_EW_DATABASE_DRIVER:com.mysql.jdbc.Driver}
-    url: jdbc:mysql://${EMSE_EW_DATABASE_HOST:localhost}:${EMSE_EW_DATABASE_PORT:3306}/${EMSE_EW_DATABASE_SCHEMA:ewall}
+    url: jdbc:mysql://${EMSE_EW_DATABASE_HOST:localhost}:${EMSE_EW_DATABASE_PORT:3306}/${EMSE_EW_DATABASE_SCHEMA:ewall}?autoReconnect=true
     username: ${EMSE_EW_DATABASE_USERNAME:ewall}
     password: ${EMSE_EW_DATABASE_PASSWORD:ewall}
     max-wait: 10
