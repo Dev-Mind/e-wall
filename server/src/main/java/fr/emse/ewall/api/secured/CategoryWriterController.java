@@ -2,7 +2,9 @@ package fr.emse.ewall.api.secured;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import fr.emse.ewall.model.Category;
+import fr.emse.ewall.model.CategoryDetailView;
 import fr.emse.ewall.model.Role;
 import fr.emse.ewall.repository.CategoryRepository;
 import fr.emse.ewall.security.NeedsRole;
@@ -67,6 +69,7 @@ public class CategoryWriterController {
     @RequestMapping(method = RequestMethod.POST)
     @ApiOperation(value = "Create or update a category. For a new one a set of QR codes are generated", httpMethod = "POST")
     @NeedsRole(Role.ADMIN)
+    @JsonView(CategoryDetailView.class)
     public ResponseEntity<Category> save(@ApiParam(name = "category", value = "Category") @RequestBody Category category, HttpServletRequest request) {
         if (Boolean.TRUE.equals(unlocked)) {
             return ResponseEntity.ok().body(categoryService.save(category));
