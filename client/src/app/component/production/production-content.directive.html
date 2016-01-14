@@ -70,7 +70,7 @@
                 ng-click="ctrl.saveProduction()" ng-if="!ctrl.isLocked"><i class="glyphicon glyphicon-save"></i>
             Enregistrer
         </button>
-        <button type="button" class="btn btn-default" ng-if="!ctrl.isLocked && ctrl.mode !== 'category'"
+        <button type="button" class="btn btn-default" ng-if="!ctrl.isLocked && !ctrl.production.id && ctrl.mode !== 'category'"
                 ng-click="ctrl.changeCategory()">Changer la catégorie
         </button>
         <button type="button" class="btn btn-default" ng-click="ctrl.cancel()">Annuler</button>

@@ -46,7 +46,7 @@
 
     //Go back on the first tab
     ctrl.changeCategory = function () {
-      if(!ctrl.isLocked){
+      if(!ctrl.isLocked && !ctrl.category.id){
         delete ctrl.currentTab;
       }
     };
