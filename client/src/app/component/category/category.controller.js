@@ -21,8 +21,11 @@
     ctrl.saveCategory = function () {
       if (ctrl.entity && ctrl.entity.code) {
         delete ctrl.error;
+        var entityToPersist = angular.copy(ctrl.entity);
+        //We delete the R code list to avoid pb on request post
+        delete entityToPersist.qrcodes;
         $http
-          .post('/api/secured/category', ctrl.entity)
+          .post('/api/secured/category', entityToPersist)
           .then(function () {
             refresh();
           })
