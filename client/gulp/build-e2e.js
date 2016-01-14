@@ -33,9 +33,9 @@ module.exports = function(gulp, config) {
     return gulp.src(paths.index)
       .pipe(plumber())
       .pipe(htmlreplace({
-        'js': 'js/cesar-' + timestamp + '.min.js',
+        'js': 'js/ewall-' + timestamp + '.min.js',
         'vendors': 'js/vendors-' + timestamp + '.min.js',
-        'css': 'css/cesar-' + timestamp + '.min.css',
+        'css': 'css/ewall-' + timestamp + '.min.css',
         'vendorscss': 'css/vendors-' + timestamp + '.min.css',
         'e2e': 'js/e2e.js'
       }))
