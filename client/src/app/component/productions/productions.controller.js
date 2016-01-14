@@ -13,6 +13,7 @@
     ctrl.states = STATE;
 
     ctrl.refresh = function(){
+      console.log(ctrl.search.category ? ctrl.search.category.code : null)
       $http
         .put('/api/secured/production/' + (ctrl.currentPage - 1), {
           category : ctrl.search.category ? ctrl.search.category.code : null,

@@ -103,7 +103,7 @@ public class ProductionService {
             productions = productionRepository.findAllByStateAndCategoryAndContent(pageable, filter.getState(), filter.getCategory(), prepareForLike(filter.getContent()));
         }
         else if(Objects.nonNull(filter.getCategory())){
-            productions = productionRepository.findAllByStateAndCategory(pageable, filter.getState(), prepareForLike(filter.getCategory()));
+            productions = productionRepository.findAllByStateAndCategory(pageable, filter.getState(), filter.getCategory());
         }
         else if(!Strings.isNullOrEmpty(filter.getContent())){
             productions = productionRepository.findAllByStateAndContent(pageable, filter.getState(), prepareForLike(filter.getContent()));
