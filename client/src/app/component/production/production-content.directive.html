@@ -21,16 +21,11 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="content">Votre texte:</small>
+        <label for="content">Votre texte:</label>
         <textarea class="form-control" rows="10" ng-model="ctrl.production.content" id="content" name="content" ng-disabled="ctrl.isLocked"
                               ng-required="true"
                               ng-maxlength="5000"></textarea>
-        <small ng-if="!frm.content.$error.maxlength">({{5000 - ctrl.production.content.length }}
-            caractère{{ctrl.production.content.length<=4999 ? 's' :
-            ''}} restant{{ctrl.production.content.length<=4999 ? 's' : ''}})
-        </small>
-        <small>Vous pouvez formater le texte en utilisant la syntaxe <a href="https://help.github.com/articles/markdown-basics/" target="_blank">Markdown</a>. Il s'agit d'utiliser des caractères spéciaux (* = * [] !) pour améliorer le rendu.</small>
-        <small ng-if="frm.content.$error.maxlength"><b>Texte trop long</b></small>
+        <ew-nb-carac nbcarac="5000" text="ctrl.production.content" field="frm.content"></ew-nb-carac>
     </div>
 
     <div class="form-group">
@@ -56,7 +51,7 @@
 
     <div class="form-group">
         <button type="button"
-                ng-disabled="(frm.$pristine && frm.$invalid) || spinner==='on'"
+                ng-disabled="frm.$invalid || spinner==='on'"
                 class="btn btn-primary"
                 ng-click="ctrl.saveProduction()" ng-if="!ctrl.isLocked"><i class="glyphicon glyphicon-save"></i> Enregistrer
         </button>

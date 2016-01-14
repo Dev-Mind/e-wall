@@ -1,0 +1,7 @@
+<small class="cesar-length-field">
+    <span ng-if="field.$valid || field.$error.required">{{nbcarac-text.length}} caractère{{nbcarac-text.length>1 ? 's' : ''}} restant{{nbcarac-text.length>1 ? 's' : ''}}</span>
+
+    <span ng-if="field.$error.maxlength" class="has-error"><b>Attention le texte dépasse les {{nbcarac}} caractères</b></span>
+
+    (Vous pouvez formater le texte en utilisant la syntaxe <a href="https://help.github.com/articles/markdown-basics/" target="_blank">Markdown</a>)
+</small>

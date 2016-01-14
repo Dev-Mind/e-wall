@@ -10,6 +10,7 @@ import fr.emse.ewall.security.CookieService;
 import fr.emse.ewall.security.CurrentUser;
 import fr.emse.ewall.security.ldap.LdapService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
