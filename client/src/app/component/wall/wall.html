@@ -8,8 +8,9 @@
     </ol>
 
     <p class="ew-text">Chaque QR code correspond à un Parcours. Cliquez sur un des QR codes pour accéder aux différentes
-        productions de ce Parcours.</p>
+        productions de ce Parcours ou sur le titre du Parcours pour accéder à sa description</p>
 
+    <!-- partie qui s'affiche sur tablette et ecran et caché sur telephone-->
     <div class="hidden-xs">
         <div class="qr-category__container">
             <div ng-repeat="category in ctrl.categories" style="margin: 1em">
@@ -42,10 +43,11 @@
                     </g>
 
                 </svg></a>
-                <div style="max-width:158px" class="text-center">{{category.name}}</div>
+                <div style="max-width:158px" class="text-center"><a ui-sref="e-wall({category:category.code})">{{category.name}}</a></div>
             </div>
         </div>
     </div>
+    <!-- partie qui s'affiche sur telephone-->
     <div class="visible-xs">
         <div ng-repeat="category in ctrl.categories" class="category-selector" style="display: flex;align-items:center">
             <div style="padding-top: 1em">
