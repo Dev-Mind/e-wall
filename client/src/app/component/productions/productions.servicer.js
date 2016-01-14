@@ -16,6 +16,7 @@
         animation: true,
         templateUrl: 'deleteProduction.html',
         controller: 'DeleteProductionCtrl',
+        size:'lg',
         resolve: {
           production: function () {
             return production;

@@ -82,6 +82,7 @@
     ctrl.seeProduction = function(){
       var modalInstance = $uibModal.open({
         animation: true,
+        size:'lg',
         templateUrl: 'seeProduction.html',
         controller: 'SeeProductionCtrl',
         resolve: {

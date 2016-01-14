@@ -140,3 +140,10 @@ input.ng-pristine{
   padding: 15px;
   float: right;
 }
+
+.ew-reponsive-text{
+  max-width: 100%;
+  word-wrap:break-word;
+  overflow-y: auto;
+  overflow-x: hidden;
+}

@@ -88,6 +88,7 @@
           animation: true,
           templateUrl: 'seeProduction.html',
           controller: 'SeeProductionCtrl',
+          size:'lg',
           resolve: {
             production: function () {
               return $http.get('/api/public/qrcode/'+qr.production.id).then(function(response){

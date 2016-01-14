@@ -48,8 +48,8 @@
     <div class="modal-body">
         <p>Voulez vous vraiment supprimer le contenu créé le {{ selected.createdAt | ewDate}}</p>
 
-        <div class="hidden-xs content">{{ selected.content }}</div>
-        <div class="visible-xs content">{{ selected.content | limitTo:450}}{{selected.content.length>450 ? '...' : ''}}</div>
+        <div class="hidden-xs content ew-reponsive-text">{{ selected.content }}</div>
+        <div class="visible-xs content ew-reponsive-text">{{ selected.content | limitTo:450}}{{selected.content.length>450 ? '...' : ''}}</div>
     </div>
     <div class="modal-footer">
         <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>

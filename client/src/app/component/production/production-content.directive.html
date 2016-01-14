@@ -16,15 +16,16 @@
         <div class="list__action-header">
             <button type="button"
                     class="btn btn-primary"
-                    tooltip-placement="bottom"  uib-tooltip="Visualiser votre production"
-                    ng-click="ctrl.seeProduction()"><i class="glyphicon glyphicon-search"></i> </button>
+                    tooltip-placement="bottom" uib-tooltip="Visualiser votre production"
+                    ng-click="ctrl.seeProduction()"><i class="glyphicon glyphicon-search"></i></button>
         </div>
     </div>
     <div class="form-group">
         <label for="content">Votre texte:</label>
-        <textarea class="form-control" rows="10" ng-model="ctrl.production.content" id="content" name="content" ng-disabled="ctrl.isLocked"
-                              ng-required="true"
-                              ng-maxlength="5000"></textarea>
+        <textarea class="form-control" rows="10" ng-model="ctrl.production.content" id="content" name="content"
+                  ng-disabled="ctrl.isLocked"
+                  ng-required="true"
+                  ng-maxlength="5000"></textarea>
         <ew-nb-carac nbcarac="5000" text="ctrl.production.content" field="frm.content"></ew-nb-carac>
     </div>
 
@@ -36,26 +37,41 @@
                ng-required="true"
                ng-disabled="ctrl.isLocked"
                placeholder="Auteurs">
-        <small>Indiquez votre identifiant EMSE, à savoir la partie gauche de votre email (par exemple : prenom.nom). Si vous faites un texte de manière collective, rajoutez les identifiants des contributeurs, séparés par un espace.</small>
+        <small>Indiquez votre identifiant EMSE, à savoir la partie gauche de votre email (par exemple : prenom.nom). Si
+            vous faites un texte de manière collective, rajoutez les identifiants des contributeurs, séparés par un
+            espace.
+        </small>
 
     </div>
 
+    <div class="form-group" ng-if="ctrl.production.id">
+        <label for="urlQrCode">URL du QR code associé</label>
+        <input type="text" id="urlQrCode" class="form-control" disabled="true"
+               value="{{ctrl.production.qrcodes[0].url}}">
+    </div>
     <p ng-if="ctrl.isAdmin && ctrl.production.id">Vous pouvez changer l'état de lademande</p>
     <div ng-if="ctrl.isAdmin && ctrl.production.id">
         <div class="col-sm-3">
-            <input type="radio" ng-model="ctrl.production.state" value="PENDING" id="statePENDING"> <label for="statePENDING" class="label-radio">En attente</label>
-            <input type="radio" ng-model="ctrl.production.state" value="VALIDATED" id="stateVALIDATED"> <label for="stateVALIDATED" class="label-radio">Validé</label>
-            <input type="radio" ng-model="ctrl.production.state" value="CENSORED" id="stateCENSORED"> <label for="stateCENSORED" class="label-radio">Rejetté</label>
+            <input type="radio" ng-model="ctrl.production.state" value="PENDING" id="statePENDING"> <label
+                for="statePENDING" class="label-radio">En attente</label>
+            <input type="radio" ng-model="ctrl.production.state" value="VALIDATED" id="stateVALIDATED"> <label
+                for="stateVALIDATED" class="label-radio">Validé</label>
+            <input type="radio" ng-model="ctrl.production.state" value="CENSORED" id="stateCENSORED"> <label
+                for="stateCENSORED" class="label-radio">Rejetté</label>
         </div>
     </div>
 
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
     <div class="form-group">
         <button type="button"
                 ng-disabled="frm.$invalid || spinner==='on'"
                 class="btn btn-primary"
-                ng-click="ctrl.saveProduction()" ng-if="!ctrl.isLocked"><i class="glyphicon glyphicon-save"></i> Enregistrer
+                ng-click="ctrl.saveProduction()" ng-if="!ctrl.isLocked"><i class="glyphicon glyphicon-save"></i>
+            Enregistrer
         </button>
-        <button type="button" class="btn btn-default" ng-if="!ctrl.isLocked && ctrl.mode !== 'category'" ng-click="ctrl.changeCategory()">Changer la catégorie
+        <button type="button" class="btn btn-default" ng-if="!ctrl.isLocked && ctrl.mode !== 'category'"
+                ng-click="ctrl.changeCategory()">Changer la catégorie
         </button>
         <button type="button" class="btn btn-default" ng-click="ctrl.cancel()">Annuler</button>
     </div>
@@ -63,8 +79,9 @@
 
 <script type="text/ng-template" id="seeProduction.html">
     <div class="modal-body" style="max-height: 80%;overflow-y: auto">
-        <p> Créé <span ng-if="selected.createdAt"> le <b>{{ selected.createdAt | ewDate}}</b></span> par <b>{{ selected.author}}</b></p>
+        <p> Créé <span ng-if="selected.createdAt"> le <b>{{ selected.createdAt | ewDate}}</b></span> par <b>{{
+            selected.author}}</b></p>
 
-        <p ng-bind-html="selected.content | markdown"></p>
+        <p ng-bind-html="selected.content | markdown" class="ew-reponsive-text"></p>
     </div>
 </script>

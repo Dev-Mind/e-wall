@@ -53,6 +53,7 @@
         animation: true,
         templateUrl: 'seeProduction.html',
         controller: 'SeeProductionCtrl',
+        size:'lg',
         resolve: {
           production: function () {
             return ctrl.production;

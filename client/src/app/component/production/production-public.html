@@ -5,7 +5,7 @@
         ajoutée le <b>{{ ctrl.selected.createdAt | ewDate}}</b></span></p>
     <p>&nbsp;</p>
 
-    <p ng-bind-html="ctrl.selected.content | markdown" ng-if="ctrl.selected"></p>
+    <p ng-bind-html="ctrl.selected.content | markdown" ng-if="ctrl.selected" class="ew-reponsive-text"></p>
     <p ng-if="!ctrl.selected"><b>Aucune production n'a été trouvée...</b></p>
     <p>&nbsp;</p>
 

@@ -93,6 +93,6 @@
     <div class="modal-body">
         <p> Créé le <b>{{ selected.createdAt | ewDate}}</b> par <b>{{ selected.author}}</b></p>
 
-        <p ng-bind-html="selected.content | markdown"></p>
+        <p ng-bind-html="selected.content | markdown" class="ew-reponsive-text"></p>
     </div>
 </script>

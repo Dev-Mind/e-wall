@@ -32,8 +32,9 @@
 
     ctrl.refresh();
     ctrl.update = ProductionService.updateProduction;
+
     ctrl.delete = function(production){
-      ProductionService.deleteProduction(production, refresh);
+      ProductionService.deleteProduction(production, ctrl.refresh);
     };
 
   });

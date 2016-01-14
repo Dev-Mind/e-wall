@@ -86,6 +86,7 @@
         animation: true,
         templateUrl: 'deleteCategory.html',
         controller: 'DeleteCategoryCtrl',
+        size:'lg',
         resolve: {
           category: function () {
             return category;
