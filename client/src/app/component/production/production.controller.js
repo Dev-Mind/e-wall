@@ -2,7 +2,7 @@
 
   'use strict';
 
-  angular.module('ew-admin').controller('ProductionCtrl', function ($http, $state, $stateParams, $uibModal, SecurityService) {
+  angular.module('ew-admin').controller('ProductionCtrl', function ($http, $state, $stateParams, $uibModal, SecurityService, ProductionService) {
     'ngInject';
 
     var ctrl = this;
@@ -80,17 +80,7 @@
     };
 
     ctrl.seeProduction = function(){
-      var modalInstance = $uibModal.open({
-        animation: true,
-        size:'lg',
-        templateUrl: 'seeProduction.html',
-        controller: 'SeeProductionCtrl',
-        resolve: {
-          production: function () {
-            return ctrl.production;
-          }
-        }
-      });
+      ProductionService.seeProduction(ctrl.production);
     };
 
     SecurityService.isAdmin(function(response){

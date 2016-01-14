@@ -23,7 +23,7 @@
                 <td>
                     <div class="list">
                         <div class="list__content">{{category.name}} ({{category.shortCode}})</div>
-                        <div class="list__action" style="flex: 0.7">
+                        <div class="list__action">
                             <button type="button" class="btn btn-primary" ng-click="ctrl.addProduction(category)"><i class="glyphicon glyphicon-text-width"></i></button>
                             <button type="button" class="btn btn-primary" ng-click="ctrl.update(category.id)" ng-if="ewall.unlocked==='true'" ><i class="glyphicon glyphicon-pencil"></i></button>
                             <button type="button" class="btn btn-primary" ng-click="ctrl.update(category.id)" ng-if="ewall.unlocked!=='true'" ><i class="glyphicon glyphicon-search"></i></button>

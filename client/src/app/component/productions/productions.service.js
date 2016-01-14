@@ -10,6 +10,20 @@
       $state.go('production', {id : production.id});
     }
 
+    function seeProduction(production){
+      $uibModal.open({
+        animation: true,
+        size:'lg',
+        templateUrl: 'seeProduction.html',
+        controller: 'SeeProductionCtrl',
+        resolve: {
+          production: function () {
+            return production;
+          }
+        }
+      });
+    }
+
     function deleteProduction(production, callBack){
 
       var modalInstance = $uibModal.open({
@@ -41,7 +55,8 @@
 
     return{
       updateProduction : updateProduction,
-      deleteProduction : deleteProduction
+      deleteProduction : deleteProduction,
+      seeProduction: seeProduction
     };
   });
 

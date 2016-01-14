@@ -22,6 +22,9 @@
       ProductionService.deleteProduction(production, refresh);
     };
 
+    ctrl.seeProduction = function(){
+      ProductionService.seeProduction(ctrl.production);
+    };
   });
 
 })();

@@ -33,11 +33,15 @@
 
     ctrl.refresh();
     ctrl.update = ProductionService.updateProduction;
+    ctrl.seeProduction=
 
     ctrl.delete = function(production){
       ProductionService.deleteProduction(production, ctrl.refresh);
     };
 
+    ctrl.seeProduction = function(production){
+      ProductionService.seeProduction(production);
+    };
   });
 
 })();

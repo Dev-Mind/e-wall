@@ -27,9 +27,14 @@
                         <span class="visible-xs">{{production.content | limitTo:50}}{{production.content.length>50 ? '...' : ''}}</span>
                     </div>
                     <div class="list__action">
-                        <button type="button" class="btn btn-primary" ng-click="ctrl.update(production)" ng-if="production.state==='PENDING'"><i class="glyphicon glyphicon-pencil"></i></button>
-                        <button type="button" class="btn btn-primary" ng-click="ctrl.update(production)" ng-if="production.state!=='PENDING'"><i class="glyphicon glyphicon-search"></i></button>
-                        <button type="button" class="btn btn-default" ng-click="ctrl.delete(production)" ng-if="production.state!=='VALIDATED'"><i class="glyphicon glyphicon-trash"></i></button>
+                        <button type="button" class="btn btn-primary" tooltip-placement="bottom" uib-tooltip="Visualiser comme le verront les utilisateurs"
+                                ng-click="ctrl.seeProduction(production)"><i class="glyphicon glyphicon-eye-open"></i></button>
+                        <button type="button" class="btn btn-primary" tooltip-placement="bottom" uib-tooltip="Mise à jour d'une production"
+                                ng-click="ctrl.update(production)" ng-if="production.state==='PENDING'"><i class="glyphicon glyphicon-pencil"></i></button>
+                        <button type="button" class="btn btn-primary" tooltip-placement="bottom" uib-tooltip="Visualiser une production"
+                                ng-click="ctrl.update(production)" ng-if="production.state!=='PENDING'"><i class="glyphicon glyphicon-search"></i></button>
+                        <button type="button" class="btn btn-default" tooltip-placement="bottom" uib-tooltip="Supprimer une production"
+                                ng-click="ctrl.delete(production)" ng-if="production.state!=='VALIDATED'"><i class="glyphicon glyphicon-trash"></i></button>
                     </div>
                 </div>
             </td>
@@ -54,5 +59,14 @@
     <div class="modal-footer">
         <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
         <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="seeProduction.html">
+    <div class="modal-body" style="max-height: 80%;overflow-y: auto">
+        <p> Créé <span ng-if="selected.createdAt"> le <b>{{ selected.createdAt | ewDate}}</b></span> par <b>{{
+            selected.author}}</b></p>
+
+        <p ng-bind-html="selected.content | markdown" class="ew-reponsive-text"></p>
     </div>
 </script>
