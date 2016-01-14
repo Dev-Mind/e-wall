@@ -13,8 +13,6 @@
         ctrl.categories = response.data;
       });
 
-
-
     if ($stateParams.id) {
       //We are in edition mode and we want to load the production for this id
       $http.get('/api/public/production/' + $stateParams.id)
