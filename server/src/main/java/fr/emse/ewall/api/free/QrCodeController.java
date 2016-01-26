@@ -27,12 +27,6 @@ public class QrCodeController {
     private QrCodeFileService qrCodeFileService;
 
     @Autowired
-    private CategoryService categoryService;
-
-    @Autowired
-    private CategoryRepository categoryRepository;
-
-    @Autowired
     private QrCodeRepository qrCodeRepository;
 
     @RequestMapping(value = "{category}/{name:.+}")
@@ -60,11 +54,4 @@ public class QrCodeController {
         response.getOutputStream().write(qrCodeFileService.generateRandomyQRCode());
     }
 
-    @RequestMapping(value = "/category/{id}")
-    @ApiOperation(value = "Return image for big QR code", httpMethod = "GET")
-    @JsonView(FlatView.class)
-    public void findBigQRCode(@ApiParam(name = "id", value = "QR code Id") @PathVariable(value = "id") Long id, HttpServletResponse response) throws IOException {
-        response.setContentType("image/svg+xml");
-        response.getOutputStream().write(categoryService.generateBigQRCodeForCategory(categoryRepository.findByIdFetchMode(id)));
-    }
 }   
