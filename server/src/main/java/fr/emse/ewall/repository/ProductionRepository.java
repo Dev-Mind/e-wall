@@ -1,9 +1,13 @@
 package fr.emse.ewall.repository;
 
+import static fr.emse.ewall.conf.EWallCacheConfig.CACHE_PRODUCTION;
+
 import java.util.List;
 
+import fr.emse.ewall.conf.EWallCacheConfig;
 import fr.emse.ewall.model.Production;
 import fr.emse.ewall.model.ProductionState;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -19,6 +23,7 @@ public interface ProductionRepository extends CrudRepository<Production, Long> {
     @Query(value = "SELECT p FROM Production p LEFT JOIN FETCH p.user u LEFT JOIN FETCH p.qrcodes q where u.id = :userId")
     List<Production> findByUserId(@Param("userId") Long userId);
 
+    @Cacheable(CACHE_PRODUCTION)
     @Query(value = "SELECT p FROM Production p LEFT JOIN FETCH p.user u LEFT JOIN FETCH p.qrcodes q where p.state = 'VALIDATED' or p.state = 'CATEGORY'")
     List<Production> findAllValidated();
 
@@ -52,4 +57,5 @@ public interface ProductionRepository extends CrudRepository<Production, Long> {
             value = "SELECT p FROM Production p LEFT JOIN FETCH p.user u LEFT JOIN FETCH p.qrcodes q LEFT JOIN FETCH q.category c where p.state = :state and (LOWER(p.content) like :content or u.esmeid like :content)",
             countQuery = "SELECT count(p) FROM Production p LEFT JOIN p.user u LEFT JOIN p.qrcodes q LEFT JOIN q.category c where p.state = :state  and p.state<>'CATEGORY' and (LOWER(p.content) like :content or u.esmeid like :content)")
     Page<Production> findAllByStateAndContent(Pageable pageable, @Param("state") ProductionState state, @Param("content") String content);
+
 }

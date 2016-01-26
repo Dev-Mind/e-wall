@@ -9,7 +9,7 @@
         <li class="active">QR Code</li>
     </ol>
 
-    <div class="qr-category__container">
+    <div class="qr-category__container" style="padding-top: 4px">
         <div ng-repeat="category in ctrl.categories">
             <button class="qr-category__link btn"
                     ng-click="ctrl.selectCategory(category.id)"
@@ -17,18 +17,22 @@
                     ng-mouseleave="ctrl.categorytemp = undefined">{{category.shortCode}}</button>
         </div>
     </div>
-    <div class="text-center">
-        <h3>Parcours <b>{{ctrl.categorytemp ? ctrl.categorytemp.name : ctrl.category.name}}</b></h3>
+    <div class="text-center ew-text" style="padding: 5px">
+        Parcours <b>{{ctrl.categorytemp ? ctrl.categorytemp.name : ctrl.category.name}}</b>
+    </div>
+    <div class="row" style="padding: 5px">
+        <div class="col-xs-12 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
+            <div class="input-group">
+                <span class="input-group-addon" tooltip-placement="bottom" uib-tooltip="Trouver les productions liées à votre recherche">?</span>
+                <input type="text" class="form-control" ng-model="yoursearch" placeholder="Rechercher..." ng-change="ctrl.search(yoursearch)">
+            </div>
+        </div>
     </div>
 </div>
-
 <div class="container-fluid text-center" ng-if="ctrl.qrs">
 
-    <svg class="bigqrcode">
+    <svg class="bigqrcode" id="bigqrcode">
         <style type="text/css" >
-            path.production:hover {
-                stroke : {{ctrl.parameterMap.qrcode_colour_hover}};
-            }
             rect.production:hover {
                 fill : {{ctrl.parameterMap.qrcode_colour_hover}};
                 fill-opacity:1;
@@ -60,7 +64,7 @@
                  ng-attr-x="{{qr.foreground.x}}"
                  ng-attr-y="{{qr.foreground.y}}">
 
-                <path class="{{!!qr.production ? 'production' : 'naproduction'}}" ng-attr-stroke="{{!!qr.production ? ctrl.parameterMap.qrcode_foreground : ctrl.parameterMap.qrcode_foreground_na }}"
+                <path ng-attr-stroke="{{!!qr.production ? ctrl.parameterMap.qrcode_foreground : ctrl.parameterMap.qrcode_foreground_na }}"
                       ng-attr-transform="scale({{qr.scaleRatio}})"
                       ng-attr-width="{{qr.foreground.dimensionScaled}}"
                       ng-attr-height="{{qr.foreground.dimensionScaled}}"
@@ -75,13 +79,21 @@
                  ng-attr-height="{{qr.background.dimensionScaled}}"
                  ng-attr-x="{{qr.background.x}}"
                  ng-attr-y="{{qr.background.y}}"
-                 ng-click="ctrl.seeProduction(qr)">
+                 ng-click="ctrl.seeProduction(qr)"
+            >
 
-                <rect class="{{!!qr.production ? 'production' : 'naproduction'}}"
-                      ng-attr-width="{{qr.background.dimensionScaled}}"
-                      ng-attr-height="{{qr.background.dimensionScaled}}">
+                <rect
+                        ng-if="qr.active"
+                        style="fill:{{ctrl.parameterMap.qrcode_colour_hover}};fill-opacity:1;"
+                        ng-attr-width="{{qr.background.dimensionScaled}}"
+                        ng-attr-height="{{qr.background.dimensionScaled}}">
                 </rect>
-
+                <rect
+                        ng-if="!qr.active"
+                        ng-class="{'production' : !!qr.production, 'naproduction' : !qr.production}"
+                        ng-attr-width="{{qr.background.dimensionScaled}}"
+                        ng-attr-height="{{qr.background.dimensionScaled}}">
+                </rect>
             </svg>
         </g>
     </svg>

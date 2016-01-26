@@ -70,7 +70,7 @@ public class CategoryWriterController {
     @ApiOperation(value = "Create or update a category. For a new one a set of QR codes are generated", httpMethod = "POST")
     @NeedsRole(Role.ADMIN)
     @JsonView(CategoryDetailView.class)
-    public ResponseEntity<Category> save(@ApiParam(name = "category", value = "Category") @RequestBody Category category, HttpServletRequest request) {
+    public ResponseEntity<Category> save(@ApiParam(name = "category", value = "Category") @RequestBody Category category) {
         if (Boolean.TRUE.equals(unlocked)) {
             return ResponseEntity.ok().body(categoryService.save(category));
         }

@@ -61,6 +61,7 @@
             };
 
             ctrl.qrs.forEach(function(elt){
+              elt.active=false;
               elt.background = {
                 x : elt.x*ratio,
                 y :elt.y*ratio,
@@ -81,6 +82,37 @@
 
         });
     };
+
+
+    function updateActiveInQrCode(ids){
+
+      ctrl.qrs.forEach(function(qr){
+
+        if(ids && ids.filter(function(e){
+            return e === qr.id;
+          }).length>0) {
+          qr.active=true;
+        }
+        else{
+          qr.active=false;
+        }
+      });
+    }
+
+    ctrl.search = function(mysearch){
+      if(mysearch){
+        $http.get('/api/public/production/search/'+mysearch).then(function(response){
+          //We need to parse all the QRcodes
+          updateActiveInQrCode(response.data);
+        }).catch(function(){
+          updateActiveInQrCode();
+        });
+      }
+      else{
+        updateActiveInQrCode();
+      }
+    };
+
 
     ctrl.seeProduction = function(qr){
       if(!!qr.production) {

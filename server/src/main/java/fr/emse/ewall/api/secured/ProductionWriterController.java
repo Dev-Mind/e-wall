@@ -1,5 +1,7 @@
 package fr.emse.ewall.api.secured;
 
+import static fr.emse.ewall.conf.EWallCacheConfig.CACHE_PRODUCTION;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -7,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import fr.emse.ewall.api.dto.ProductionDto;
+import fr.emse.ewall.conf.EWallCacheConfig;
 import fr.emse.ewall.security.CurrentUser;
 import fr.emse.ewall.model.FlatView;
 import fr.emse.ewall.model.Production;
@@ -23,6 +26,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.CacheManager;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -53,6 +57,7 @@ public class ProductionWriterController {
 
     @Autowired
     private ApplicationContext applicationContext;
+
 
     @RequestMapping(value = "/production/{page}", method = RequestMethod.PUT)
     @ApiOperation(value = "Return all the productions", httpMethod = "GET")

@@ -25,7 +25,8 @@ var paths = {
       'node_modules/angular-ui-router/release/angular-ui-router.min.js',
       'node_modules/angular-ui-bootstrap/ui-bootstrap-tpls.min.js',
       'node_modules/moment/moment.js',
-      'node_modules/markdown/lib/markdown.js'
+      'node_modules/markdown/lib/markdown.js',
+      'node_modules/save-svg-as-png/saveSvgAsPng.js'
     ],
     unit: [
       'src/test/unit/**/*.spec.js'

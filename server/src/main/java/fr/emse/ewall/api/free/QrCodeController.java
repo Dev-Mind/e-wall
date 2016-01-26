@@ -47,8 +47,9 @@ public class QrCodeController {
     @RequestMapping(value = "/random")
     @ApiOperation(value = "Return image for random QR code", httpMethod = "GET")
     @JsonView(FlatView.class)
-    public void findRandom(HttpServletResponse response) throws IOException{
+    public void findRandom(HttpServletResponse response) throws IOException {
         response.setContentType("image/svg+xml");
         response.getOutputStream().write(qrCodeFileService.generateRandomyQRCode());
     }
+
 }   

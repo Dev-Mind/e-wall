@@ -1,5 +1,7 @@
 package fr.emse.ewall.service.production;
 
+import static fr.emse.ewall.conf.EWallCacheConfig.CACHE_PRODUCTION;
+
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -7,6 +9,7 @@ import java.util.Objects;
 
 import com.google.common.base.Strings;
 import fr.emse.ewall.api.dto.ProductionDto;
+import fr.emse.ewall.conf.EWallCacheConfig;
 import fr.emse.ewall.exception.ElementNotFoundException;
 import fr.emse.ewall.exception.ForbiddenException;
 import fr.emse.ewall.model.Production;
@@ -19,6 +22,7 @@ import fr.emse.ewall.repository.QrCodeRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -43,12 +47,16 @@ public class ProductionService {
     @Autowired
     private QrCodeRepository qrCodeRepository;
 
+    @Autowired
+    private CacheManager cacheManager;
+
     public Production saveMyProduction(Long idCategory, Production production, User user) {
         Objects.requireNonNull(idCategory);
         Objects.requireNonNull(production);
 
         Production savedProduction;
         boolean adminMode = user.getRoles().contains(Role.ADMIN.name());
+        cacheManager.getCache(CACHE_PRODUCTION).clear();
 
         if(production.getId()==null){
             savedProduction = productionRepository.save(production.setUser(user).setUserMaj(user.getEsmeid()));
@@ -56,6 +64,7 @@ public class ProductionService {
         }
         else{
             savedProduction = productionRepository.findOne(production.getId());
+
             //Only pending productions can be saved
             if(!adminMode && !ProductionState.PENDING.equals(production.getState())) {
                 throw new ForbiddenException();
@@ -121,6 +130,8 @@ public class ProductionService {
         Objects.requireNonNull(id);
 
         Production production = productionRepository.findOne(id);
+        cacheManager.getCache(CACHE_PRODUCTION).evict(production);
+
         if (production == null) {
             throw new ElementNotFoundException();
         }
