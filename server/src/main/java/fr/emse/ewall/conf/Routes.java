@@ -11,7 +11,7 @@ public class Routes {
 
     @RequestMapping({
             "/admin",
-            "/bigqrcode",
+            "/bigqrcode/{id:\\w+}",
             "/category",
             "/login",
             "/logout",

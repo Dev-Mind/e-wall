@@ -2,7 +2,7 @@
 
   'use strict';
 
-  angular.module('ew-admin').controller('BigQRCodeCtrl', function ($http, $timeout, $window, $uibModal, qrCodeParameters) {
+  angular.module('ew-admin').controller('BigQRCodeCtrl', function ($http, $timeout, $stateParams, $window, $uibModal, qrCodeParameters) {
     'ngInject';
 
     var ctrl = this;
@@ -22,7 +22,13 @@
         .then(function(response){
           ctrl.categories = response.data;
           if(ctrl.categories && ctrl.categories.length>0){
-            ctrl.selectCategory(ctrl.categories[0].id);
+            var cat;
+            ctrl.categories.forEach(function(elt){
+              if(elt.id+"" === $stateParams.id){
+                cat = elt;
+              }
+            });
+            ctrl.selectCategory(cat ? cat.id : ctrl.categories[0].id);
           }
         });
     }
