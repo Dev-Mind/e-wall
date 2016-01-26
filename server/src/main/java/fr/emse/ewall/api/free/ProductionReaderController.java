@@ -76,14 +76,8 @@ public class ProductionReaderController {
         logger.info("I search productions with " + text);
         return productions
                 .stream()
-                .filter(p -> {
-                    logger.info(String.format("compare ategory %s avec %s", idCategory, p.getQrcode().getCategory().getId()));
-                    return idCategory.equals(p.getQrcode().getCategory().getId());
-                })
-                .filter(p -> {
-                    logger.info(String.format("compare %s avec %s", p.getContent()!=null ? p.getContent().toLowerCase() : "null", text.toLowerCase()));
-                    return p.getContent()!=null && p.getContent().toLowerCase().contains(text.toLowerCase());
-                })
+                .filter(p -> idCategory.equals(p.getQrcode().getCategory().getId()))
+                .filter(p -> p.getContent()!=null && p.getContent().toLowerCase().contains(text.toLowerCase()))
                 .map(p -> p.getQrcode().getId())
                 .collect(Collectors.toList());
 
