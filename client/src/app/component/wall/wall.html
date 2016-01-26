@@ -13,16 +13,16 @@
     <!-- partie qui s'affiche sur tablette et ecran et caché sur telephone-->
     <div class="hidden-xs">
         <div class="qr-category__container">
+
             <div ng-repeat="category in ctrl.categories" style="margin: 1em">
                 <a ng-click="ctrl.goBigQrCode(category)"><svg width="158" height="158" class="qrCode" ng-click="ctrl.goBigQrCode(category)">
                     <style type="text/css">
-                        .link_svg:hover {
+                        circle.link_svg:hover {
                             fill: #707070;
                             box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
                         }
 
                         text.high {
-                            fill: white;
                             font-size: 40px;
                         }
                     </style>
@@ -39,7 +39,7 @@
                             <circle cx="50" cy="50" r="50" fill="#3a3a3a"/>
                         </svg>
 
-                        <text fill-opacity="1" x="65" y="90" class="high">{{category.shortCode}}</text>
+                        <text fill-opacity="1" x="65" y="90" class="high" fill="white" font-size="40px">{{category.shortCode}}</text>
                     </g>
 
                 </svg></a>
@@ -60,7 +60,6 @@
                         }
 
                         text {
-                            fill: white;
                             font-size: 22px;
                             cursor: hand;
                         }
@@ -78,7 +77,7 @@
                             <circle cx="20" cy="20" r="20" fill="#3a3a3a"/>
                         </svg>
 
-                        <text fill-opacity="1" x="25" y="40">{{category.shortCode}}</text>
+                        <text fill-opacity="1" x="25" y="40" fill="white" font-size="22px">{{category.shortCode}}</text>
                     </g>
 
                 </svg>
