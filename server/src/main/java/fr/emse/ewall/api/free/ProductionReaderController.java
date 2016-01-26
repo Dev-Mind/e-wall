@@ -13,6 +13,8 @@ import fr.emse.ewall.repository.ProductionRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +25,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/public/production")
 public class ProductionReaderController {
+
+    private static final Logger logger = LoggerFactory.getLogger(ProductionReaderController.class);
 
     @Value("${ewall.qrcode.url}")
     private String qrCodePrefixUrl;
@@ -68,10 +72,13 @@ public class ProductionReaderController {
     @JsonView(FlatView.class)
     public List<Long> findRandom(@PathVariable(value = "text") String text) throws IOException {
         List<Production> productions = productionRepository.findAllValidated();
-
+        logger.info("I search productions with " + text);
         return productions
                 .stream()
-                .filter(p -> p.getContent()!=null && p.getContent().toLowerCase().contains(text.toLowerCase()))
+                .filter(p -> {
+                    logger.info(String.format("compare %s avec %s", p.getContent().toLowerCase(), text.toLowerCase()));
+                    return p.getContent()!=null && p.getContent().toLowerCase().contains(text.toLowerCase());
+                })
                 .map(p -> p.getQrcode().getId())
                 .collect(Collectors.toList());
 

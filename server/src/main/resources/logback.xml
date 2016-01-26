@@ -15,12 +15,13 @@
         </encoder>
     </appender>
 
-    <!-- If we use embedded tomcat we use 2 loggers console and file -->
+    <logger name="fr.emse.ewall" level="TRACE"/>
+
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="LOGFILE"/>
     </root>
 
-    <logger name="fr.emse.ewall" level="TRACE"/>
+
 
 </configuration>
