@@ -87,11 +87,11 @@
                         next-text="&rsaquo;"
                         first-text="&laquo;"
                         last-text="&raquo;"
-                        num-pages="ctrl.productionsPage.totalPages">
+                        items-per-page="ctrl.productionsPage.size">
         </uib-pagination>
         <uib-pagination class="visible-xs"
                         boundary-links="true"
-                        total-items="ctrl.users.length"
+                        total-items="ctrl.productionsPage.totalElements"
                         ng-model="ctrl.currentPage"
                         ng-click="ctrl.refresh()"
                         class="pagination-sm"
@@ -100,7 +100,7 @@
                         next-text="&rsaquo;"
                         first-text="&laquo;"
                         last-text="&raquo;"
-                        num-pages="ctrl.productionsPage.totalPages">
+                        items-per-page="ctrl.productionsPage.size">
         </uib-pagination>
     </div>
 
