@@ -27,6 +27,10 @@ public interface ProductionRepository extends CrudRepository<Production, Long> {
     @Query(value = "SELECT p FROM Production p LEFT JOIN FETCH p.user u LEFT JOIN FETCH p.qrcodes q where p.state = 'VALIDATED' or p.state = 'CATEGORY'")
     List<Production> findAllValidated();
 
+    @Cacheable(CACHE_PRODUCTION)
+    @Query(value = "SELECT p FROM Production p LEFT JOIN FETCH p.user u LEFT JOIN FETCH p.qrcodes q where p.state = 'VALIDATED'")
+    List<Production> findAllValidatedForSearch();
+
     @Query(value = "SELECT p FROM Production p LEFT JOIN FETCH p.user u LEFT JOIN FETCH p.qrcodes q where p.id = :id")
     Production findByIdFetchMode(@Param("id") Long id);
 

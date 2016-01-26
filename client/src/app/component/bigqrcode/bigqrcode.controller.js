@@ -107,7 +107,7 @@
 
     ctrl.search = function(mysearch){
       if(mysearch){
-        $http.get('/api/public/production/search/'+mysearch).then(function(response){
+        $http.get('/api/public/production/' + ctrl.category.id + '/search/'+mysearch).then(function(response){
           //We need to parse all the QRcodes
           updateActiveInQrCode(response.data);
         }).catch(function(){

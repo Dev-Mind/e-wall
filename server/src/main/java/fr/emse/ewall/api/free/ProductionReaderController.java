@@ -68,13 +68,18 @@ public class ProductionReaderController {
         return productionRepository.findByUrl(qrcodeUrl);
     }
 
-    @RequestMapping(value = "/search/{text}")
+    @RequestMapping(value = "/{idCategory}/search/{text}")
     @JsonView(FlatView.class)
-    public List<Long> findRandom(@PathVariable(value = "text") String text) throws IOException {
-        List<Production> productions = productionRepository.findAllValidated();
+    public List<Long> findRandom(@ApiParam(name = "id", value = "Category id") @PathVariable(value = "idCategory") Long idCategory,
+                                 @PathVariable(value = "text") String text) throws IOException {
+        List<Production> productions = productionRepository.findAllValidatedForSearch();
         logger.info("I search productions with " + text);
         return productions
                 .stream()
+                .filter(p -> {
+                    logger.info(String.format("compare ategory %s avec %s", idCategory, p.getQrcode().getCategory().getId()));
+                    return idCategory.equals(p.getQrcode().getCategory().getId());
+                })
                 .filter(p -> {
                     logger.info(String.format("compare %s avec %s", p.getContent()!=null ? p.getContent().toLowerCase() : "null", text.toLowerCase()));
                     return p.getContent()!=null && p.getContent().toLowerCase().contains(text.toLowerCase());
