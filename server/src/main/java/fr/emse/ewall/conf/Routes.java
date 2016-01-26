@@ -11,11 +11,12 @@ public class Routes {
 
     @RequestMapping({
             "/admin",
+            "/cache",
             "/bigqrcode/{id:\\w+}",
             "/category",
             "/login",
             "/logout",
-            "/e-wall/{type:\\w+}",
+            "/e-wall/{type:\\w+}/{id:\\w+}",
             "/home",
             "/nwerror/{type:\\w+}",
             "/monitor",
