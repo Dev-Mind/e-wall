@@ -6,7 +6,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.annotation.JsonView;
 import fr.emse.ewall.model.FlatView;
 import fr.emse.ewall.model.QrCode;
+import fr.emse.ewall.repository.CategoryRepository;
 import fr.emse.ewall.repository.QrCodeRepository;
+import fr.emse.ewall.service.category.CategoryService;
 import fr.emse.ewall.service.qrcode.QrCodeFileService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -23,6 +25,12 @@ public class QrCodeController {
 
     @Autowired
     private QrCodeFileService qrCodeFileService;
+
+    @Autowired
+    private CategoryService categoryService;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Autowired
     private QrCodeRepository qrCodeRepository;
@@ -52,4 +60,11 @@ public class QrCodeController {
         response.getOutputStream().write(qrCodeFileService.generateRandomyQRCode());
     }
 
+    @RequestMapping(value = "/category/{id}")
+    @ApiOperation(value = "Return image for big QR code", httpMethod = "GET")
+    @JsonView(FlatView.class)
+    public void findBigQRCode(@ApiParam(name = "id", value = "QR code Id") @PathVariable(value = "id") Long id, HttpServletResponse response) throws IOException {
+        response.setContentType("image/svg+xml");
+        response.getOutputStream().write(categoryService.generateBigQRCodeForCategory(categoryRepository.findByIdFetchMode(id)));
+    }
 }   

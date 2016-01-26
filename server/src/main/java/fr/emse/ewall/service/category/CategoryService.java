@@ -2,6 +2,7 @@ package fr.emse.ewall.service.category;
 
 import java.nio.file.Path;
 import java.util.Objects;
+import java.util.Optional;
 
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.google.zxing.qrcode.encoder.ByteMatrix;
@@ -100,7 +101,7 @@ public class CategoryService {
     /**
      * Generate the main QR code and all the QR codes available for this category
      */
-    public void generateCategoryQRCodes(Category category, int margin) {
+    public QRCode generateCategoryQRCodes(Category category, int margin) {
 
 
         Objects.requireNonNull(category);
@@ -174,8 +175,14 @@ public class CategoryService {
             }
         }
 
+        return targetQRCode;
     }
 
+
+    public byte[] generateBigQRCodeForCategory(Category category) {
+        QRCode qrCode = generateCategoryQRCodes(category, qrCodeMargin);
+        return qrCodeFileService.generateBigQRCode(qrCode);
+    }
 
     /**
      * Deletes a category and all te QRCode linked. The files are keep to simplify a restoration on error

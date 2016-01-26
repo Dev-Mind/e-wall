@@ -7,12 +7,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.google.zxing.qrcode.encoder.QRCode;
 import fr.emse.ewall.exception.QrCodeFileException;
+import fr.emse.ewall.model.Category;
 import fr.emse.ewall.model.QrCode;
 import fr.emse.ewall.service.svg.SvgConverter;
 import org.slf4j.Logger;
@@ -153,6 +155,10 @@ public class QrCodeFileService {
         String url = qrCodePrefixUrl + "/r";
         QRCode physicalQrCode = qrCodeGenerator.generateQRCode(url, ErrorCorrectionLevel.L);
         return svgConverter.generateSvg(physicalQrCode, "#000000", svgConverter.generatePathSvg(physicalQrCode)).getBytes();
+    }
+
+    public byte[] generateBigQRCode(QRCode qrCode) {
+        return svgConverter.generateSvg(qrCode, "#000000", svgConverter.generatePathSvg(qrCode)).getBytes();
     }
 
     @VisibleForTesting
