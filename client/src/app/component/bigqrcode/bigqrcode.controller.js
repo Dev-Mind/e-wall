@@ -69,13 +69,13 @@
               };
               elt.foreground = {
                 x : elt.x*ratio + ctrl.parameterMap.qrcode_margin,
-                y :elt.y*ratio + ctrl.parameterMap.qrcode_margin,
-                dimensionScaled : ratio - 2 *ctrl.parameterMap.qrcode_margin
+                y : elt.y*ratio + ctrl.parameterMap.qrcode_margin,
+                dimensionScaled : ratio - 2*ctrl.parameterMap.qrcode_margin
               };
               if(elt.foreground.dimensionScaled<0){
                 elt.foreground.dimensionScaled = 1;
               }
-              elt.scaleRatio = ratio/(elt.dimension);
+              elt.scaleRatio = elt.foreground.dimensionScaled / elt.dimension;
 
             });
           });
