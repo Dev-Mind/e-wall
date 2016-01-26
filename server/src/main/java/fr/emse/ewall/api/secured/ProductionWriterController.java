@@ -58,6 +58,8 @@ public class ProductionWriterController {
     @Autowired
     private ApplicationContext applicationContext;
 
+    @Autowired
+    private CacheManager cacheManager;
 
     @RequestMapping(value = "/production/{page}", method = RequestMethod.PUT)
     @ApiOperation(value = "Return all the productions", httpMethod = "GET")
@@ -81,6 +83,7 @@ public class ProductionWriterController {
     @ApiOperation(value = "Delete one production", httpMethod = "DELETE")
     public ResponseEntity delete(@ApiParam(name = "id", value = "Production Id") @PathVariable(value = "id") Long id) {
         productionService.deleteProduction(id);
+        cacheManager.getCache(EWallCacheConfig.CACHE_PRODUCTION).clear();
         return ResponseEntity.ok().build();
     }
 
@@ -103,6 +106,7 @@ public class ProductionWriterController {
             HttpServletRequest request) {
 
         Optional<User> user = applicationContext.getBean(CurrentUser.class).getCredentials();
+        cacheManager.getCache(EWallCacheConfig.CACHE_PRODUCTION).clear();
         return ResponseEntity.ok().body(productionService.saveMyProduction(idCategorie, production, userRepository.findByEsmeid(user.get().getEsmeid())));
     }
 
