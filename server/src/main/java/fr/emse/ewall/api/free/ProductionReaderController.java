@@ -76,7 +76,7 @@ public class ProductionReaderController {
         return productions
                 .stream()
                 .filter(p -> {
-                    logger.info(String.format("compare %s avec %s", p.getContent().toLowerCase(), text.toLowerCase()));
+                    logger.info(String.format("compare %s avec %s", p.getContent()!=null ? p.getContent().toLowerCase() : "null", text.toLowerCase()));
                     return p.getContent()!=null && p.getContent().toLowerCase().contains(text.toLowerCase());
                 })
                 .map(p -> p.getQrcode().getId())
