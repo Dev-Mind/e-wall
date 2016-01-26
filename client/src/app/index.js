@@ -27,11 +27,11 @@
 
 
   angular.module('ew').constant('qrCodeParameters', {
-    qrcode_margin: 2,
-    qrcode_foreground: '#C4B2F1',
+    qrcode_margin: 3,
+    qrcode_foreground: '#000000',
     qrcode_foreground_na :  '#7d5ccf',
-    qrcode_background: '#3a3a3a',
-    qrcode_colour_hover: '#ECF714',
+    qrcode_background: '#ABABAB',
+    qrcode_colour_hover: '#f200ff',
     qrcode_colour_text: '#7d5ccf'
   });
 
