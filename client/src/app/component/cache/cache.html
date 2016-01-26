@@ -1,0 +1,27 @@
+<div class="container">
+    <h1><i class="glyphicon glyphicon-scale"></i> Gestion cache</h1>
+
+    <ol class="breadcrumb ew-breadcrumb">
+        <li><a href="home">Accueil</a></li>
+        <li><a href="admin">Produire</a></li>
+        <li class="active">Gestion cache</li>
+    </ol>
+
+
+    <button class="btn btn-default" class="active" ng-click="ctrl.refresh()">
+        Refresh
+    </button>
+
+    <p>Data in cache manager</p>
+    <pre>{{ctrl.result | json}}</pre>
+
+    <p>&nbsp;</p>
+    <p>These buttons help to clear the cache area.</p>
+
+    <div>
+        <button class="btn btn-primary" ng-click="ctrl.clear('member')">
+            Clear
+        </button>
+    </div>
+
+</div>
