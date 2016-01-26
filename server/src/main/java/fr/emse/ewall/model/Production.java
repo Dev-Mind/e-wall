@@ -50,7 +50,7 @@ public class Production {
     @JsonView({FlatView.class, ProductionDetailView.class})
     private String content;
 
-    @JsonView({FlatView.class, ProductionDetailView.class})
+    @JsonView({FlatView.class, ProductionDetailView.class, CategoryDetailView.class})
     @Enumerated(EnumType.STRING)
     private ProductionState state = ProductionState.PENDING;
 

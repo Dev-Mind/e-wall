@@ -67,7 +67,7 @@
             };
 
             ctrl.qrs.forEach(function(elt){
-              elt.available= !!elt.production && elt.productio.state==='VALIDATED';
+              elt.available = !!elt.production && elt.production.state==='VALIDATED';
               elt.active=false;
               elt.background = {
                 x : elt.x*ratio,
