@@ -42,6 +42,9 @@ public class CategoryService {
     @Value("${ewall.qrcode.margin}")
     private Integer qrCodeMargin;
 
+    @Value("${ewall.qrcode.quality}")
+    private String qrCodeQuality;
+
     @Autowired
     private QrCodeFileService qrCodeFileService;
 
@@ -109,7 +112,7 @@ public class CategoryService {
 
 
         //A file is generated
-        QRCode physicalQrCode = qrCodeGenerator.generateQRCode(categoryUrl, null);
+        QRCode physicalQrCode = qrCodeGenerator.generateQRCode(categoryUrl, ErrorCorrectionLevel.valueOf(qrCodeQuality));
 
         Production productionCategory = productionRepository.save(new Production().setState(ProductionState.CATEGORY));
 
@@ -148,7 +151,7 @@ public class CategoryService {
                     cpt++;
                     String newUrl = categoryUrl.concat("/").concat(String.valueOf(cpt));
 
-                    QRCode smallQrCode = qrCodeGenerator.generateQRCode(newUrl, null);
+                    QRCode smallQrCode = qrCodeGenerator.generateQRCode(newUrl, ErrorCorrectionLevel.valueOf(qrCodeQuality));
                     QrCode qrCode = qrCodeRepository.save(
                             new QrCode()
                                     .setBig(false)
