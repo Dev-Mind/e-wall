@@ -88,6 +88,9 @@ configure([project(':server')]) {
     repositories {
         maven { url springRepo }
         maven { url "https://jitpack.io" }
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
 
     dependencies {
