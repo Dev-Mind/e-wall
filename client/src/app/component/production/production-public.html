@@ -1,5 +1,5 @@
 <div class="container ew-menu">
-    <p class="ew-text" ng-if="ctrl.categoryText">La semaine Industrie du Futur se veut, pour chaque personne de l’Ecole, l’occasion d’arrêter le temps,
+    <p class="ew-text" ng-if="ctrl.displayText">La semaine Industrie du Futur se veut, pour chaque personne de l’Ecole, l’occasion d’arrêter le temps,
         de s’ouvrir à une problématique majeure pour l’avenir, d’échanger dans un contexte convivial et différent, et de
         s’engager aussi dans une autre dynamique de travail. <span ng-if="ctrl.selected">Voici la production de <b>{{ ctrl.selected.author}}</b>
         ajoutée le <b>{{ ctrl.selected.createdAt | ewDate}}</b></span></p>
@@ -9,7 +9,7 @@
     <p ng-if="!ctrl.selected"><b>Aucune production n'a été trouvée...</b></p>
     <p>&nbsp;</p>
 
-    <div ng-if="ctrl.categoryText">
+    <div ng-if="ctrl.displayText">
         <p><small>Si vous voulez accéder à une autre production choisie de manière aléatoire, cliquez sur le bouton ci dessous.</small></p>
         <button class="btn-primary btn" ng-click="ctrl.seeOtherProduction()">Voir une autre production</button>
     </div>

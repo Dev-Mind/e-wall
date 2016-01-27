@@ -7,7 +7,7 @@
 
     var ctrl = this;
 
-    ctrl.categoryText = !!$state.params.id;
+    ctrl.displayText = !!$state.params.id || $state.params.category==='r';
 
     $http
       .get('/api/public/production/' + $state.params.category + '/' + ($state.params.id ? $state.params.id : 'general'))
