@@ -27,7 +27,7 @@
 
 
   angular.module('ew').constant('qrCodeParameters', {
-    qrcode_margin: 3,
+    qrcode_margin: 1,
     qrcode_foreground: '#000000',
     qrcode_foreground_na :  '#7d5ccf',
     qrcode_background: '#ABABAB',
