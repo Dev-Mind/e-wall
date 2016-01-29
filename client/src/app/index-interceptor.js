@@ -39,27 +39,27 @@
   /**
    * This interceptor is used to display a spinner when a request is executed
    */
-  angular.module('ew-structure').factory('spinnerInterceptor', function ($rootScope, $q) {
+  angular.module('ew-structure').factory('spinnerInterceptor', function ($rootScope, $q, SpinnerService) {
     'ngInject';
 
     return {
       request: function(config) {
-        $rootScope.spinner = 'on';
+        SpinnerService.activate();
         return config;
       },
 
       requestError: function(rejection) {
-        $rootScope.spinner = 'off';
+        SpinnerService.desactivate();
         return $q.reject(rejection);
       },
 
       response: function(response) {
-        $rootScope.spinner = 'off';
+        SpinnerService.desactivate();
         return response;
       },
 
       responseError: function(rejection) {
-        $rootScope.spinner = 'off';
+        SpinnerService.desactivate();
         return $q.reject(rejection);
       }
     };

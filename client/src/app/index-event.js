@@ -6,27 +6,8 @@
   /**
    * Event handlers for errors (internal, security...)
    */
-  angular.module('ew').run(function ($rootScope, $state, $timeout, SecurityService) {
+  angular.module('ew').run(function ($rootScope, $state, $timeout, SecurityService, SpinnerService) {
     'ngInject';
-
-    var waitinPopupTimeout;
-    $rootScope.waitingPopup = false;
-
-    $rootScope.wait = function() {
-      if(!waitinPopupTimeout){
-        waitinPopupTimeout = $timeout(function(){
-          //document.location.href='#top';
-          $rootScope.waitingPopup = true;
-        }, 100);
-      }
-    };
-
-    $rootScope.stopWaiting = function() {
-      $rootScope.waitingPopup = false;
-      if(waitinPopupTimeout){
-        $timeout.cancel(waitinPopupTimeout);
-      }
-    };
 
     //Error are catched to redirect user on error page
     $rootScope.$on('$ewError', function (event, response) {
@@ -40,7 +21,17 @@
 
     //When a ui-router state change we watch if user is authorized
     $rootScope.$on('$stateChangeStart', function (event, next) {
+      SpinnerService.wait();
       SecurityService.valid(next.authorizedRoles);
+    });
+    $rootScope.$on('$stateChangeError', function () {
+      SpinnerService.stopWaiting();
+    });
+    $rootScope.$on('$stateChangeSuccess', function (event, next) {
+      //In bigQRcode spinner is managed in controller
+      if(next.url.indexOf('bigqrcode')<0){
+        SpinnerService.stopWaiting();
+      }
     });
   });
 

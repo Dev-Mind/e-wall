@@ -2,7 +2,7 @@
 
   'use strict';
 
-  angular.module('ew-admin').controller('BigQRCodeCtrl', function ($http, $timeout, $stateParams, $window, $uibModal, qrCodeParameters) {
+  angular.module('ew-admin').controller('BigQRCodeCtrl', function ($http, $timeout, $stateParams, $window, $uibModal, qrCodeParameters, SpinnerService) {
     'ngInject';
 
     var ctrl = this;
@@ -34,6 +34,7 @@
     }
 
     ctrl.selectCategory = function(id){
+      SpinnerService.wait(0);
       $http.get('/api/public/category/' + id)
         .then(function (response) {
           ctrl.category = response.data;
@@ -85,6 +86,10 @@
               elt.scaleRatio = elt.foreground.dimensionScaled / elt.dimension;
 
             });
+
+            $timeout(function(){
+              SpinnerService.stopWaiting();
+            },100);
           });
 
         });
