@@ -14,23 +14,30 @@
       });
 
     if ($stateParams.id) {
-      //We are in edition mode and we want to load the production for this id
-      $http.get('/api/public/production/' + $stateParams.id)
-        .then(function (response) {
-          ctrl.production = response.data;
-          ctrl.currentTab = 'content';
-          ctrl.isLocked = !ctrl.isAdmin && ctrl.production.state!=='PENDING';
+      SecurityService.isAdmin(function(response){
+        ctrl.isAdmin = response;
 
-          console.log('Admin', ctrl.isAdmin, ctrl.production.state!=='PENDING', ctrl.isLocked);
-          if (response.data.qrcodes && response.data.qrcodes[0] && response.data.qrcodes[0].category) {
-            $http.get('/api/public/category/' + response.data.qrcodes[0].category.id)
-              .then(function (response) {
-                ctrl.category = response.data;
-              });
-          }
-        });
+        //We are in edition mode and we want to load the production for this id
+        $http.get('/api/public/production/' + $stateParams.id)
+          .then(function (response) {
+            ctrl.production = response.data;
+            ctrl.currentTab = 'content';
+            ctrl.isLocked = !ctrl.isAdmin && ctrl.production.state!=='PENDING';
+
+            if (response.data.qrcodes && response.data.qrcodes[0] && response.data.qrcodes[0].category) {
+              $http.get('/api/public/category/' + response.data.qrcodes[0].category.id)
+                .then(function (response) {
+                  ctrl.category = response.data;
+                });
+            }
+          });
+      });
     }
-
+    else{
+      SecurityService.isAdmin(function(response){
+        ctrl.isAdmin = response;
+      });
+    }
     //Select a category on the first tab
     ctrl.selectCategory = function (category) {
       ctrl.currentTab = 'content';
@@ -82,9 +89,7 @@
       ProductionService.seeProduction(ctrl.production);
     };
 
-    SecurityService.isAdmin(function(response){
-      ctrl.isAdmin = response;
-    });
+
   });
 
 })();
