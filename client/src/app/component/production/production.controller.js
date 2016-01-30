@@ -21,6 +21,7 @@
           ctrl.currentTab = 'content';
           ctrl.isLocked = !ctrl.isAdmin && ctrl.production.state!=='PENDING';
 
+          console.log('Admin', ctrl.isAdmin, ctrl.production.state!=='PENDING', ctrl.isLocked);
           if (response.data.qrcodes && response.data.qrcodes[0] && response.data.qrcodes[0].category) {
             $http.get('/api/public/category/' + response.data.qrcodes[0].category.id)
               .then(function (response) {
