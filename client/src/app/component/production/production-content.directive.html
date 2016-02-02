@@ -5,7 +5,7 @@
 <uib-alert type="danger" ng-if="ctrl.error">{{ctrl.error}}</uib-alert>
 <uib-alert type="danger" ng-if="frm.$invalid">
     <span ng-if="frm.content.$error.required">Vous devez saisir un texte<br></span>
-    <span ng-if="frm.content.$error.maxlength">Le texte ne peut pas faire plus de 5000 caractères<br></span>
+    <span ng-if="frm.content.$error.maxlength">Le texte ne peut pas faire plus de 10000 caractères<br></span>
     <span ng-if="frm.author.$error.required">Vous devez saisir les identifiants des personnes ayant créés cet article<br></span>
     <span ng-if="frm.author.$error.maxlength">Le texte ne peut pas faire plus de 255 caractères<br></span>
 </uib-alert>
@@ -25,8 +25,8 @@
         <textarea class="form-control" rows="10" ng-model="ctrl.production.content" id="content" name="content"
                   ng-disabled="ctrl.isLocked"
                   ng-required="true"
-                  ng-maxlength="5000"></textarea>
-        <ew-nb-carac nbcarac="5000" text="ctrl.production.content" field="frm.content"></ew-nb-carac>
+                  ng-maxlength="10000"></textarea>
+        <ew-nb-carac nbcarac="10000" text="ctrl.production.content" field="frm.content"></ew-nb-carac>
     </div>
 
     <div class="form-group">
