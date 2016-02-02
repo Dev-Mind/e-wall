@@ -68,5 +68,10 @@
             selected.author}}</b></p>
 
         <p ng-bind-html="selected.content | markdown" class="ew-reponsive-text"></p>
+
+        <p style="float:right;" class="visible-xs">
+            <button class="btn btn-default" type="button" ng-click="cancel()" >Cancel</button>
+        </p>
+        <p class="visible-xs">&nbsp;</p>
     </div>
 </script>
